@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoWheelWander", "ProyectoWheelWander\ProyectoWheelWander.csproj", "{B39EADD8-F271-4CC2-9565-1F2790BBFDD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B39EADD8-F271-4CC2-9565-1F2790BBFDD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B39EADD8-F271-4CC2-9565-1F2790BBFDD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B39EADD8-F271-4CC2-9565-1F2790BBFDD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B39EADD8-F271-4CC2-9565-1F2790BBFDD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5701817C-A0C4-4851-91DF-C371D4AD2D9B}
+	EndGlobalSection
+EndGlobal
