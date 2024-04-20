@@ -1,8 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center primerDiv d-flex flex-column align-items-center">
+    <div class="mensaje">
+        <h1 class="display-6 fw-bold">¡Alquila tu moto ahora!</h1>
+    </div>
 </div>
+
+<div class="segundoDiv">
+    @* Aqui se debe de vincular con la base de datos, en las ubicaciones *@
+    <div class="container">
+         <form class="formulario">
+             <!-- Selector de ubicaciones -->
+             <div class="form-group mr-2">
+                 <select class="form-control" id="ubicaciones" name="ubicaciones">
+                     <option>Ubicación 1</option>
+                     <option>Ubicación 2</option>
+                     <option>Ubicación 3</option>
+                 </select>
+            </div>
+
+             <!-- Input de fecha de inicio -->
+             <div class="form-group mr-2">
+                 <input type="date" class="form-control" id="fecha-inicio" name="fecha-inicio" placeholder="Fecha de inicio">
+            </div>
+
+             <!-- Input de hora de inicio -->
+             <div class="form-group mr-2">
+                 <input type="time" class="form-control" id="hora-inicio" name="hora-inicio" placeholder="Hora de inicio">
+            </div>
+
+             <!-- Input de fecha fin -->
+             <div class="form-group mr-2">
+                 <input type="date" class="form-control" id="fecha-fin" name="fecha-fin" placeholder="Fecha fin">
+            </div>
+
+             <!-- Input de hora fin -->
+             <div class="form-group mr-2">
+                 <input type="time" class="form-control" id="hora-fin" name="hora-fin" placeholder="Hora fin">
+            </div>
+
+             <!-- Botón de buscar -->
+             <button type="submit" class="btn btn-primary">Buscar</button>
+         </form>
+    </div>
+</div>
+
+
