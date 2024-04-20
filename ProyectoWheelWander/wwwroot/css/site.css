@@ -1,15 +1,20 @@
 html {
   font-size: 14px;
+  
 }
 
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+    
+  .navLogo {
+    width: 50px;    
+  }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #F3B61F;
 }
 
 html {
@@ -18,5 +23,119 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: #020202;
+    color: white;
+    background-image: url(https://i.ibb.co/0FPpqjP/moto-Image2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 70%;
+}
+
+.navStyle {
+    background-color: #020202;
+    color: white;
+    border-bottom: 0px !important;
+}
+
+.nav-link {
+    color: rgba(255,255,255,100);
+    font-weight: 700;
+}
+
+    .nav-link:hover {
+        color: #F3B61F;
+    }
+
+    .nav-link:focus {
+        color: #e2a91c;
+    }
+
+.active-tab {
+    border-bottom: 2px solid #F3B61F;
+}
+
+
+.navLogo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: -7px;
+    width: 100px;
+    height: auto;
+}
+
+.navbar-nav {
+    justify-content: end;
+    margin-right: -70px;
+}
+
+
+.footer {
+    border-top: 0px !important;
+}
+
+.mensaje {
+    background-color: #F3B61F;
+    border-radius: 8px;
+    width: max-content;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.form-select:focus {
+    box-shadow: none;
+    outline: 3px solid #F3B61F;
+}
+
+.formulario {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.bi-person-circle {
+    color: white;
+}
+    .bi-person-circle:hover {
+        color: #F3B61F;
+    }
+
+    .bi-person-circle:focus {
+        color: #e2a91c;
+    }
+
+.dropstart .dropdown-toggle::before {
+    content: none;
+}
+
+.dropdown-menu {
+    width: 210px;
+    
+}
+
+.dropstart .dropdown-menu[data-bs-popper] {
+    top: 45px;
+    right: 20%;
+    text-align: center;
+}
+
+.buttonLogin {
+    background-color: #020202;
+    color: white; 
+    margin-left: -5px;
+}
+
+    .buttonLogin:hover {
+        border: 1px solid #020202;
+    }
+
+    .buttonLogin:focus {
+        box-shadow:none;
+    }
+
+.buttonRegister {
+    background-color: #F3B61F;
+    margin-left: 10px;
+    margin-right: -10px;
 }
