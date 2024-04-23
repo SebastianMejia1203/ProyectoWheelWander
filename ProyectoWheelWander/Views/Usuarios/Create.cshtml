@@ -1,0 +1,103 @@
+﻿@model ProyectoWheelWander.Models.Data.Usuario
+
+@{
+    ViewData["Title"] = "Registrar";
+}
+
+<div class="container fondo mt-5">
+    <div class="text-center">
+        <img src="https://i.ibb.co/sbqP05H/logo2.png" alt="Logo" width="400px" height="auto">
+    </div>
+    <p class="lead fw-bold text-center">
+        <span class="text-black">Información de </span> <span style="color: #F3B61F">Personal</span>
+    </p>
+    <div class="row justify-content-center">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="PrimerNombre" class="text-black fw-bold">Primer Nombre</label>
+                    <input asp-for="PrimerNombre" class="form-control" placeholder="Primer nombre">
+                    <span asp-validation-for="PrimerNombre" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="SegundoNombre" class="text-black fw-bold">Segundo Nombre</label>
+                    <input asp-for="SegundoNombre" class="form-control" placeholder="Segundo nombre">
+                    <span asp-validation-for="SegundoNombre" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="PrimerApellido" class="text-black fw-bold">Primer Apellido</label>
+                    <input asp-for="PrimerApellido" class="form-control" placeholder="Primer apellido">
+                    <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="SegundoApellido" class="text-black fw-bold">Segundo Apellido</label>
+                    <input asp-for="SegundoApellido" class="form-control" placeholder="Segundo apellido">
+                    <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="FkidtipoDocumento" class="text-black fw-bold">Tipo de Documento</label>
+                    <select asp-for="FkidtipoDocumento" class="form-select form-control" asp-items="ViewBag.FkidtipoDocumento">
+                        <option selected>Elegir ...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="Cedula" class="text-black fw-bold">Número de documento</label>
+                    <input asp-for="Cedula" type="text" value="" class="form-control" placeholder="Ingrese su documento">
+                    <span asp-validation-for="Cedula" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="Sexo" class="text-black fw-bold">Sexo</label>
+                    <select asp-for="Sexo" class="form-select form-control" asp-items="ViewBag.Sexo">
+                        <option selected>Selecciona tu sexo..</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="FechaNacimiento" class="text-black fw-bold">Fecha de Nacimiento</label>
+                    <input asp-for="FechaNacimiento" class="form-control" type="date">
+                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="Celular" class="text-black fw-bold">Celular</label>
+                    <input asp-for="Celular" type="text" class="form-control" placeholder="Número de celular">
+                    <span asp-validation-for="Celular" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Email" class="text-black fw-bold">Correo Electrónico</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="you@example.com">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label asp-for="Contrasena" class="control-label text-black fw-bold">Contraseña</label>
+                    <input asp-for="Contrasena" type="password" class="form-control text-black" />
+                    <span asp-validation-for="Contrasena" class="text-danger"></span>
+                </div>
+            </div>
+
+                <div class="text-center">
+                <input type="submit" value="Regisrarse" class="btn buttonNext my-3 w-50 fw-bold">
+                </div>
+        </form>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
