@@ -2,13 +2,20 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="text-center primerDiv">
-    <h1 class="display-4">Este es el login</h1>
-
-
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-</div>
-
-<div class="segundoDiv">
+<div class="FormatoLogin">
+    <img src="https://i.ibb.co/LpyfjCK/logo.png" alt="Wheel Wander Logo" class="logoLogin">
+    <h1 class="titulo-tamano"><span class="colorTituNegro">Wheel</span> <span class="colorTituAmarillo">Wander</span></h1>
+    <form asp-controller="Login" asp-action="Index" method="post">
+        <div class="form-group">
+            <input type="email" id="Email" name="Email" class="correoLogin" placeholder="Correo electrónico" required />
+        </div>
+        <div class="form-group">
+            <input type="password" id="Password" name="Password" class="passLogin" placeholder="Contraseña" required />
+        </div>
+        <button type="submit" class="botonIniciarSesion">Iniciar sesión</button>
+    </form>
+    <div class="additional-links">
+        <a href="@Url.Action("ForgotPassword", "Usuarios")" class="enlacesOlvidarRegistrar">¿Olvidaste la contraseña?</a>
+        <a href="@Url.Action("Create", "Usuarios")" class="linkRegistro">¿No tienes una cuenta?, ¡Regístrate ahora!</a>
+    </div>
 </div>

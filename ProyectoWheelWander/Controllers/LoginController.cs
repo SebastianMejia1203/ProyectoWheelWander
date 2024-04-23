@@ -1,83 +1,69 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProyectoWheelWander.Models;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace ProyectoWheelWander.Controllers
 {
     public class LoginController : Controller
     {
+
+        private readonly WheelWanderContext _context3;
+
+        public LoginController(WheelWanderContext context4)
+        {
+            _context3 = context4;
+        }
+
         // GET: LoginController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: LoginController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: LoginController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: LoginController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Index(LoginViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                var usuario = await _context3.Usuarios
+                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Contrasena == model.Password);
 
-        // GET: LoginController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+                if (usuario != null)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, usuario.Email),
+                        new Claim(ClaimTypes.Name, $"{usuario.PrimerNombre} {usuario.PrimerApellido}"),
+                        new Claim(ClaimTypes.NameIdentifier, usuario.Cedula.ToString())
+                        // Puedes agregar más claims según el rol u otros atributos
+                    };
 
-        // POST: LoginController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                    var claimsIdentity = new ClaimsIdentity(
+                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-        // GET: LoginController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+                    var authProperties = new AuthenticationProperties
+                    {
+                        // Configura las propiedades necesarias
+                    };
 
-        // POST: LoginController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
+                    return RedirectToAction("Details", "Usuarios", new { id = usuario.Cedula });
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Usuario o contraseña inválidos.");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
     }
 }

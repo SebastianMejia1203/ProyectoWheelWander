@@ -1,0 +1,40 @@
+﻿@model ProyectoWheelWander.Models.Data.Usuario
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Usuario @Html.DisplayFor(model => model.PrimerNombre) @Html.DisplayFor(model => model.PrimerApellido)
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Detalles del Usuario</h5>
+            <p class="card-text"><strong>Num. Documento:</strong> @Html.DisplayFor(model => model.Cedula)</p>
+            <p class="card-text"><strong>Nombre Completo:</strong> @Html.DisplayFor(model => model.PrimerNombre) @Html.DisplayFor(model => model.SegundoNombre) @Html.DisplayFor(model => model.PrimerApellido) @Html.DisplayFor(model => model.SegundoApellido)</p>
+            <p class="card-text"><strong>Email:</strong> @Html.DisplayFor(model => model.Email)</p>
+            <p class="card-text"><strong>Contraseña:</strong> @Html.DisplayFor(model => model.Contrasena)</p>
+            <p class="card-text"><strong>Celular:</strong> @Html.DisplayFor(model => model.Celular)</p>
+            <p class="card-text"><strong>Sexo:</strong> @Html.DisplayFor(model => model.Sexo)</p>
+            <p class="card-text"><strong>Estado del Usuario:</strong> @Html.DisplayFor(model => model.EstadoUsuario)</p>
+            <p class="card-text"><strong>Fecha de Registro:</strong> @Html.DisplayFor(model => model.FechaRegistro)</p>
+            <p class="card-text"><strong>Fecha de Nacimiento:</strong> @Html.DisplayFor(model => model.FechaNacimiento)</p>
+            <p class="card-text"><strong>ID Tipo Documento:</strong> @Html.DisplayFor(model => model.FkidtipoDocumentoNavigation.IdtipoDocumento)</p>
+            <p class="card-text"><strong>ID Rol Usuario:</strong> @Html.DisplayFor(model => model.IdrolNavigation.IdrolUsuario)</p>
+            <p class="card-text"><strong>foto C Frontal:</strong> @Html.DisplayFor(model => model.UrlfotoFcedula)</p>
+            <p class="card-text"><strong>foto C Posterior:</strong> @Html.DisplayFor(model => model.UrlfotoPcedula)</p>
+            <p class="card-text"><strong>foto L Frontal:</strong> @Html.DisplayFor(model => model.UrlfotoFlicencia)</p>
+            <p class="card-text"><strong>foto L Posterior:</strong> @Html.DisplayFor(model => model.UrlfotoPlicencia)</p>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Cedula" class="btn btn-secondary">Edit</a> |
+    <a asp-action="Index" class="btn btn-info">Back to List</a>
+</div>

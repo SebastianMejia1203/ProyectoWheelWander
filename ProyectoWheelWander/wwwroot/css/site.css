@@ -139,3 +139,159 @@ body {
     margin-left: 10px;
     margin-right: -10px;
 }
+
+.conteinerRegister {
+    background-color: #EFEFEF;
+    border-radius: 10px;
+    width: max-content;
+    text-align: start;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fondo {
+    background: #EFEFEF;
+    border-radius: 10px;
+    width: max-content;
+}
+
+.buttonNext {
+    background-color: #F3B61F;
+    color: white;
+    font-size: 20px;
+}
+
+.FormatoLogin {
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    background: #EFEFEF;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+
+/* Espaciado entre grupos de formularios, como etiquetas de campos y campos de texto */
+.form-group {
+    margin-bottom: -1px; /* Espacio debajo de cada grupo de formulario */
+}
+
+
+/* Estilo de los campos de texto del formulario */
+.passLogin {
+    width: 100%; /* Ocupa el 100% del ancho de su contenedor padre */
+    padding: 14px; /* Relleno dentro de los campos */
+    display: inline-block; /* Asegura que el elemento se comporte como un bloque pero fluya con otros elementos en línea */
+    border: 2px solid #ccc; /* Borde gris claro */
+    border-end-end-radius: 10px;
+    border-end-start-radius: 10px;
+}
+
+.correoLogin {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    display: inline-block;
+    border-start-end-radius: 10px;
+    border-start-start-radius: 10px;
+}
+
+/* Estilo del botón principal de envío del formulario */
+.botonIniciarSesion {
+    background-color: #ffc107; /* Color de fondo amarillo */
+    color: white; /* Color de texto blanco */
+    padding: 14px 20px; /* Relleno alrededor del texto dentro del botón */
+    margin: 10px 0; /* Margen arriba y abajo del botón */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor a pointer para indicar clicabilidad */
+    width: 100%; /* Hace que el botón ocupe el ancho completo del contenedor padre */
+    border-radius: 4px; /* Radio de las esquinas */
+    margin-bottom: 0px;
+}
+
+    /* Estilo del botón principal al pasar el mouse por encima */
+    .botonIniciarSesion:hover {
+        opacity: 0.8; /* Hace el botón ligeramente transparente cuando se pasa el mouse por encima */
+    }
+
+/* Estilos para botones que parecen enlaces de texto debajo del formulario */
+.enlacesOlvidarRegistrar {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    color: #ffc107; /* Color del texto amarillo para coincidir con el botón principal */
+    padding: 3px 0; /* Añade un poco de padding arriba y abajo si es necesario */
+    cursor: pointer; /* Cambia el cursor para indicar clicabilidad */
+    display: block; /* Muestra el elemento como bloque, lo que significa que tendrá su propia línea */
+    text-decoration: none;
+    display: block; /* Hace que cada enlace se comporte como un bloque, permitiendo que se centre con text-align */
+    margin: auto; /* Asegura que los márgenes automáticos centren los enlaces */
+    font-size: 14px;
+}
+
+.linkRegistro {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    color: #ffc107; /* Color del texto amarillo para coincidir con el botón principal */
+    padding: 3px 0; /* Añade un poco de padding arriba y abajo si es necesario */
+    cursor: pointer; /* Cambia el cursor para indicar clicabilidad */
+    display: block; /* Muestra el elemento como bloque, lo que significa que tendrá su propia línea */
+    text-decoration: none;
+    display: block; /* Hace que cada enlace se comporte como un bloque, permitiendo que se centre con text-align */
+    margin: auto; /* Asegura que los márgenes automáticos centren los enlaces */
+    font-size: 14px;
+}
+
+    /* Estilo del enlace de texto al pasar el mouse por encima */
+    .enlacesOlvidarRegistrar:hover {
+        text-decoration: underline; /* Subraya el texto para indicar que es un enlace */
+    }
+
+
+.logoLogin {
+    max-width: 200px; /* Ajusta al tamaño que prefieras */
+    height: auto; /* Mantiene la relación de aspecto de la imagen */
+}
+
+
+.titulo-tamano {
+    font-size: 70px; /* o el tamaño que prefieras */
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    flex-direction: row; /* Asegura que los elementos estén en fila */
+    gap: 12px; /* Espacio entre 'Wheel' y 'Wander' */
+}
+
+.colorTituNegro, .colorTituAmarillo {
+    margin: 0; /* Elimina márgenes por defecto */
+}
+
+/* Estilo para el color personalizado de las palabras del título */
+.titulo-tamano {
+    font-size: 48px; /* Cambia el tamaño de la fuente según lo grande que lo quieras */
+
+    text-align: center; /* Alinea el texto al centro */
+    width: 100%; /* Asegura que el contenedor del título tome todo el ancho disponible */
+}
+
+.colorTituNegro {
+    color: #000000; /* Define el color de texto como negro */
+}
+
+.colorTituAmarillo {
+    color: #ffc107; /* Mantiene el color de texto amarillo que ya tenías */
+}
+
+.additional-links {
+    text-align: center; /* Centra los enlaces dentro del contenedor */
+    margin-top: 20px; /* Añade un poco de margen en la parte superior si es necesario */
+}
+

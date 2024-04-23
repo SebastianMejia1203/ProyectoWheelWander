@@ -1,0 +1,67 @@
+﻿@functions {
+    public string GetSexoDescripcion(byte? sexo)
+    {
+        return sexo switch
+        {
+            1 => "Masculino",
+            2 => "Femenino",
+            3 => "Otro",
+            _ => "No especificado",
+        };
+    }
+
+    public string GetEstadoUsuario(byte? EstadoUsuario)
+    {
+        return EstadoUsuario switch
+        {
+            1 => "Inactivo",
+            2 => "Activo",
+            _ => "No especificado",
+        };
+    }
+}
+
+@model IEnumerable<ProyectoWheelWander.Models.Data.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+</p>
+
+@foreach (var item in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            Usuario @Html.DisplayFor(modelItem => item.PrimerNombre) @Html.DisplayFor(modelItem => item.PrimerApellido)
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Detalles del Usuario</h5>
+            <p class="card-text"><strong>Num. Documento:</strong> @Html.DisplayFor(modelItem => item.Cedula)</p>
+            <p class="card-text"><strong>Nombre Completo:</strong> @Html.DisplayFor(modelItem => item.PrimerNombre) @Html.DisplayFor(modelItem => item.SegundoNombre) @Html.DisplayFor(modelItem => item.PrimerApellido) @Html.DisplayFor(modelItem => item.SegundoApellido)</p>
+            <p class="card-text"><strong>Sexo:</strong> @GetSexoDescripcion(item.Sexo)</p>
+            <p class="card-text"><strong>Email:</strong> @Html.DisplayFor(modelItem => item.Email)</p>
+            <p class="card-text"><strong>Contraseña:</strong> @Html.DisplayFor(modelItem => item.Contrasena)</p>
+            <p class="card-text"><strong>Celular:</strong> @Html.DisplayFor(modelItem => item.Celular)</p>
+            <p class="card-text"><strong>Estado del Usuario:</strong> @GetEstadoUsuario(item.EstadoUsuario)</p>
+            <p class="card-text"><strong>Fecha de Registro:</strong> @Html.DisplayFor(modelItem => item.FechaRegistro)</p>
+            <p class="card-text"><strong>Fecha de Nacimiento:</strong> @Html.DisplayFor(modelItem => item.FechaNacimiento)</p>
+            <p class="card-text"><strong>ID Tipo Documento:</strong> @Html.DisplayFor(modelItem => item.FkidtipoDocumentoNavigation.NombreTipoDocumento)</p>
+            <p class="card-text"><strong>ID Rol Usuario:</strong> @Html.DisplayFor(modelItem => item.IdrolNavigation.NombreRol)</p>
+            <p class="card-text"><strong>foto C Frontal:</strong> @Html.DisplayFor(modelItem => item.UrlfotoFcedula)</p>
+            <p class="card-text"><strong>foto C Posterior:</strong> @Html.DisplayFor(modelItem => item.UrlfotoPcedula)</p>
+            <p class="card-text"><strong>foto L Frontal:</strong> @Html.DisplayFor(modelItem => item.UrlfotoFlicencia)</p>
+            <p class="card-text"><strong>foto L Posterior:</strong> @Html.DisplayFor(modelItem => item.UrlfotoPlicencia)</p>
+            <div class="mb-2">
+                <a href="@Url.Action("Edit", "Usuarios", new { id = item.Cedula })" class="btn btn-secondary">Editar</a>
+                <a href="@Url.Action("Details", "Usuarios", new { id = item.Cedula })" class="btn btn-info">Detalles</a>
+                <a href="@Url.Action("Delete", "Usuarios", new { id = item.Cedula })" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+}
+

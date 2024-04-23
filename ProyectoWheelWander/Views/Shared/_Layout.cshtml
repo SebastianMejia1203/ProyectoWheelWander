@@ -43,7 +43,7 @@
                                 </a>
                                 <form class="dropdown-menu p-4">
                                     <a class="btn buttonLogin" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-                                    <a class="btn buttonRegister" asp-area="" asp-controller="Register" asp-action="Index">Register</a>
+                                    <a class="btn buttonRegister" asp-area="" asp-controller="Usuarios" asp-action="Create">Register</a>
                                 </form>
                             </div>
                         </li>
@@ -53,7 +53,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="d-flex justify-content-center align-items-center">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
