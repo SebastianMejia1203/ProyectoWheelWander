@@ -1,8 +1,10 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using ProyectoWheelWander.Models;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Configura los servicios de MVC o controladores con vistas
 builder.Services.AddControllersWithViews();
@@ -11,13 +13,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization();
 
 //conexion a la base de datos
-builder.Services.AddDbContext<WheelWanderContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("conexionDb")));
 
-builder.Services.AddAuthentication("Cookies") // Define el esquema de autenticación
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) // Define el esquema de autenticación
         .AddCookie("Cookies", options => // Agrega y configura el soporte de cookies
         {
             options.LoginPath = "/Login/Index"; // Ruta al formulario de login
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             options.AccessDeniedPath = "/Home/Index"; // Ruta para acceso denegado
         });
 

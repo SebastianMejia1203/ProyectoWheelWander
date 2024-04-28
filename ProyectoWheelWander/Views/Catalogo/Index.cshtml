@@ -1,11 +1,145 @@
 ﻿@{
     ViewData["Title"] = "Catalogo";
 }
+<div class="text-center primerDiv d-flex flex-column align-items-center">
+    <div class="mensaje">
+        <h1 class="display-6 fw-bold">Catálogo de motos</h1>
+    </div>
+</div>
 
-<div class="text-center primerDiv">
-    <h1 class="display-4">Este es el catalogo</h1>
+<div class="segundoDiv">
+    <div class="divFiltros">
+        <div class="camposTexto mt-4">
+            <div class="form-group">
+                <select class="form-control forms form-select" id="ubicacion" name="ubicacion">
+                    <option selected>Ubicación</option>
+                    <option>Bogota</option>
+                    <option>Medellin</option>
+                    <option>Florencia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control forms form-select" id="ordneraPor" name="ordneraPor">
+                    <option selected>Ordenar por</option>
+                    <option>A - Z</option>
+                    <option>Z - A</option>
+                    <option>Popularidad</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-select forms" id="filtroMarca" name="filtroMarca">
+                    <option selected>Filtrar por marcas</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-select forms" id="filtroClase" name="filtroClase">
+                    <option selected>Filtrar por clase</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-select forms" id="filtroClase" name="filtroPrecio">
+                    <option selected>Filtrar por precio</option>
+                    <option>Maenor a mayor</option>
+                    <option>Mayor a menor</option>
+                </select>
+            </div>
+            <button type="submit" class="btn buttonSearch form-inicio">Buscar</button>
 
+        </div>
 
+    </div>
     
+</div>
+<div class="divCatalogo fondo text-black paddingBorder mt-3">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Marca de la moto</h5>
+                </div>
+
+                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Precio de la moto y ubicacion</p>
+                    <div class="d-flex justify-content-evenly" style="width: 100%">
+                        <a href="#" class="btn btn-success">Ver detaller</a>
+                        <a href="#" class="btn btn-secondary">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Marca de la moto</h5>
+                </div>
+
+                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Precio de la moto y ubicacion</p>
+                    <div class="d-flex justify-content-evenly" style="width: 100%">
+                        <a href="#" class="btn btn-success">Ver detalles</a>
+                        <a href="#" class="btn btn-secondary">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Marca de la moto</h5>
+                </div>
+
+                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Precio de la moto y ubicacion</p>
+                    <div class="d-flex justify-content-evenly" style="width: 100%">
+                        <a href="#" class="btn btn-success">Ver detalles</a>
+                        <a href="#" class="btn btn-secondary">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Marca de la moto</h5>
+                </div>
+
+                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Precio de la moto y ubicacion</p>
+                    <div class="d-flex justify-content-evenly" style="width: 100%">
+                        <a href="#" class="btn btn-success">Ver detalles</a>
+                        <a href="#" class="btn btn-secondary">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Marca de la moto</h5>
+                </div>
+
+                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Precio de la moto y ubicacion</p>
+                    <div class="d-flex justify-content-evenly" style="width: 100%">
+                        <a href="#" class="btn btn-success">Ver detalles</a>
+                        <a href="#" class="btn btn-secondary">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
+    
+

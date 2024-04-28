@@ -43,19 +43,19 @@
             <h5 class="card-title">Detalles del Usuario</h5>
             <p class="card-text"><strong>Num. Documento:</strong> @Html.DisplayFor(modelItem => item.Cedula)</p>
             <p class="card-text"><strong>Nombre Completo:</strong> @Html.DisplayFor(modelItem => item.PrimerNombre) @Html.DisplayFor(modelItem => item.SegundoNombre) @Html.DisplayFor(modelItem => item.PrimerApellido) @Html.DisplayFor(modelItem => item.SegundoApellido)</p>
-            <p class="card-text"><strong>Sexo:</strong> @GetSexoDescripcion(item.Sexo)</p>
             <p class="card-text"><strong>Email:</strong> @Html.DisplayFor(modelItem => item.Email)</p>
             <p class="card-text"><strong>Contraseña:</strong> @Html.DisplayFor(modelItem => item.Contrasena)</p>
             <p class="card-text"><strong>Celular:</strong> @Html.DisplayFor(modelItem => item.Celular)</p>
             <p class="card-text"><strong>Estado del Usuario:</strong> @GetEstadoUsuario(item.EstadoUsuario)</p>
             <p class="card-text"><strong>Fecha de Registro:</strong> @Html.DisplayFor(modelItem => item.FechaRegistro)</p>
             <p class="card-text"><strong>Fecha de Nacimiento:</strong> @Html.DisplayFor(modelItem => item.FechaNacimiento)</p>
-            <p class="card-text"><strong>ID Tipo Documento:</strong> @Html.DisplayFor(modelItem => item.FkidtipoDocumentoNavigation.NombreTipoDocumento)</p>
-            <p class="card-text"><strong>ID Rol Usuario:</strong> @Html.DisplayFor(modelItem => item.IdrolNavigation.NombreRol)</p>
-            <p class="card-text"><strong>foto C Frontal:</strong> @Html.DisplayFor(modelItem => item.UrlfotoFcedula)</p>
-            <p class="card-text"><strong>foto C Posterior:</strong> @Html.DisplayFor(modelItem => item.UrlfotoPcedula)</p>
-            <p class="card-text"><strong>foto L Frontal:</strong> @Html.DisplayFor(modelItem => item.UrlfotoFlicencia)</p>
-            <p class="card-text"><strong>foto L Posterior:</strong> @Html.DisplayFor(modelItem => item.UrlfotoPlicencia)</p>
+            <p class="card-text"><strong>ID Tipo Documento:</strong> @Html.DisplayFor(modelItem => item.FKIDTipoDocumento)</p>
+            <p class="card-text"><strong>ID Rol Usuario:</strong> @Html.DisplayFor(modelItem => item.IDRol)</p>
+            <p class="card-text"><strong>foto C Frontal:</strong> @Html.DisplayFor(modelItem => item.URLFotoFCedula)</p>
+            <p class="card-text"><strong>foto C Posterior:</strong> @Html.DisplayFor(modelItem => item.URLFotoPCedula)</p>
+            <p class="card-text"><strong>foto L Frontal:</strong> @Html.DisplayFor(modelItem => item.URLFotoFLicencia)</p>
+            <p class="card-text"><strong>foto L Posterior:</strong> @Html.DisplayFor(modelItem => item.URLFotoPLicencia)</p>
+
             <div class="mb-2">
                 <a href="@Url.Action("Edit", "Usuarios", new { id = item.Cedula })" class="btn btn-secondary">Editar</a>
                 <a href="@Url.Action("Details", "Usuarios", new { id = item.Cedula })" class="btn btn-info">Detalles</a>

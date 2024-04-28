@@ -1,0 +1,155 @@
+﻿
+.paddingBorder {
+    padding: 10px 10px 10px 10px;
+}
+
+.camposTexto {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px; /* Este gap añade un espacio entre los campos */
+}
+
+    /* Estilos para los campos de texto */
+    .camposTexto input[type="text"] {
+        flex: 1 1 1; /* Crece y encoge en base al contenido y espacio disponible */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 10px; /* Espacio debajo de cada campo */
+        /* No se necesita max-width aquí si queremos que sea flexible */
+    }
+
+/* Estilos para la carga de archivos */
+.file-upload-container {
+    display: flex;
+    justify-content: center; /* Ajusta los elementos horizontalmente con espacio entre ellos */
+}
+
+.cargarArchivos {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    margin-bottom: 18px; /* Espacio entre el título, la previsualización y el botón */
+}
+
+.file-upload-input {
+    display: none;
+}
+
+/* Estilos para las casillas de verificación */
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+}
+
+    .checkbox input[type="checkbox"]:checked + label {
+        color: #ffcc00;
+        margin-right: 30px;
+    }
+
+    .checkbox label {
+        cursor: pointer;
+        color: #ffcc00;
+        font-size: 20px;
+        padding-left: 11px;
+    }
+
+/* Estilo para el botón 'Siguiente' */
+
+
+.botonSiguiente,
+.btnMoto,
+.btnPlaca,
+.btnDocumento {
+    background-color: #ffcc00;
+    color: #fff; /* Color de texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    border: none;
+    padding: 10px 3px;
+    border-radius: 0 0 5px 5px; /* Solo redondea las esquinas inferiores */
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+    .botonSiguiente:hover,
+    .btnMoto:hover,
+    .btnPlaca:hover,
+    .btnDocumento:hover {
+        background-color: #ffd700;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+.botonSiguiente {
+    width: 100%; /* O establece un ancho específico si necesario */
+    border-radius: 5px;
+    display: inline-block; /* Cambia el display si quieres que sea como los otros botones */
+}
+
+/* Personalizar los tamaños de cada botón */
+.btnMoto {
+    width: 210px; /* Tamaño personalizado para el botón de la foto de la moto */
+}
+
+.btnPlaca {
+    width: 210px; /* Tamaño personalizado para el botón de la foto de la placa */
+}
+
+.btnDocumento {
+    width: 210px; /* Tamaño personalizado para el botón de los documentos */
+}
+
+.titulosCargar {
+    display: block; /* Convierte el span en un bloque para que el margen aplique */
+    margin-top: 20px; /* Espacio por encima del título */
+    margin-bottom: 5px; /* Espacio debajo del título */
+    text-align: center; /* Si deseas que los títulos estén centrados */
+    font-weight: bold; /* Si deseas que los títulos estén en negrita */
+    /* Otros estilos que desees aplicar a los títulos */
+}
+
+/* Estilo del contenedor para las previsualizaciones de imágenes/documentos */
+.contenedor {
+    border: 2px solid #ccc;
+    height: 150px;
+    width: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top-left-radius: 6px; /* Redondea la esquina superior izquierda */
+    border-top-right-radius: 6px; /* Redondea la esquina superior derecha */
+    border-bottom-left-radius: 0; /* Elimina el redondeo de la esquina inferior izquierda */
+    border-bottom-right-radius: 0;
+    / padding: 2px 2px;
+    /* Agregar un margen abajo para separar del botón si es necesario */
+    margin-bottom: 0px;
+}
+
+    .contenedor img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain; /* Asegura que la imagen se ajuste sin perder sus proporciones */
+    }
+/* Estilos generales para campos de texto y dropdowns */
+.camposTexto > input[type="text"],
+.camposTexto > select {
+    /* Ajusta el 'flex-basis' para controlar el tamaño inicial y el 'flex-grow' para permitir crecimiento */
+    flex: 10 1 100px; /* flex-grow | flex-shrink | flex-basis */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}

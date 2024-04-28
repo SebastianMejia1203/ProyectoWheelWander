@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Resumen de la cotización";
+}
+
+<div class="text-center primerDiv d-flex flex-column align-items-center">
+    <div class="mensaje">
+        <h1 class="display-6 fw-bold">Resumen de la cotización</h1>
+    </div>
+</div>
+
+<div class="fondo">
+    <div class="resumen-contenedor text-black">
+        <div class="info-container">
+            <!-- Bloque de información -->
+            <div class="info-block">
+                <div class="info-title">Tiempo cotizado</div>
+                <div class="info-value">DD:MM:SS</div>
+            </div>
+            <div class="info-block">
+                <div class="info-title">Fecha y hora de inicio de la reserva</div>
+                <div class="info-value">DIA, MES, AÑO, HORA</div>
+            </div>
+            <div class="info-block">
+                <div class="info-title">Fecha y hora de finalización de la reserva</div>
+                <div class="info-value">DIA, MES, AÑO, HORA</div>
+            </div>
+            <div class="info-block">
+                <div class="info-title">Costo total de la reserva</div>
+                <div class="info-value">COP 00000</div>
+            </div>
+            <div class="info-block">
+                <div class="info-title">Ubicación de la reserva</div>
+                <div class="info-value">NombreUbicacion</div>
+            </div>
+        </div>
+
+        <div class="moto-container">
+            <!-- Imagen de la moto -->
+            <img class="moto-image" src="~/images/mt09.png" alt="Moto">
+
+            <div class="moto-details-container">
+                <!-- Detalle Moto a reservar -->
+                <div class="moto-detail">
+                    <div class="info-title">Moto a reservar</div>
+                    <div class="info-value">IDMoto</div>
+                </div>
+
+                <!-- Detalle Propietario de la moto -->
+                <div class="moto-detail">
+                    <div class="info-title">Propietario de la moto</div>
+                    <div class="info-value">Cedula</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="payment-buttons">
+        <!-- Asume que estas son imágenes clicables que funcionarán como botones -->
+        <img class="payment-button" src="~/images/Tarjetas.png" alt="Método de Pago 1">
+        <img class="payment-button" src="~/images/pse.png" alt="Método de Pago 2">
+        <img class="payment-button" src="~/images/efecty.png" alt="Método de Pago 3">
+    </div>
+
+</div>
