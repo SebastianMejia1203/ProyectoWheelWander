@@ -1,47 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoWheelWander.Models.Data;
 
+[Table("usuario")]
 public partial class Usuario
 {
+    [Key]
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)] // Indica que la cédula es asignada manualmente y no generada por la base de datos.
     public long Cedula { get; set; }
 
-    public string? PrimerNombre { get; set; }
+    [Required]
+    [StringLength(20)]
+    public string PrimerNombre { get; set; }
 
+    [StringLength(20)]
     public string? SegundoNombre { get; set; }
 
-    public string? PrimerApellido { get; set; }
+    [Required]
+    [StringLength(20)]
+    public string PrimerApellido { get; set; }
 
+    [StringLength(20)]
     public string? SegundoApellido { get; set; }
 
-    public string Email { get; set; } = string.Empty;
+    [Required]
+    [StringLength(50)]
+    [EmailAddress]
+    public string Email { get; set; }
 
-    public string Contrasena { get; set; } = string.Empty;
+    [Required]
+    [StringLength(50)]
+    public string Contrasena { get; set; }
 
-    public long? Celular { get; set; }
+    [Required]
+    public long Celular { get; set; }
 
-    public byte? EstadoUsuario { get; set; }
+    [Required]
+    public byte EstadoUsuario { get; set; } = 1;
 
-    public byte? Sexo { get; set; }
+    [Required]
+    public int IDRol { get; set; } = 2;
 
-    public int? Idrol { get; set; }
+    [Required]
+    public DateTime FechaRegistro { get; set; }
 
-    public DateOnly? FechaRegistro { get; set; }
+    [Required]
+    public int FKIDTipoDocumento { get; set; }
 
-    public int? FkidtipoDocumento { get; set; }
+    [Required]
+    [StringLength(255)]
+    public string? URLFotoFCedula { get; set; }
 
-    public string? UrlfotoFcedula { get; set; }
+    [Required]
+    [StringLength(255)]
+    public string? URLFotoPCedula { get; set; }
 
-    public string? UrlfotoPcedula { get; set; }
+    [Required]
+    [StringLength(255)]
+    public string? URLFotoFLicencia { get; set; }
 
-    public string? UrlfotoFlicencia { get; set; }
+    [Required]
+    [StringLength(255)]
+    public string? URLFotoPLicencia { get; set; }
 
-    public string? UrlfotoPlicencia { get; set; }
-
-    public DateOnly? FechaNacimiento { get; set; }
-
-    public virtual TipoDocumento? FkidtipoDocumentoNavigation { get; set; }
-
-    public virtual RolUsuario? IdrolNavigation { get; set; }
+    [Required]
+    public DateTime FechaNacimiento { get; set; }
 }

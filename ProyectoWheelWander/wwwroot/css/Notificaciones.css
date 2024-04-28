@@ -1,0 +1,115 @@
+﻿
+
+.confirmation-text {
+    max-width: 340px; /* Ajusta este valor según necesites */
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.smaller-text {
+    font-size: 18px; /* Esto hará que el tamaño del texto sea un poco más pequeño */
+    font-weight: bold;
+    margin-bottom: 5px
+}
+
+.tituloIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+.imaIconos {
+    font-size: 60px;
+    color: green;
+}
+
+
+/* --------------------------------------- */
+
+.text-error {
+    color: red;
+    margin-bottom: 5px; /* Espacio debajo del mensaje de error */
+    font-size: 18px;
+    font-weight: bold;
+    text-anchor: center;
+}
+
+.iconError {
+    font-size: 60px;
+    color: red;
+}
+
+.iconWarning {
+    font-size: 60px;
+    color: #F3B61F;
+}
+
+.codeError {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px; /* Espacio debajo del código de error */
+    font-size: 18px;
+}
+
+.text-warning {
+    color: #ffcc00; /* O el color que desees para el texto 'Wander' */
+}
+
+/* ---------------------------------- */
+
+.title {
+    color: black;
+    display: inline;
+    font-weight: bold;
+}
+
+
+.instructions {
+    max-width: 550px; /* Ajusta este valor según necesites */
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Esto centrará los elementos hijos */
+    justify-content: center;
+    width: 100%; /* Ajusta este valor si es necesario */
+    max-width: 300px; /* Ajusta a la anchura máxima deseada para el formulario */
+    margin: auto; /* Centra el formulario en su contenedor padre */
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffcc00; /* Color amarillo para seguir la coherencia */
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    .btn-submit:hover {
+        background-color: #e0a800; /* Color amarillo más oscuro al pasar el ratón */
+    }

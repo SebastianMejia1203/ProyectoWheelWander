@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProyectoWheelWander.Models.LoginViewModel
+@{
     ViewData["Title"] = "Login";
 }
 
@@ -7,15 +8,15 @@
     <h1 class="titulo-tamano"><span class="colorTituNegro">Wheel</span> <span class="colorTituAmarillo">Wander</span></h1>
     <form asp-controller="Login" asp-action="Index" method="post">
         <div class="form-group">
-            <input type="email" id="Email" name="Email" class="correoLogin" placeholder="Correo electrónico" required />
+            <input asp-for="Email" type="email" id="Email" name="Email" class="correoLogin" placeholder="Correo electrónico" required />
         </div>
         <div class="form-group">
-            <input type="password" id="Password" name="Password" class="passLogin" placeholder="Contraseña" required />
+            <input asp-for="Password" type="password" id="Password" name="Password" class="passLogin" placeholder="Contraseña" required />
         </div>
         <button type="submit" class="botonIniciarSesion">Iniciar sesión</button>
     </form>
     <div class="additional-links">
-        <a href="@Url.Action("ForgotPassword", "Usuarios")" class="enlacesOlvidarRegistrar">¿Olvidaste la contraseña?</a>
-        <a href="@Url.Action("Create", "Usuarios")" class="linkRegistro">¿No tienes una cuenta?, ¡Regístrate ahora!</a>
+        <a asp-action="ForgotPassword" asp-controller="Usuarios" class="enlacesOlvidarRegistrar">¿Olvidaste la contraseña?</a>
+        <a asp-action="Register" asp-controller="Usuarios" class="linkRegistro">¿No tienes una cuenta?, ¡Regístrate ahora!</a>
     </div>
 </div>

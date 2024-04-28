@@ -1,0 +1,61 @@
+﻿/* Estilo para el contenedor principal */
+.resumen-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+}
+
+/* Estilos para los contenedores de información y de imagen */
+.info-container, .moto-container {
+    width: 48%; /* Ajuste del ancho para que ambos lados sean iguales */
+}
+
+/* Estilo para los títulos de cada dato */
+.info-title {
+    font-weight: bold;
+    margin-bottom: 5px; /* Espacio debajo del título del dato */
+}
+
+/* Estilo para los valores de cada dato */
+.info-value {
+    margin-bottom: 20px; /* Espacio entre datos */
+}
+
+/* Estilo para la imagen de la moto */
+.moto-image {
+    width: 400px;
+    height: 250px;
+    object-fit: contain;
+}
+
+/* Estilos para la sección de botones */
+.payment-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px; /* Espacio antes de los botones */
+}
+
+.payment-button {
+    width: 180px; /* Ancho fijo para los botones */
+    height: 100px; /* Altura fija para los botones */
+    margin: 0 80px; /* Espacio alrededor de cada botón */
+    object-fit: contain; /* Asegura que la imagen se ajuste dentro de las dimensiones sin distorsionarse */
+    cursor: pointer;
+}
+
+.moto-details-container {
+    display: flex;
+    justify-content: space-between; /* Separa los elementos de detalles */
+    margin-top: 20px; /* Espacio arriba del contenedor de detalles */
+}
+
+.moto-detail {
+    flex: 1; /* Permite que cada detalle crezca igualmente */
+    margin-right: 5px; /* Espacio a la derecha de cada detalle */
+}
+
+    .moto-detail:last-child {
+        margin-right: 0; /* Elimina el margen derecho para el último elemento */
+    }

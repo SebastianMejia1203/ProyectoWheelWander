@@ -1,0 +1,313 @@
+﻿@model ProyectoWheelWander.Models.Data.Moto
+
+@{
+    ViewData["Title"] = "Crear Moto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="fondo paddingBorder">
+    <h4><span class="text-black">Registro de</span> <span style="color: #ffcc00;">Moto</span></h4>
+
+
+    <form asp-action="RegistroMoto" method="post" enctype="multipart/form-data">
+
+
+        <!-- Campos de texto y Dropdown para información de la moto -->
+        <div class="camposTexto">
+
+            <input type="text" id="consumo" name="consumo" placeholder="Consumo combustible(km/L)">
+            <input type="text" id="combustible" name="combustible" placeholder="Capacidad combustible(l)">
+            <input type="text" id="cilindraje" name="cilindraje" placeholder="Cilindraje del motor">
+
+            <select id="tipoMotor" name="tipoMotor">
+                <option value="">Selecciona el tipo de motor</option>
+                <option value="mono">Monocilíndrico</option>
+                <option value="bici">Bicilíndrico</option>
+
+            </select>
+
+            <select id="marca" name="marca">
+                <option value="">Marca</option>
+                <option value="honda">Honda</option>
+                <option value="yamaha">Yamaha</option>
+                <option value="suzuki">Suzuki</option>
+                <option value="akt">AKT</option>
+                <option value="bajaj">Bajaj</option>
+                <option value="hero">Hero</option>
+                <option value="tvs">TVS</option>
+                <option value="victory">Victory</option>
+                <option value="kawasaki">Kawasaki</option>
+                <option value="ktm">KTM</option>
+                <option value="ducati">Ducati</option>
+            </select>
+
+        </div>
+
+        <div class="camposTexto">
+
+            <input type="text" id="altura" name="altura" placeholder="Altura del asiento">
+            <input type="text" id="neumaticos" name="neumaticos" placeholder="Tipo de neumáticos">
+            <input type="text" id="placa" name="placa" placeholder="Numero de placa">
+
+            <select id="tipoCombustible" name="tipoCombustible">
+                <option value="">Tipo de combustible</option>
+                <option value="extra">Extra</option>
+                <option value="corriente">Corriente</option>
+                <option value="electrico">Eléctrico</option>
+            </select>
+
+            <select id="transmision" name="transmision">
+                <option value="">Tipo de transmisión</option>
+                <option value="manual">Manual</option>
+                <option value="automatica">Automática</option>
+            </select>
+
+            <select id="suspension" name="suspension">
+                <option value="">Tipo de suspensión</option>
+                <option value="mono">Monoamortiguador</option>
+                <option value="invertida">Horquilla invertida (USD)</option>
+                <option value="convencional">Horquilla convencional</option>
+            </select>
+
+        </div>
+
+        <div class="camposTexto terceraFila">
+
+            <input type="text" id="tiempoUso" name="tiempoUso" placeholder="Tiempo de uso">
+            <input type="text" id="potencia" name="potencia" placeholder="Potencia">
+            <input type="text" id="torque" name="torque" placeholder="Torque máximo">
+            <input type="text" id="peso" name="peso" placeholder="Peso">
+
+            <select id="modelo" name="modelo">
+                <option value="">Selecciona un modelo</option>
+                <option value="fz25">FZ25 </option>
+                <option value="r15">R15</option>
+                <option value="mt03">MT-03</option>
+                <option value="xtz">XTZ 125</option>
+                <option value="tenere">Ténéré 700</option>
+            </select>
+
+            <select id="frenos" name="frenos">
+                <option value="">Selecciona el tipo de frenos</option>
+                <option value="disco">Disco</option>
+                <option value="tambor">Tambor</option>
+                <option value="combinados">Combinados (CBS)</option>
+                <option value="abs">ABS</option>
+            </select>
+
+        </div>
+
+        <!-- Áreas para subir imágenes y documentos -->
+        <div class="file-upload-container">
+
+            <div class="cargarArchivos">
+                <span class="titulosCargar">Subir foto de la moto</span>
+                <div class="contenedor" id="previewFotoMotoContainer">
+                    <!-- Contenedor de previsualización -->
+                    <img id="previewFotoMoto" alt="Previsualización de la foto de la moto" style="display:none;" />
+                </div>
+                <label for="fotoMoto" class="btnMoto">Seleccionar la foto</label> <!-- Botón -->
+                <input type="file" id="fotoMoto" name="fotoMoto" class="file-upload-input" onchange="mostrarImagen(event, 'previewFotoMoto')">
+            </div>
+
+            <div class="cargarArchivos">
+                <span class="titulosCargar">Subir foto de la placa</span>
+                <div class="contenedor" id="previewFotoPlacaContainer">
+                    <!-- Contenedor de previsualización -->
+                    <img id="previewFotoPlaca" alt="Previsualización de la foto de la placa" style="display:none;" />
+                </div>
+                <label for="fotoPlaca" class="btnPlaca">Seleccionar la foto</label> <!-- Botón -->
+                <input type="file" id="fotoPlaca" name="fotoPlaca" class="file-upload-input" onchange="mostrarImagen(event, 'previewFotoPlaca')">
+            </div>
+
+            <div class="cargarArchivos">
+                <span class="titulosCargar">Subir los papeles de propiedad</span>
+                <div class="contenedor" id="previewDocPropiedadContainer">
+                    <!-- Contenedor de previsualización -->
+                    <!-- El contenido aquí dependerá de cómo manejes la previsualización de documentos -->
+                </div>
+                <label for="docPropiedad" class="btnDocumento">Seleccionar documento</label> <!-- Botón -->
+                <input type="file" id="docPropiedad" name="docPropiedad" class="file-upload-input">
+            </div>
+
+        </div>
+
+        <div class="checkbox-container">
+            <div class="checkbox">
+                <input type="checkbox" id="terminos" name="terminos">
+                <label for="terminos">Acepto los términos y condiciones de uso</label>
+            </div>
+            <div class="checkbox">
+                <input type="checkbox" id="veracidad" name="veracidad">
+                <label for="veracidad">Acepto que la información proporcionada es verídica</label>
+            </div>
+        </div>
+
+        <!-- Botón para avanzar al siguiente paso -->
+        <button type="submit" class="botonSiguiente">Siguiente</button>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function mostrarImagen(event, imgId) {
+            var input = event.target;
+            var output = document.getElementById(imgId);
+            var previewContenedor = document.getElementById(imgId + 'Container');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    output.src = e.target.result;
+                    output.style.display = 'block';
+                    previewContenedor.style.display = 'block'; // Asegúrate de que el contenedor de la previsualización sea visible
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                output.style.display = 'none'; // Ocultar la imagen si no hay archivo seleccionado
+                previewContenedor.style.display = 'flex'; // El contenedor de previsualización siempre es visible
+            }
+        }
+    </script>
+}
+
+
+@* <h1>CrearMoto</h1>
+
+<h4>Moto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CrearMoto">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PlacaMoto" class="control-label"></label>
+                <input asp-for="PlacaMoto" class="form-control" />
+                <span asp-validation-for="PlacaMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkidmarcaMoto" class="control-label"></label>
+                <input asp-for="FkidmarcaMoto" class="form-control" />
+                <span asp-validation-for="FkidmarcaMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CilindrajeMoto" class="control-label"></label>
+                <input asp-for="CilindrajeMoto" class="form-control" />
+                <span asp-validation-for="CilindrajeMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkidmotorMoto" class="control-label"></label>
+                <input asp-for="FkidmotorMoto" class="form-control" />
+                <span asp-validation-for="FkidmotorMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Potencia" class="control-label"></label>
+                <input asp-for="Potencia" class="form-control" />
+                <span asp-validation-for="Potencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Torque" class="control-label"></label>
+                <input asp-for="Torque" class="form-control" />
+                <span asp-validation-for="Torque" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Peso" class="control-label"></label>
+                <input asp-for="Peso" class="form-control" />
+                <span asp-validation-for="Peso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlturaDelAsiento" class="control-label"></label>
+                <input asp-for="AlturaDelAsiento" class="form-control" />
+                <span asp-validation-for="AlturaDelAsiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkidtransmicionMoto" class="control-label"></label>
+                <input asp-for="FkidtransmicionMoto" class="form-control" />
+                <span asp-validation-for="FkidtransmicionMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkidcombustibleMoto" class="control-label"></label>
+                <input asp-for="FkidcombustibleMoto" class="form-control" />
+                <span asp-validation-for="FkidcombustibleMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CapacidadCombustible" class="control-label"></label>
+                <input asp-for="CapacidadCombustible" class="form-control" />
+                <span asp-validation-for="CapacidadCombustible" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsumoCombustible" class="control-label"></label>
+                <input asp-for="ConsumoCombustible" class="form-control" />
+                <span asp-validation-for="ConsumoCombustible" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkidfrenosMoto" class="control-label"></label>
+                <input asp-for="FkidfrenosMoto" class="form-control" />
+                <span asp-validation-for="FkidfrenosMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkidsuspencionMoto" class="control-label"></label>
+                <input asp-for="FkidsuspencionMoto" class="form-control" />
+                <span asp-validation-for="FkidsuspencionMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EquipamientoAdicional" class="control-label"></label>
+                <input asp-for="EquipamientoAdicional" class="form-control" />
+                <span asp-validation-for="EquipamientoAdicional" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InformacionAdicional" class="control-label"></label>
+                <input asp-for="InformacionAdicional" class="form-control" />
+                <span asp-validation-for="InformacionAdicional" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Urlfoto" class="control-label"></label>
+                <input asp-for="Urlfoto" class="form-control" />
+                <span asp-validation-for="Urlfoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioReserva" class="control-label"></label>
+                <input asp-for="PrecioReserva" class="form-control" />
+                <span asp-validation-for="PrecioReserva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoReserva" class="control-label"></label>
+                <input asp-for="EstadoReserva" class="form-control" />
+                <span asp-validation-for="EstadoReserva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoMoto" class="control-label"></label>
+                <input asp-for="EstadoMoto" class="form-control" />
+                <span asp-validation-for="EstadoMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fkidubicacion" class="control-label"></label>
+                <input asp-for="Fkidubicacion" class="form-control" />
+                <span asp-validation-for="Fkidubicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FkcedulaPropietario" class="control-label"></label>
+                <input asp-for="FkcedulaPropietario" class="form-control" />
+                <span asp-validation-for="FkcedulaPropietario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlfotoPlaca" class="control-label"></label>
+                <input asp-for="UrlfotoPlaca" class="form-control" />
+                <span asp-validation-for="UrlfotoPlaca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlfotoPapeles" class="control-label"></label>
+                <input asp-for="UrlfotoPapeles" class="form-control" />
+                <span asp-validation-for="UrlfotoPapeles" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> *@
+@* 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div> *@
+

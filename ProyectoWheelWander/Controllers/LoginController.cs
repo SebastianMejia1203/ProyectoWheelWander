@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProyectoWheelWander.Models.Data;
+using ProyectoWheelWander.Datos;
+using System.Data;
+using System.Data.SqlClient;
 using ProyectoWheelWander.Models;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 namespace ProyectoWheelWander.Controllers
@@ -11,12 +13,7 @@ namespace ProyectoWheelWander.Controllers
     public class LoginController : Controller
     {
 
-        private readonly WheelWanderContext _context3;
-
-        public LoginController(WheelWanderContext context4)
-        {
-            _context3 = context4;
-        }
+        UsuarioDatos _UsuarioDatos = new UsuarioDatos();
 
         // GET: LoginController
         public ActionResult Index()
@@ -28,42 +25,55 @@ namespace ProyectoWheelWander.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            Usuario usuario = null;  // Inicializa a null para manejar casos donde no se encuentren datos
+            ConexionDB cn = new ConexionDB();
+            using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
-                var usuario = await _context3.Usuarios
-                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Contrasena == model.Password);
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand("ValidarUsuario", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@Email", model.Email);
+                cmd.Parameters.AddWithValue("@Contrasena", model.Password);
 
+                int cedula = 0;
+                try
+                {
+                    cedula = Convert.ToInt32(cmd.ExecuteScalar());
+                    usuario = _UsuarioDatos.FindUsuarioByCedula(cedula);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al validar el usuario: " + ex.Message);
+                    throw; // Lanza la excepción para manejo externo
+                }
                 if (usuario != null)
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Email, usuario.Email),
-                        new Claim(ClaimTypes.Name, $"{usuario.PrimerNombre} {usuario.PrimerApellido}"),
-                        new Claim(ClaimTypes.NameIdentifier, usuario.Cedula.ToString())
-                        // Puedes agregar más claims según el rol u otros atributos
+                        new Claim(ClaimTypes.Name, (usuario.Cedula).ToString()),
+                        new Claim("PrimerNombre", usuario.PrimerNombre),
+                        new Claim("Email", usuario.Email),
+                        new Claim(ClaimTypes.Role, (usuario.IDRol).ToString())
                     };
 
-                    var claimsIdentity = new ClaimsIdentity(
-                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var authProperties = new AuthenticationProperties
-                    {
-                        // Configura las propiedades necesarias
-                    };
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties);
-
-                    return RedirectToAction("Details", "Usuarios", new { id = usuario.Cedula });
+                    return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Usuario o contraseña inválidos.");
-                }
+
+                return View();
             }
-            return View(model);
+        }
+
+        public async Task<ActionResult> Salir()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Login");
         }
     }
 }

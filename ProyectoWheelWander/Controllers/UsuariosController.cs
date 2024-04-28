@@ -1,202 +1,128 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using ProyectoWheelWander.Datos;
 using ProyectoWheelWander.Models;
 using ProyectoWheelWander.Models.Data;
+using System.Security.Claims;
 
 namespace ProyectoWheelWander.Controllers
 {
     public class UsuariosController : Controller
-    {
-        private readonly WheelWanderContext _context;
+    {   
+        UsuarioDatos _UsuarioDatos = new UsuarioDatos();
+        [Authorize(Roles = "1")]
+        public IActionResult listaUsuarios() {
+            //la vista mostrara una lista de usuarios
+            var listaUsuarios = _UsuarioDatos.GetAllUsuario();
 
-        public UsuariosController(WheelWanderContext context)
-        {
-            _context = context;
+            return View(listaUsuarios); 
         }
 
-        // GET: Usuarios
-        public async Task<IActionResult> Index()
+        // GET: Obtener Pagina de Mi Perfil
+        [Authorize]
+        [HttpGet("MiPerfil")]
+        public IActionResult MiPerfil()
         {
-            var wheelWanderContext = _context.Usuarios.Include(u => u.FkidtipoDocumentoNavigation).Include(u => u.IdrolNavigation);
-            return View(await wheelWanderContext.ToListAsync());
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            return View(oUsuario); // Envía este modelo integral a la vista
         }
 
-        // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(long? id)
+        [Authorize(Roles = "1")]
+        [HttpGet("MiPerfil/{cedula}")]
+        public IActionResult MiPerfil(int cedula)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios
-                .Include(u => u.FkidtipoDocumentoNavigation)
-                .Include(u => u.IdrolNavigation)
-                .FirstOrDefaultAsync(m => m.Cedula == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            ViewBag.SexoDescripcion = usuario.Sexo switch
-            {
-                1 => "Masculino",
-                2 => "Femenino",
-                3 => "Otro",
-                _ => "No especificado",
-            };
-
-            return View(usuario);
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            return View(oUsuario); // Envía este modelo integral a la vista
         }
 
-        // GET: Usuarios/Create
-        public IActionResult Create()
+        // GET: Obtener Pagina de cuenta creada
+        public ActionResult CuentaCreada()
         {
-            ViewData["FkidtipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdtipoDocumento", "NombreTipoDocumento");
-            ViewData["Idrol"] = new SelectList(_context.RolUsuarios, "IdrolUsuario", "NombreRol");
-            ViewData["Sexo"] = new SelectList(new[]
-                {
-                   new { Id = (byte)1, Nombre = "Masculino" },
-                   new { Id = (byte)2, Nombre = "Femenino" },
-                   new { Id = (byte)3, Nombre = "Otro" }
-                }, "Id", "Nombre");
             return View();
         }
 
-        // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // GET: Obtener Pagina de error de registro
+        public ActionResult ErrorRegistro()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            if (!User.Identity!.IsAuthenticated) {
+                var viewModel = new RegisterViewModel
+                {
+                    Usuario = new Usuario(), // Inicializa un nuevo usuario para ser llenado desde la vista
+                    TiposDocumento = _UsuarioDatos.GetAllTipoDocumento() // Carga los tipos de documento desde la base de datos
+                };
+
+                return View(viewModel); // Envía este modelo integral a la vista
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Cedula,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Email,Contrasena,Celular,EstadoUsuario,Sexo,Idrol,FechaRegistro,FkidtipoDocumento,UrlfotoFcedula,UrlfotoPcedula,UrlfotoFlicencia,UrlfotoPlicencia,FechaNacimiento")] Usuario usuario)
+        public IActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Login");
-            }
-            ViewData["FkidtipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdtipoDocumento", "NombreTipoDocumento", usuario.FkidtipoDocumento);
-            ViewData["Idrol"] = new SelectList(_context.RolUsuarios, "IdrolUsuario", "NombreRol", usuario.Idrol);
-            ViewData["Sexo"] = new SelectList(new[]
+                model.Usuario.FKIDTipoDocumento = (int)model.FKIDTipoDocumentoSelected; // Asegúrate de asignar el tipo de documento seleccionado al usuario
+                var respuesta = _UsuarioDatos.InsertUsuario(model.Usuario);
+
+                if (respuesta)
                 {
-                   new { Id = (byte)1, Nombre = "Masculino" },
-                   new { Id = (byte)2, Nombre = "Femenino" },
-                   new { Id = (byte)3, Nombre = "Otro" }
-                }, "Id", "Nombre");
-            return View(usuario);
+                    return RedirectToAction("CuentaCreada");
+                }
+            
+            // Vuelve a cargar los tipos de documento en caso de que la validación falle
+            model.TiposDocumento = _UsuarioDatos.GetAllTipoDocumento();
+            return View("ErrorRegistro");
         }
 
-        // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        [Authorize]
+        public IActionResult UpdateUsuario(int cedula)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            ViewData["FkidtipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdtipoDocumento", "NombreTipoDocumento", usuario.FkidtipoDocumento);
-            ViewData["Idrol"] = new SelectList(_context.RolUsuarios, "IdrolUsuario", "NombreRol", usuario.Idrol);
-            ViewData["Sexo"] = new SelectList(new[]
-                {
-                   new { Id = (byte)1, Nombre = "Masculino" },
-                   new { Id = (byte)2, Nombre = "Femenino" },
-                   new { Id = (byte)3, Nombre = "Otro" }
-                }, "Id", "Nombre");
-            return View(usuario);
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            return View(oUsuario); // Envía este modelo integral a la vista
         }
 
-        // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Cedula,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,Email,Contrasena,Celular,EstadoUsuario,Sexo,Idrol,FechaRegistro,FkidtipoDocumento,UrlfotoFcedula,UrlfotoPcedula,UrlfotoFlicencia,UrlfotoPlicencia,FechaNacimiento")] Usuario usuario)
+        public IActionResult UpdateUsuario(Usuario model)
         {
-            if (id != usuario.Cedula)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View();
             }
 
-            if (ModelState.IsValid)
+            var respuesta = _UsuarioDatos.UpdateUsuario(model);
+
+            if (respuesta)
             {
-                try
-                {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioExists(usuario.Cedula))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("listaUsuarios");
             }
-            ViewData["FkidtipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdtipoDocumento", "NombreTipoDocumento", usuario.FkidtipoDocumento);
-            ViewData["Idrol"] = new SelectList(_context.RolUsuarios, "IdrolUsuario", "NombreRol", usuario.Idrol);
-            ViewData["Sexo"] = new SelectList(new[]
-                {
-                   new { Id = (byte)1, Nombre = "Masculino" },
-                   new { Id = (byte)2, Nombre = "Femenino" },
-                   new { Id = (byte)3, Nombre = "Otro" }
-                }, "Id", "Nombre");
-            return View(usuario);
+            return View();
         }
 
-        // GET: Usuarios/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        [Authorize]
+        public IActionResult DeleteUsuario(int cedulas)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios
-                .Include(u => u.FkidtipoDocumentoNavigation)
-                .Include(u => u.IdrolNavigation)
-                .FirstOrDefaultAsync(m => m.Cedula == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedulas); //busca un usuario especifico
+            return View(oUsuario); // Envía este modelo integral a la vista
         }
 
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        [HttpPost]
+        public IActionResult DeleteUsuario(Usuario model)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
+            var respuesta = _UsuarioDatos.DeleteUsuario(model.Cedula);
+
+            if (respuesta)
             {
-                _context.Usuarios.Remove(usuario);
+                return RedirectToAction("listaUsuarios");
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View();
         }
 
-        private bool UsuarioExists(long id)
-        {
-            return _context.Usuarios.Any(e => e.Cedula == id);
-        }
     }
 }

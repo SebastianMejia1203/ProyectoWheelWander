@@ -1,0 +1,36 @@
+﻿@model ProyectoWheelWander.Models.Data.Usuario
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-action="DeleteUsuario" asp-controller="Usuarios" method="post">
+    <input asp-for="Cedula" class="form-control" type="hidden">
+    <div class="card" style="width: 25rem">
+        <div class="card-header" style="background-color: red;">
+            Confirmar Eliminación: @Html.DisplayFor(model => model.Cedula)
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center align-content-center">
+                <i class="bi bi-exclamation-triangle iconWarning ms-3 me-3"></i>
+                <p>
+                    ¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.
+                </p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="listaUsuarios" asp-controller="Usuarios" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-success">Eliminar Usuario</button>
+        </div>
+    </div>
+
+</form>
+
+    
+<script>
+    window.onload = function () {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        myModal.show();
+    };
+</script>
+
+
