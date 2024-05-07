@@ -52,21 +52,5 @@ public partial class Usuario
     public int FKIDTipoDocumento { get; set; }
 
     [Required]
-    [StringLength(255)]
-    public string? URLFotoFCedula { get; set; }
-
-    [Required]
-    [StringLength(255)]
-    public string? URLFotoPCedula { get; set; }
-
-    [Required]
-    [StringLength(255)]
-    public string? URLFotoFLicencia { get; set; }
-
-    [Required]
-    [StringLength(255)]
-    public string? URLFotoPLicencia { get; set; }
-
-    [Required]
     public DateTime FechaNacimiento { get; set; }
 }

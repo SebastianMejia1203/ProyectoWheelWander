@@ -4,6 +4,140 @@
     ViewData["Title"] = "Editar usuario";
 }
 
+<div class="container fondo text-black">
+    <form asp-action="UpdateUsuario" asp-controller="Usuarios" method="post">
+        <input asp-for="Cedula" class="form-control" type="hidden">
+        <input asp-for="FKIDTipoDocumento" class="form-control" type="hidden">
+        <input asp-for="EstadoUsuario" class="form-control" type="hidden">
+        <input asp-for="IDRol" class="form-control" type="hidden">
+        <input asp-for="FechaNacimiento" class="form-control" type="hidden">
+        <input asp-for="FechaRegistro" class="form-control" type="hidden">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <!-- Contenedor principal para la información del perfil -->
+        <div class="perfil-container">
+            <!-- Área de la foto de perfil -->
+
+            <div class="perfil-foto-container">
+                <div id="preview" style="margin-bottom: 10px;">
+                    <!-- Área de previsualización de la imagen -->
+                    <img src="https://i.ibb.co/Y8vmLCz/hombre.png" alt="Foto de perfil" class="perfil-foto rounded-circle" />
+                </div>
+
+                <!-- Usar un label que funcione como botón para el input file -->
+                <label for="fotoPerfil" class="btn btn-primary foto-upload-btn" style="background-color: ##F3B61F; border-color: ##F3B61F;">Subir Foto</label>
+                <input type="file" id="fotoPerfil" name="fotoPerfil" class="form-control" style="display: none;" onchange="previewFile()" />
+
+            </div>
+
+
+            <!-- Información del perfil en filas y columnas -->
+            <div class="row">
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="PrimerNombre" class="text-black fw-bold">Primer Nombre</label>
+                        <input asp-for="PrimerNombre" class="form-control" placeholder="Primer nombre">
+                        <span asp-validation-for="PrimerNombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="SegundoNombre" class="text-black fw-bold">Segundo Nombre</label>
+                        <input asp-for="SegundoNombre" class="form-control" placeholder="Segundo nombre">
+                        <span asp-validation-for="SegundoNombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="PrimerApellido" class="text-black fw-bold">Primer Apellido</label>
+                        <input asp-for="PrimerApellido" class="form-control" placeholder="Primer apellido">
+                        <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="SegundoApellido" class="text-black fw-bold">Segundo Apellido</label>
+                        <input asp-for="SegundoApellido" class="form-control" placeholder="Segundo apellido">
+                        <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="Celular" class="text-black fw-bold">Celular</label>
+                        <input asp-for="Celular" type="text" class="form-control" placeholder="Número de celular">
+                        <span asp-validation-for="Celular" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="Email" class="text-black fw-bold">Correo Electrónico</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="you@example.com">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="perfilInfor">
+                    <div class="form-group">
+                        <label asp-for="Contrasena" class="control-label text-black fw-bold">Contraseña</label>
+                        <input asp-for="Contrasena" type="password" class="form-control text-black" />
+                        <span asp-validation-for="Contrasena" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" value="Guardar" class="btn buttonNext my-3 w-50 fw-bold">Guardar</button>
+        </div>
+    </form>
+
+
+    <!-- Botones de acción del perfil -->
+    
+</div>
+
+<script>
+    document.getElementById('btnEditar').addEventListener('click', function () {
+        var inputs = document.getElementsByClassName('form-control');
+        if (this.textContent === 'Editar perfil') {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = false;
+            }
+            this.textContent = 'Guardar cambios';
+        } else {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = true;
+            }
+            this.textContent = 'Editar perfil';
+            // Aquí deberías agregar la lógica para enviar los datos al servidor
+            // alert('Cambios guardados'); // Esto es solo un placeholder
+        }
+    });
+</script>
+
+<script>
+    // Función para previsualizar la imagen seleccionada
+    function previewFile() {
+        var preview = document.querySelector('#preview img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); // Leer el archivo seleccionado y generar una URL de datos.
+        } else {
+            preview.src = ""; // Si no hay archivo, limpiar la previsualización.
+        }
+    }
+</script>
+@* 
 <div class="container fondo mt-5">
     <div class="text-center">
         <img src="https://i.ibb.co/sbqP05H/logo2.png" alt="Logo" width="400px" height="auto">
@@ -66,7 +200,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> *@
 
 <div>
     <a asp-action="Index">Back to List</a>

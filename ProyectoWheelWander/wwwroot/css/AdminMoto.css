@@ -1,0 +1,274 @@
+﻿.tituloListado {
+    margin-top: 0; /* Elimina el margen superior del título. */
+    font-size: 17px; /* Establece un tamaño de fuente específico para el título. */
+    margin-bottom: 10px; /* Añade un pequeño espacio debajo del título. */
+    background-color: #ffcc00;
+    padding: 7px;
+    font-weight: bold;
+    border-top-left-radius: 6px;
+}
+
+.container-main {
+    display: flex; /* Activa Flexbox para el contenedor principal, permitiendo un diseño flexible. */
+    width: 1200px
+}
+
+/* Estilos para el contenedor izquierdo y sus elementos. */
+.contenedorIzquierdo {
+    flex: 1; /* Toma 1 unidad del espacio disponible en el diseño flex. */
+    max-width: 200px; /* La anchura máxima es de 230px. */
+    height: 100vh; /* La altura se extiende al 100% de la altura de la ventana del navegador. */
+    overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido es más largo que la altura del contenedor. */
+    background-color: white; /* Color de fondo para el contenedor. */
+    padding: 0px; /* Espacio alrededor del contenido dentro del contenedor. */
+    box-sizing: border-box; /* Incluye el padding y el borde en la anchura y altura total del elemento. */
+    /* Borde alrededor del contenedor. */
+    margin-top: 40px;
+}
+
+.contenedorDerecho {
+    flex: 3; /* Toma 3 unidades del espacio disponible, haciéndolo más ancho que el contenedor izquierdo. */
+}
+
+.contenedorArriba, .contenedorAbajo {
+    flex: 1; /* Ambos contenedores toman la misma cantidad de espacio disponible. */
+}
+
+.contenedor-inferior {
+    display: flex; /* Activa Flexbox para el contenedor inferior. */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en la siguiente línea si no hay suficiente espacio. */
+    gap: 20px; /* Añade un espacio entre los elementos dentro del contenedor. */
+    align-items: flex-start; /* Alinea los elementos al inicio de su contenedor transversalmente. */
+    height: 18.5vh; /* Altura establecida del contenedor inferior. */
+    margin-top: 0; /* Elimina el margen superior del contenedor inferior. */
+}
+
+.tabla-historial-informacion {
+    flex: 1; /* Cada tabla toma 1 unidad del espacio disponible. */
+    min-width: 0; /* Asegura que el contenido de la tabla no desborde su contenedor. */
+    width: 50%; /* Establece que cada tabla tome la mitad del ancho del contenedor. */
+    box-sizing: border-box; /* Incluye el padding y el borde en la anchura y altura total del elemento. */
+}
+
+
+
+.contenedorArriba {
+    height: 43vh; /* Ejemplo de altura fija para el contenedor superior */
+    /* Resto de tus estilos */
+}
+
+.contenedorAbajo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 0;
+    height: 50vh;
+}
+
+.tabla-alquiler-actual {
+    width: 100%; /* La tabla ocupa el ancho total de su contenedor. */
+    margin-bottom: 20px; /* Espacio debajo de la tabla 'Alquiler actual'. */
+    border-radius: 3px; /* Esquinas redondeadas de la tabla. */
+}
+
+
+.tabla-historial-alquiler,
+.tabla-informacion-moto,
+.seccion-ganancias {
+    flex: 1;
+    border-radius: 5px;
+}
+
+
+.titulo-tabla {
+    background-color: #F1D874;
+    padding: 5px;
+    margin: 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid black;
+    border-bottom: none;
+}
+
+
+.tabla-seccion {
+    flex: 1;
+    margin-bottom: 10px; /* Espacio debajo de las tablas */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+.container-main {
+    display: flex;
+    height: 100vh;
+    position: relative; /* Asegúrate de que container-main sea relativo para el posicionamiento absoluto del título */
+}
+
+.tituloListado {
+    background-color: #ffcc00; /* Color de fondo amarillo */
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute; /* Posición absoluta */
+    top: 0; /* Alineado en la parte superior del container-main */
+    left: 0; /* Alineado a la izquierda del container-main */
+    width: 200px; /* Asegúrate de que el ancho sea suficiente para cubrir el contenedor izquierdo */
+    z-index: 10; /* Asegura que el título se muestre sobre otros elementos */
+}
+
+
+/* Estilos para la sección de ganancias */
+.seccion-ganancias {
+    flex-basis: 205px; /* Ancho base de la sección de ganancias. */
+    flex-grow: 0; /* Evita que la sección de ganancias crezca. */
+    flex-shrink: 0; /* Evita que la sección de ganancias se encoja. */
+    width: 200px; /* Ancho fijo de la sección de ganancias. */
+    background-color: #F1D874; /* Fondo amarillo para destacar. */
+    padding: 10px; /* Espacio interior de la sección. */
+    box-sizing: border-box; /* Incluye el padding y el borde en la anchura y altura total del elemento. */
+    margin-left: 7px; /* Espacio a la izquierda de la sección de ganancias. */
+    height: 170px; /* Altura fija de la sección de ganancias. */
+}
+
+    .seccion-ganancias h2 {
+        font-size: 20px; /* Tamaño de fuente para los montos de ganancias. */
+        font-weight: bold; /* Negrita para los montos de ganancias. */
+    }
+
+.ganancias-actuales,
+.ganancias-historicas {
+    text-align: center;
+}
+
+.btnRetirarGanancia {
+    padding: 5px 13px; /* Espacio interior del botón. */
+    background-color: black; /* Fondo negro del botón. */
+    color: white; /* Color de texto blanco. */
+    border: none; /* Sin borde alrededor del botón. */
+    cursor: pointer; /* Tipo de cursor como puntero para indicar que es clickeable. */
+    font-weight: bold; /* Negrita para el texto del botón. */
+    margin: 0 auto; /* Centra el botón horizontalmente dentro de su contenedor. */
+    display: block; /* Muestra el botón como un bloque, necesario para aplicar margen automático. */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+    .btnRetirarGanancia:hover {
+        background-color: #333; /* Color de fondo del botón al pasar el mouse por encima. */
+    }
+
+.seccion-ganancias div, .seccion-ganancias button {
+    
+}
+
+
+.moto-list {
+    display: flex; /* Activa flexbox */
+    flex-direction: column; /* Organiza los elementos hijos en columna */
+}
+
+.moto-item {
+    display: flex; /* Activa flexbox */
+    align-items: center; /* Centra los elementos hijos verticalmente */
+    justify-content: start;
+    background-color: #ffffff; /* Color de fondo para el ítem */
+    border: none; /* Remueve cualquier borde */
+    padding: 0px; /* Espacio alrededor del contenido dentro de cada ítem */
+    text-align: left; /* Alineación del texto a la izquierda */
+    width: 100%; /* El ítem toma toda la anchura disponible */
+    cursor: pointer; /* Cambia el cursor a pointer para indicar que es clickeable */
+}
+
+    .moto-item img {
+        width: 100%; /* La imagen toma la anchura total del contenedor padre */
+        height: auto; /* La altura se ajusta automáticamente para mantener las proporciones */
+    }
+
+    .moto-item span {
+        display: block;
+    }
+
+    /* Estilos para los botones en estado hover y focus */
+    .moto-item:hover, .moto-item:focus {
+        background-color: #e6e6e6; /* Cambia el color de fondo para resaltar el ítem */
+    }
+
+.moto-image {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+.moto-info {
+    display: flex; /* Activa flexbox */
+    flex-direction: column; /* Organiza los elementos hijos en columna */
+    font-size: 14px; /* Tamaño de fuente para la información */
+}
+
+    .moto-info span {
+        display: block; /* Cada línea de información se muestra como bloque, tomando su propia línea */
+        /* Aquí irían más estilos si son necesarios */
+    }
+
+
+
+
+
+/* Media queries para ajustar el tamaño de la fuente en dispositivos más grandes */
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+
+/* Estilo para el contenedor de las secciones de gráficos estadísticos */
+.graficosEstadisticas-container {
+    display: flex; /* Activa flexbox para disponer los elementos en línea */
+    justify-content: space-around; /* Distribuye el espacio uniformemente alrededor de los elementos */
+    height: 100%; /* Ajusta la altura para ocupar todo el contenedorArriba */
+}
+
+/* Estilo para la sección completa de cada gráfico estadístico */
+.graficosEstadisticas-section {
+    /* Ancho de cada sección, ajusta según necesites */
+    text-align: center; /* Centra el texto del título y el cuadro en la sección */
+}
+
+/* Estilo para cada cuadro de gráficos estadísticos */
+.graficosEstadisticas-item {
+    border: 1px solid black; /* Agrega un borde para cada cuadro */
+    padding: 10px; /* Espacio interior para no tocar los bordes */
+    box-sizing: border-box; /* El padding y border están incluidos en el ancho y alto */
+    /* La altura del cuadro se ajustará automáticamente al contenido */
+    height: 230px;
+    width: 260px;
+}
+
+.graficosEstadisticas-section h3 {
+    margin: 0px 0 5px; /* Margen arriba y abajo para el título */
+    font-size: 14.5px;
+}
+
+.graficosEstadisticas-item img {
+    width: 100%; /* La imagen ocupa todo el ancho del cuadro */
+    height: auto; /* La altura se ajusta para mantener las proporciones */
+}

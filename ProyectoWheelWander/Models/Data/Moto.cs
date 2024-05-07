@@ -11,33 +11,19 @@ public partial class Moto
 
     public int CilindrajeMoto { get; set; }
 
-    public int FkidmotorMoto { get; set; }
-
     public int Potencia { get; set; }
-
-    public int Torque { get; set; }
 
     public double Peso { get; set; }
 
-    public int AlturaDelAsiento { get; set; }
-
     public int FkidtransmicionMoto { get; set; }
-
-    public int FkidcombustibleMoto { get; set; }
 
     public double CapacidadCombustible { get; set; }
 
     public double ConsumoCombustible { get; set; }
 
-    public int FkidfrenosMoto { get; set; }
-
-    public int FkidsuspencionMoto { get; set; }
-
-    public string? EquipamientoAdicional { get; set; }
-
     public string? InformacionAdicional { get; set; }
 
-    public string Urlfoto { get; set; } = null!;
+    public string Urlfoto { get; set; } = ""!;
 
     public double PrecioReserva { get; set; }
 
@@ -49,7 +35,7 @@ public partial class Moto
 
     public int FkcedulaPropietario { get; set; }
 
-    public string UrlfotoPlaca { get; set; } = null!;
+    public int ClaseMoto { get; set; }
 
-    public string UrlfotoPapeles { get; set; } = null!;
+    public string UrlfotoPlaca { get; set; } = ""!;
 }

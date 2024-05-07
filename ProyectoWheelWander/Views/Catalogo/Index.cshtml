@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ProyectoWheelWander.Models.ViewModel.CatalogoViewModel
+
+@{
     ViewData["Title"] = "Catalogo";
 }
 <div class="text-center primerDiv d-flex flex-column align-items-center">
@@ -7,139 +9,151 @@
     </div>
 </div>
 
-<div class="segundoDiv">
-    <div class="divFiltros">
-        <div class="camposTexto mt-4">
-            <div class="form-group">
-                <select class="form-control forms form-select" id="ubicacion" name="ubicacion">
-                    <option selected>Ubicación</option>
-                    <option>Bogota</option>
-                    <option>Medellin</option>
-                    <option>Florencia</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control forms form-select" id="ordneraPor" name="ordneraPor">
-                    <option selected>Ordenar por</option>
-                    <option>A - Z</option>
-                    <option>Z - A</option>
-                    <option>Popularidad</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control form-select forms" id="filtroMarca" name="filtroMarca">
-                    <option selected>Filtrar por marcas</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control form-select forms" id="filtroClase" name="filtroClase">
-                    <option selected>Filtrar por clase</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control form-select forms" id="filtroClase" name="filtroPrecio">
-                    <option selected>Filtrar por precio</option>
-                    <option>Maenor a mayor</option>
-                    <option>Mayor a menor</option>
-                </select>
-            </div>
-            <button type="submit" class="btn buttonSearch form-inicio">Buscar</button>
+<div class="segundoDiv mt-4">
+    <div class="container">
+        <form class="" method="get" asp-controller="Catalogo" asp-action="FiltrarMotosFecha2">
+            <!-- Primera fila para ubicación, fechas y horas -->
+            <div class="row align-items-center justify-content-center">
+                <!-- Selector de ubicaciones -->
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <select class="form-control form-select" style="border: 0px" id="ubicacionId" name="ubicacionId">
+                            <option selected>Ubicación</option>
+                            @foreach (var ubicacion in Model.ubicaciones)
+                            {
+                                <option value="@ubicacion.Idubicacion">@ubicacion.NombreUbicacion</option>
+                            }
+                        </select>
+                        <span class="input-group-text icono"><i class="bi bi-geo-alt-fill"></i></span>
+                    </div>
+                </div>
 
-        </div>
+                <!-- Input de fecha de inicio -->
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <input type="text" class="datepicker_input form-control" name="fechaInicio" placeholder="Fecha de inicio" value="@Model.FechaInicio" required>
+                        <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                    </div>
+                </div>
 
+                <!-- Input de hora de inicio -->
+                <div class="col-md-2">
+                    <input type="time" class="form-control" id="hora-inicio" name="horaInicio" placeholder="Hora de inicio" value="@Model.HoraInicio" required>
+                </div>
+
+                <!-- Input de fecha fin -->
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <input type="text" class="datepicker_input form-control" name="fechaFin" placeholder="Fecha de finalización" value="@Model.FechaFin" required>
+                        <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                    </div>
+                </div>
+
+                <!-- Input de hora fin -->
+                <div class="col-md-2">
+                    <input type="time" class="form-control" id="hora-fin" name="horaFin" placeholder="Hora fin" value="@Model.HoraFin" required>
+                </div>
+            </div>
+
+            <!-- Segunda fila para filtros y ordenación -->
+            <div class="row mt-4 align-items-center justify-content-center">
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <select class="form-control form-select" id="ordenaPor" name="ordenarPorNombre">
+                            <option selected>Ordenar por nombre</option>
+                            <option value="1">A - Z</option>
+                            <option value="2">Z - A</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <select class="form-control form-select" id="filtroMarca" name="marcaId">
+                            <option selected>Filtrar por marcas</option>
+                            @foreach (var marca in Model.marcas)
+                            {
+                                <option value="@marca.IdmarcaMoto">@marca.NombreMarca</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <select class="form-control form-select" id="filtroClase" name="claseId">
+                            <option selected>Filtrar por clase</option>
+                            <option value="1">Primera clase</option>
+                            <option value="2">Segunda clase</option>
+                            <option value="3">Tercera clase</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group input-group">
+                        <select class="form-control form-select" id="filtroPrecio" name="ordenarPorPrecio">
+                            <option selected>Filtrar por precio</option>
+                            <option value="1">Menor a mayor</option>
+                            <option value="2">Mayor a menor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <!-- Botón de buscar -->
+                    <button type="submit" class="btn buttonSearch">Buscar</button>
+                </div>
+            </div>
+        </form>
     </div>
-    
 </div>
-<div class="divCatalogo fondo text-black paddingBorder mt-3">
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Marca de la moto</h5>
-                </div>
 
-                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Precio de la moto y ubicacion</p>
-                    <div class="d-flex justify-content-evenly" style="width: 100%">
-                        <a href="#" class="btn btn-success">Ver detaller</a>
-                        <a href="#" class="btn btn-secondary">Seleccionar</a>
+@if (Model.motosCatalogo != null && Model.motosCatalogo.Any())
+{
+    <div class="divCatalogo fondo text-black paddingBorder mt-3">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            @foreach (var moto in Model.motosCatalogo)
+            {
+                <form method="post" asp-action="ResumenCotizacion" asp-controller="Reserva">
+                    <input type="hidden" name="placa" value="@moto.placaMoto" />
+                    <input type="hidden" name="FechaInicio" value="@Model.FechaInicio" />
+                    <input type="hidden" name="HoraInicio" value="@Model.HoraInicio" />
+                    <input type="hidden" name="FechaFin" value="@Model.FechaFin" />
+                    <input type="hidden" name="HoraFin" value="@Model.HoraFin" />
+                    <input type="hidden" name="ubicacion" value="@moto.ubicacion" />
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@moto.nombreMarca @moto.modelo</h5>
+                        </div>
+
+                        <img src="@moto.urlFoto" class="card-img-top" style="width: 255px; height: 150px;  object-fit: cover; margin-left: 10px; margin-right: 10px;" alt="fotoMoto">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <span class="fw-bold">Clase: @moto.clase</span>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text">
+                                    <span class="fw-bold" style="color: green">$@moto.precioReserva</span>
+                                </p>
+                                <p class="card-text">
+                                    <span class="fw-bold" style="color: black">@moto.ubicacion</span>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-evenly" style="width: 100%">
+                                <a  class="btn btn-success">Ver detalles</a>
+                                <button type="submit" class="btn btn-secondary">Seleccionar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Marca de la moto</h5>
-                </div>
-
-                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Precio de la moto y ubicacion</p>
-                    <div class="d-flex justify-content-evenly" style="width: 100%">
-                        <a href="#" class="btn btn-success">Ver detalles</a>
-                        <a href="#" class="btn btn-secondary">Seleccionar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Marca de la moto</h5>
-                </div>
-
-                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Precio de la moto y ubicacion</p>
-                    <div class="d-flex justify-content-evenly" style="width: 100%">
-                        <a href="#" class="btn btn-success">Ver detalles</a>
-                        <a href="#" class="btn btn-secondary">Seleccionar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Marca de la moto</h5>
-                </div>
-
-                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Precio de la moto y ubicacion</p>
-                    <div class="d-flex justify-content-evenly" style="width: 100%">
-                        <a href="#" class="btn btn-success">Ver detalles</a>
-                        <a href="#" class="btn btn-secondary">Seleccionar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Marca de la moto</h5>
-                </div>
-
-                <img src="https://i.ibb.co/r0cJCx8/moto.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Precio de la moto y ubicacion</p>
-                    <div class="d-flex justify-content-evenly" style="width: 100%">
-                        <a href="#" class="btn btn-success">Ver detalles</a>
-                        <a href="#" class="btn btn-secondary">Seleccionar</a>
-                    </div>
-                </div>
-            </div>
+               </form>
+            }
         </div>
     </div>
+}
+else
+{
+    <p>No hay motos disponibles en el catálogo.</p>
+}
 
-</div>
+
     
 

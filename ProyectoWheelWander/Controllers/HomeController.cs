@@ -1,21 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
+using ProyectoWheelWander.Datos;
 using ProyectoWheelWander.Models;
+using ProyectoWheelWander.Models.Data;
+using ProyectoWheelWander.Models.ViewModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace ProyectoWheelWander.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        CatalogoDatos catalogoService = new CatalogoDatos();
 
-        public HomeController(ILogger<HomeController> logger)
+        public ActionResult Index()
         {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            var viewModel = new CatalogoViewModel
+            {
+                motosCatalogo = catalogoService.getCatalogo(),
+                ubicaciones = catalogoService.GetAllUbicaciones(),
+                marcas = catalogoService.GetAllMarcas()
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
@@ -27,6 +32,41 @@ namespace ProyectoWheelWander.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public List<Ubicacion> GetAllUbicaciones()
+        {
+            List<Ubicacion> listaUbicaciones = new List<Ubicacion>();
+            ConexionDB cn = new ConexionDB();
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
+                {
+                    conexion.Open();
+                    using (SqlCommand command = new SqlCommand("getAllUbicaciones", conexion))
+                    {
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                listaUbicaciones.Add(new Ubicacion
+                                {
+                                    Idubicacion = Convert.ToInt32(dr["IDUbicacion"]),
+                                    NombreUbicacion = dr["NombreUbicacion"].ToString(),
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar la excepción, por ejemplo, loggear el error.
+                throw; // O manejar de otra forma, como devolver un código de error específico.
+            }
+
+            return listaUbicaciones;
         }
     }
 }

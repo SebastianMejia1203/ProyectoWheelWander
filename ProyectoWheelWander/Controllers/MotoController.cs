@@ -1,91 +1,52 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoWheelWander.Datos;
+using ProyectoWheelWander.Models.ViewModel;
+using System.Security.Claims;
 
 namespace ProyectoWheelWander.Controllers
 {
-    [Authorize]
+
     public class MotoController : Controller
     {
         // GET: Obtener Pagina de Administrar mis motos
-        public ActionResult Index ()
+        MotoDatos _MotoDatos = new MotoDatos();
+        public IActionResult Index()
+        {
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            var view = new AdminMotoViewModel
+            {
+                listaMotos = _MotoDatos.motosPorUsuario(cedula)
+            };
+
+            return View(view);
+        }
+
+        public IActionResult buscarMoto(String placa)
+        {
+            //la vista mostrara una lista de usuarios
+            var listaMotos = _MotoDatos.buscarMoto(placa);
+
+            return View(listaMotos);
+        }
+
+        public IActionResult CrearMoto()
         {
             return View();
         }
 
-        // GET: Obtener Pagina de crear moto
-        public ActionResult CrearMoto()
+        [HttpGet]
+        public IActionResult GetMotoDetails(string placa)
         {
-            return View();
-        }
-
-        // GET: Moto/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Moto/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Moto/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            var detallesMoto = _MotoDatos.ObtenerUltimaReservaValidaPorPlaca(placa);
+            if (detallesMoto == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
-            {
-                return View();
-            }
+            return Json(detallesMoto);
         }
 
-        // GET: Moto/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Moto/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Moto/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Moto/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

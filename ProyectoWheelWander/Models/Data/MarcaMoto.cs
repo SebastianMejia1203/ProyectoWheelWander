@@ -7,5 +7,7 @@ public partial class MarcaMoto
 {
     public int IdmarcaMoto { get; set; }
 
-    public string NombreMarca { get; set; } = null!;
+    public string NombreMarca { get; set; }
+
+    public string ModeloMoto { get; set; }
 }

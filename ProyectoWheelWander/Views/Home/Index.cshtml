@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ProyectoWheelWander.Models.ViewModel.CatalogoViewModel
+
+@{
     ViewData["Title"] = "Inicio";
 }
 
@@ -9,47 +11,47 @@
 </div>
 
 <div class="segundoDiv">
-    @* Aqui se debe de vincular con la base de datos, en las ubicaciones *@
-    <div class="container">
-         <form class="formulario">
-             <!-- Selector de ubicaciones -->
+    <div class="">
+        <form class="formulario" method="get" asp-controller="Catalogo" asp-action="FiltrarMotosFecha">
             <div class="form-group mr-2 form-inicio input-group">
-                <select class="form-control forms form-select" id="ubicaciones" name="ubicaciones" required>
-                    <option selected>Selecciona tu ubicación</option>
-                     <option>Bogota</option>
-                     <option>Medellin</option>
-                     <option>Florencia, Caquetá</option>
-                 </select>
-                <span class="input-group-text icono" id="basic-addon1"><i class="bi bi-geo-alt-fill"></i></span>
+                <select class="form-control form-select" style="border: 0px" id="ubicacionId" name="ubicacionId">
+                    <option selected>Ubicación</option>
+                    @foreach (var ubicacion in Model.ubicaciones)
+                    {
+                        <option value="@ubicacion.Idubicacion">@ubicacion.NombreUbicacion</option>
+                    }
+                </select>
+                <span class="input-group-text icono"><i class="bi bi-geo-alt-fill"></i></span>
             </div>
 
-             <!-- Input de fecha de inicio -->
-            <div class="form-group input-group mb-2 form-inicio form-fecha">
-                <input type="text" class="datepicker_input form-control forms" placeholder="Fecha de inicio" required>
-                <span class="icono input-group-text"><i class="bi bi-calendar-date "></i></span>
+            <!-- Input de fecha de inicio -->
+            <div class="form-group mr-2 form-inicio input-group form-fecha">
+                <input type="text" class="datepicker_input form-control" name="fechaInicio" placeholder="Fecha de inicio" required>
+                <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
             </div>
 
-             <!-- Input de hora de inicio -->
-            <div class="form-group mr-2 form-inicio">
-                <input type="time" class="form-control" id="hora-inicio" name="hora-inicio" placeholder="Hora de inicio" required>
+            <!-- Input de hora de inicio -->
+            <div class="form-group mr-2 form-inicio input-group">
+                <input type="time" class="form-control" id="hora-inicio" name="horaInicio" placeholder="Hora de inicio" required>
             </div>
 
-             <!-- Input de fecha fin -->
-            <div class="form-group input-group mb-2 form-inicio form-fecha">
-                <input type="text" class="datepicker_input form-control forms" placeholder="Fecha de finalización" required>
-                <span class="icono input-group-text"><i class="bi bi-calendar-date "></i></span>
+            <!-- Input de fecha fin -->
+            <div class="form-group mr-2 form-inicio input-group form-fecha">
+                <div class="form-group input-group">
+                    <input type="text" class="datepicker_input form-control" name="fechaFin" placeholder="Fecha de finalización" required>
+                    <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                </div>
             </div>
 
-             <!-- Input de hora fin -->
-            <div class="form-group mr-2 form-inicio">
-                <input type="time" class="form-control" id="hora-fin" name="hora-fin" placeholder="Hora fin" required>
+            <!-- Input de hora fin -->
+            <div class="form-group mr-2 form-inicio input-group form-fecha">
+                <input type="time" class="form-control" id="hora-fin" name="horaFin" placeholder="Hora fin" required>
             </div>
-
-
-             <!-- Botón de buscar -->
-            <button type="submit" class="btn buttonSearch form-inicio">Buscar</button>
-         </form>
+            <div class="">
+                <!-- Botón de buscar -->
+                <button type="submit" class="btn buttonSearch">Buscar</button>
+            </div>
+        </form>
     </div>
 </div>
-
 
