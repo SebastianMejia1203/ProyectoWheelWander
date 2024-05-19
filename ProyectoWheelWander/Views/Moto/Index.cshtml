@@ -16,132 +16,22 @@
             <!-- Aquí irían los botones generados dinámicamente -->
             @foreach (var item in Model.listaMotos)
             {
-                <button class="moto-item" onclick="cargarDetallesMoto('@item.PlacaMoto')">
+                <a class="moto-item" style="color: black; text-decoration: none;" asp-action="Detalle" asp-controller="Moto" asp-route-placa="@item.PlacaMoto">
                     <div class="moto-image">
                         <img src="@item.Urlfoto" alt="Moto" />
                     </div>
                     <div class="moto-info fw-bold">
                         <span>@item.PlacaMoto</span>
                         <span>@item.NombreMarca @item.ModeloMoto</span>
-                        <span>@item.EstadoMoto</span>
+                        
                     </div>
-                </button>
+                </a>
                 <hr />
             }
         </div>
     </div>
-    <div class="contenedorDerecho">
-
-        <div class="contenedorArriba">
-            <div class="graficosEstadisticas-container">
-                <div class="graficosEstadisticas-section">
-                    <h3>Cantidad de veces que ha sido alquilada</h3>
-                    <div class="graficosEstadisticas-item">
-                        <img src="ruta_a_la_imagen_de_grafico_barras" alt="Gráfico de Barras" />
-                    </div>
-                </div>
-                <div class="graficosEstadisticas-section">
-                    <h3>Ganancias obtenidas (Mes actual)</h3>
-                    <div class="graficosEstadisticas-item">
-                        <img src="ruta_a_la_imagen_de_grafico_linea" alt="Gráfico de Líneas" />
-                    </div>
-                </div>
-                <div class="graficosEstadisticas-section">
-                    <h3>Valoración de los usuarios</h3>
-                    <div class="graficosEstadisticas-item">
-                        <img src="ruta_a_la_imagen_de_grafico_pastel" alt="Gráfico de Pastel" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="contenedorAbajo">
-            <!-- Sección 'Alquiler actual' ocupando el ancho completo -->
-            <div class="tabla-alquiler-actual">
-                <h2 class="titulo-tabla">Alquiler actual</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Usuario actual</th>
-                            <th>Fecha de inicio</th>
-                            <th>Hora de inicio</th>
-                            <th>Fecha de entrega</th>
-                            <th>Hora de entrega</th>
-                            <th>Días</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Usuario123</td>
-                            <td>2024-04-28</td>
-                            <td>10:00 AM</td>
-                            <td>2024-05-05</td>
-                            <td>12:00 PM</td>
-                            <td>7</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Contenedores para 'Historial de alquiler', 'Información de la moto' y 'Ganancias' -->
-            <div class="contenedor-inferior">
-                <div class="tabla-historial-informacion">
-                    <h2 class="titulo-tabla">Historial de alquiler</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID USUARIO</th>
-                                <th>Ganancias</th>
-                                <th>Tiempo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Usuario456</td>
-                                <td>COP 50.000</td>
-                                <td>2 días</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="tabla-historial-informacion">
-                    <h2 class="titulo-tabla">Información de la moto</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID USUARIO</th>
-                                <th>Ganancias</th>
-                                <th>Tiempo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Usuario789</td>
-                                <td>COP 30.000</td>
-                                <td>1 día</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="seccion-ganancias">
-                    <div class="ganancias-actuales">
-                        <span>Ganancias actuales</span>
-                        <h2>COP 100.000</h2>
-                    </div>
-                    <div class="ganancias-historicas">
-                        <span>Ganancias históricas</span>
-                        <h2>COP 820.000</h2>
-                    </div>
-                    <button class="btnRetirarGanancia">Retirar ganancias</button>
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="contenedorDerecho d-flex align-items-center justify-content-center">
+        <p class="fw-bold text-black" style="font-size:30px">Selecciona una moto</p>
     </div>
 
 </div>

@@ -1,0 +1,145 @@
+﻿@model ProyectoWheelWander.Models.ViewModel.AdminReservaViewModel
+@{
+    ViewData["Title"] = "Administrar Reservas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions{
+    public bool estado(int estado){
+        return estado == 1;
+    }
+}
+
+<link href="~/css/AdminMoto.css" rel="stylesheet" />
+<link href="~/css/adminReserva.css" rel="stylesheet" />
+<div class="text-center primerDiv d-flex flex-column align-items-center" style="margin-top: -10px; margin-bottom:20px">
+    <div class="mensaje">
+        <h1 class="display-6 fw-bold">Administrar reservas</h1>
+    </div>
+</div>
+
+
+<div class="contenedorPrincipal fondo text-black">
+
+    <h2 class="tituloHistorial">Historial de reservas</h2>
+
+    <div class="contenedorIzquierdo">
+        <!-- Contenido para el historial de reservas -->
+
+        <div class="contenedorIzquierdo">
+            <h2 class="tituloListado">Listado de mis motos</h2>
+            <div class="moto-list">
+                <!-- Aquí irían los botones generados dinámicamente -->
+                @foreach (var item in Model.listaReservas)
+                {
+                    <a class="moto-item" style="color: black; text-decoration: none;" asp-action="Detalle" asp-controller="Moto" asp-route-placa="@item.PlacaMoto">
+                        <div class="moto-image">
+                            <img src="@item.URLFoto" alt="Moto" />
+                        </div>
+                        <div class="moto-info fw-bold">
+                            <span>@item.PlacaMoto</span>
+                            <span>@item.NombreUbicacion</span>
+                            @if (@item.EstadoReserva==1)
+                            {
+                                <span><span class="badge text-bg-success">Activo</span></span>
+                            }else{
+                                <span><span class="badge text-bg-danger">Terminado</span></span>
+                            }
+                        </div>
+                    </a>
+                    <hr />
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="contenedorDerecho">
+
+        <div class="contenedorArriba">
+            <!-- Contenido para la parte superior completa del contenedor derecho -->
+            <h2 class="tituloReserva">Reserva <span class="tituloAmarillo">(ID reserva)</span></h2>
+            <div class="camposReserva">
+                <span class="campo">ID Propietario</span>
+                <span class="campo">Número de placa</span>
+                <span class="campo">Fecha inicio</span>
+                <span class="campo">Hora inicio</span>
+                <span class="campo">Fecha de entrega</span>
+                <span class="campo">Hora de entrega</span>
+                <span class="campo">Ubicación de recogida</span>
+            </div>
+
+        </div>
+
+        <div class="contenedorMedio">
+            <!-- Contenedores lado a lado dentro de contenedorArriba -->
+            <div class="contenedorMedioIzquierdo">
+                <!-- Tiempo de reserva y gráfico -->
+                <div class="tiempoReserva">
+                    <div class="tituloTiempo">Tiempo de reserva</div>
+                    <div class="contador">DD:MM:SS</div>
+                    <div class="tituloTiempo">Tiempo restante</div>
+                    <img src="ruta_a_la_imagen_del_grafico" alt="Tiempo Restante">
+                </div>
+            </div>
+            <div class="contenedorMedioDerecho">
+                <!-- Información de la moto -->
+                <div class="informacionMoto">
+                    <textarea placeholder="informacionMoto"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="contenedorAbajo">
+            <div class="areaComentariosValoracion">
+                <div class="comentarios">
+                    <textarea placeholder="Comentarios"></textarea>
+                </div>
+                <div class="valoracionMoto">
+                    <span>Valoración de la moto</span>
+                    <img src="ruta_a_las_estrellas.png" alt="Valoración de 5 estrellas">
+                </div>
+            </div>
+            <!-- Costos y acciones -->
+            <div class="costosAcciones">
+                <div class="costoItem">
+                    <span class="tituloCosto">Precio de reserva</span>
+                    <span class="valorCosto">COP 100.000</span>
+                </div>
+                <div class="costoItem">
+                    <span class="tituloCosto">Cobro  tiempo de uso</span>
+                    <span class="valorCosto">COP 30.000</span>
+                </div>
+                <div class="costoItem">
+                    <span class="tituloCosto">Cobro por cancelación</span>
+                    <span class="valorCosto">COP 20.000</span>
+                </div>
+                <div class="costoItem">
+                    <span class="tituloCosto">Cantidad de devolución</span>
+                    <span class="valorCosto">COP 50.000</span>
+                </div>
+
+                @if (estado(Model.estados)) {
+                    <div class="costoItem accion">
+                        <a class="btnCancelar" asp-action="cancelarReserva" asp-controller="Reserva">Cancelar reserva</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="costoItem accion">
+                        <a class="btnCancelar" style="background-color:pink" disabled>Cancelar reserva</a>
+                    </div>
+                }
+
+            </div>
+
+            <!-- Valoración de la moto -->
+
+        </div>
+
+
+    </div>
+
+</div>
+

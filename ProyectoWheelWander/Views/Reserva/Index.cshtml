@@ -1,5 +1,56 @@
-﻿@{
+﻿@model List<ProyectoWheelWander.Models.Data.AdminReservaModel>
+@{
     ViewData["Title"] = "Administrar Reservas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<link href="~/css/AdminMoto.css" rel="stylesheet" />
+<link href="~/css/adminReserva.css" rel="stylesheet" />
+<div class="text-center primerDiv d-flex flex-column align-items-center" style="margin-top: -10px; margin-bottom:20px">
+    <div class="mensaje">
+        <h1 class="display-6 fw-bold">Administrar reservas</h1>
+    </div>
+</div>
+
+
+<div class="container-main fondo text-black">
+
+    <h2 class="tituloHistorial">Historial de reservas</h2>
+
+    <div class="contenedorIzquierdo">
+        <!-- Contenido para el historial de reservas -->
+
+        <div class="contenedorIzquierdo">
+            <h2 class="tituloListado">Listado de mis motos</h2>
+            <div class="moto-list">
+                <!-- Aquí irían los botones generados dinámicamente -->
+                @foreach (var item in Model)
+                {
+                    <a class="moto-item" style="color: black; text-decoration: none;" asp-action="Detalle" asp-controller="Reserva" asp-route-placa="@item.PlacaMoto" asp-route-estado="@item.EstadoReserva">
+                        <div class="moto-image">
+                            <img src="@item.URLFoto" alt="Moto" />
+                        </div>
+                        <div class="moto-info fw-bold">
+                            <span>@item.PlacaMoto</span>
+                            <span>@item.NombreUbicacion</span>
+                            @if (@item.EstadoReserva==1)
+                            {
+                                <span><span class="badge text-bg-success">Activo</span></span>
+                            }else{
+                                <span><span class="badge text-bg-danger">Terminado</span></span>
+                            }
+                        </div>
+                    </a>
+                    <hr />
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="contenedorDerecho d-flex align-items-center justify-content-center">
+        <p class="fw-bold text-black" style="font-size:30px">Selecciona una moto</p>
+    </div>
+
+</div>
 

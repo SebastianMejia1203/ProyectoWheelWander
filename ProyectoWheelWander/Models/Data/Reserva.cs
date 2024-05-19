@@ -13,22 +13,18 @@ public partial class Reserva
 
     public string FKPlacaMoto { get; set; } = null!;
 
-    public DateTime FechaHoraInicio { get; set; }
-
-    public DateTime FechaHoraFin { get; set; }
-
+    public string CorreoPSE { get; set; } = string.Empty;
+    public int FKIDUbicacion { get; set; }
+    public double CostoReserva { get; set; }
+    public string Comentario { get; set; } = string.Empty;
     public DateTime FechaInicio { get; set; }
-
     public DateTime FechaFin { get; set; }
     public TimeSpan HoraInicio { get; set; }
-
     public TimeSpan HoraFin { get; set; }
+    public DateTime FechaHoraInicio { get; set; }
+    public DateTime FechaHoraFin { get; set; }
 
-    public string CorreoPSE { get; set; }
 
-    public int FKIDUbicacion { get; set; }
 
-    public double CostoReserva { get; set; }
 
-    public string Comentario { get; set; }
 }

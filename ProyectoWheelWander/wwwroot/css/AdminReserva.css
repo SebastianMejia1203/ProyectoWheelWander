@@ -1,0 +1,300 @@
+﻿.contenedorPrincipal {
+    display: flex; /* Usar flexbox para alinear los contenedores lado a lado *//* Altura total de la ventana */
+    flex-direction: row; /* Alinear los contenedores en fila */
+    position: relative; /* Posición relativa para base de posicionamientos absolutos internos */
+    align-items: stretch; /* Estirar los contenidos para llenar el contenedor */
+}
+
+.contenedorIzquierdo {
+    flex: 1; /* Toma 1 unidad del espacio disponible en el diseño flex. */
+    max-width: 200px; /* La anchura máxima es de 230px. */
+    overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido es más largo que la altura del contenedor. */
+    background-color: white; /* Color de fondo para el contenedor. */
+    padding: 0px; /* Espacio alrededor del contenido dentro del contenedor. */
+    box-sizing: border-box; /* Incluye el padding y el borde en la anchura y altura total del elemento. */
+    /* Borde alrededor del contenedor. */
+    margin-top: 20px;
+    height: max-content
+}
+
+
+.contenedorDerecho {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa todo el alto visible */
+}
+
+/*-----------------arriba----------------*/
+
+.contenedorArriba {
+    flex: 0 1 auto;
+    padding: 10px;
+    /* Estilo para separar visualmente */
+    height: 100px;
+}
+
+.contenedorMedio {
+    display: flex; /* Alinea horizontalmente los contenedores interiores */
+    flex-grow: 1; /* Ocupa el espacio restante */
+    height: 0vh;
+}
+
+.contenedorSuperior {
+    flex: 1; /* Ajustable para controlar el tamaño */
+    padding: 10px;
+}
+
+.camposReserva {
+    margin: 8px 0; /* Margen superior e inferior */
+}
+
+.campo {
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 8px 8px; /* Espaciado interno */
+    background-color: #f8f8f8; /* Color de fondo */
+    font-size: 14.38px;
+    margin-right: 7px;
+}
+
+.contenedorMedioDerecho {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 5px;
+    height: 100%; /* Ocupa toda la altura del contenedor padre para asegurar centrado vertical */
+}
+
+
+.contenedorMedioIzquierdo {
+    flex: 1;
+    flex-basis: 270px; /* Establece un ancho inicial de 150px */
+    flex-grow: 0; /* No permitir que el contenedor crezca */
+    flex-shrink: 1; /* Permitir que el contenedor se reduzca si es necesario */
+    padding: 10px;
+}
+
+
+.informacionMoto, .tiempoReserva {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.informacionMoto {
+    border: 1px solid #ccc;
+    width: 100%;
+    border-radius: 5px;
+    height: 245px;
+    margin-right: 10px;
+}
+
+    .informacionMoto textarea {
+        width: 100%;
+        height: 100%; /* Ajusta según necesidad */
+        border: none;
+        background-color: transparent;
+        resize: none; /* No permitir redimensionar */
+        color: #666;
+        border-radius: 5px;
+    }
+
+.tituloTiempo, .contador {
+    margin-bottom: 5px;
+}
+
+.tituloReserva {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para cambiar el color de parte del título */
+.tituloAmarillo {
+    color: #ffcc00; /* Cambia el color de texto a amarillo */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+
+/*-------------abajo------------------------*/
+.contenedorAbajo {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: stretch; /* Asegura que los contenedores hijos llenen el ancho disponible */
+}
+
+
+.areaComentariosValoracion {
+    display: flex;
+    justify-content: space-between;
+    height: 180px;
+}
+
+.comentarios {
+    flex: 2; /* Más ancho que la valoración */
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0px;
+    margin-right: 10px; /* Espacio entre comentarios y valoración */
+}
+
+    .comentarios textarea {
+        width: 100%;
+        height: 177px; /* Ajusta según necesidad */
+        border: none;
+        background-color: transparent;
+        resize: none; /* No permitir redimensionar */
+        color: #666;
+    }
+
+.costosAcciones {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Ahora se crean cinco columnas en lugar de cuatro */
+    gap: 0px; /* Espacio entre las columnas */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    padding: 0px;
+}
+
+.costoItem {
+    display: flex;
+    flex-direction: column; /* Organiza los títulos y costos en columnas */
+    align-items: center; /* Centra los elementos horizontalmente en sus contenedores */
+}
+
+.tituloCosto {
+    margin-bottom: 3px; /* Espacio entre el título y el costo */
+}
+
+.valorCosto {
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.accion {
+    grid-column: 5 / 6; /* Ocupa la quinta columna */
+}
+
+.costosAcciones div {
+    flex: 1; /* Distribuye el espacio equitativamente */
+    margin: 5px;
+    text-align: center; /* Centra el texto horizontalmente */
+}
+
+.valoracionMoto {
+    flex: 1;
+    flex-basis: 200px; /* Establece un ancho inicial de 150px */
+    flex-grow: 0; /* No permitir que el contenedor crezca */
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+    .valoracionMoto img {
+        margin-left: 10px; /* Espacio entre texto y estrellas */
+    }
+
+.btnCancelar {
+    background-color: #E71313;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    .btnCancelar:hover {
+        background-color: #CC1111; /* Color al pasar el ratón por encima */
+    }
+
+
+
+
+
+
+
+/*-----------------------------------------------*/
+
+/* Estilos adicionales para botones, enfoques y otros elementos como se especifica */
+.btn:foc us, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.tituloHistorial {
+    background-color: #ffcc00; /* Color de fondo amarillo */
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute; /* Posición absoluta */
+    top: 0; /* Alineado en la parte superior del container-main */
+    left: 0; /* Alineado a la izquierda del container-main */
+    width: 200px; /* Asegúrate de que el ancho sea suficiente para cubrir el contenedor izquierdo */
+    z-index: 10; /* Asegura que el título se muestre sobre otros elementos */
+    border-top-left-radius: 6px;
+}
+
+.listaMotos {
+    display: flex; /* Activa flexbox */
+    flex-direction: column; /* Organiza los elementos hijos en columna */
+}
+
+.moto-item {
+    display: flex; /* Activa flexbox */
+    align-items: center; /* Centra los elementos hijos verticalmente */
+    justify-content: start;
+    background-color: #ffffff; /* Color de fondo para el ítem */
+    border: none; /* Remueve cualquier borde */
+    padding: 0px; /* Espacio alrededor del contenido dentro de cada ítem */
+    text-align: left; /* Alineación del texto a la izquierda */
+    width: 100%; /* El ítem toma toda la anchura disponible */
+    cursor: pointer; /* Cambia el cursor a pointer para indicar que es clickeable */
+}
+
+    .moto-item img {
+        width: 100%; /* La imagen toma la anchura total del contenedor padre */
+        height: auto; /* La altura se ajusta automáticamente para mantener las proporciones */
+    }
+
+    .moto-item span {
+        display: block;
+    }
+
+    /* Estilos para los botones en estado hover y focus */
+    .moto-item:hover, .moto-item:focus {
+        background-color: #e6e6e6; /* Cambia el color de fondo para resaltar el ítem */
+    }
+
+.moto-image {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+.moto-info {
+    display: flex; /* Activa flexbox */
+    flex-direction: column; /* Organiza los elementos hijos en columna */
+    font-size: 14px; /* Tamaño de fuente para la información */
+}
+
+    .moto-info span {
+        display: block; /* Cada línea de información se muestra como bloque, tomando su propia línea */
+        /* Aquí irían más estilos si son necesarios */
+    }

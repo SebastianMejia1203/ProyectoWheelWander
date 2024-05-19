@@ -31,27 +31,25 @@
                 <!-- Input de fecha de inicio -->
                 <div class="col-md-2">
                     <div class="form-group input-group">
-                        <input type="text" class="datepicker_input form-control" name="fechaInicio" placeholder="Fecha de inicio" value="@Model.FechaInicio" required>
-                        <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                        <input type="date" class="form-control" name="fechaInicio" placeholder="Fecha de inicio" min="@DateTime.Now.ToString("yyyy-MM-dd")" value="@Model.FechaInicio" required>
                     </div>
                 </div>
 
                 <!-- Input de hora de inicio -->
                 <div class="col-md-2">
-                    <input type="time" class="form-control" id="hora-inicio" name="horaInicio" placeholder="Hora de inicio" value="@Model.HoraInicio" required>
+                    <input type="time" class="form-control" id="hora-inicio" name="horaInicio" placeholder="Hora de inicio" min="06:00" max="18:00" value="@Model.HoraInicio" required>
                 </div>
 
                 <!-- Input de fecha fin -->
                 <div class="col-md-2">
                     <div class="form-group input-group">
-                        <input type="text" class="datepicker_input form-control" name="fechaFin" placeholder="Fecha de finalización" value="@Model.FechaFin" required>
-                        <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                        <input type="date" class=" form-control" name="fechaFin" placeholder="Fecha de finalización" min="@DateTime.Now.ToString("yyyy-MM-dd")" value="@Model.FechaFin" required>
                     </div>
                 </div>
 
                 <!-- Input de hora fin -->
                 <div class="col-md-2">
-                    <input type="time" class="form-control" id="hora-fin" name="horaFin" placeholder="Hora fin" value="@Model.HoraFin" required>
+                    <input type="time" class="form-control" id="hora-fin" name="horaFin" placeholder="Hora fin" min="06:00" max="18:00" value="@Model.HoraFin" required>
                 </div>
             </div>
 

@@ -55,8 +55,8 @@ namespace ProyectoWheelWander.Controllers
                 motosCatalogo = catalogoService.FiltrarMotos2(ubicacionId, marcaId, claseId, fechaInicio, horaInicio, fechaFin, horaFin, ordenarPorNombre, ordenarPorPrecio),
                 ubicaciones = catalogoService.GetAllUbicaciones(),
                 marcas = catalogoService.GetAllMarcas(),
-                FechaInicio = fechaInicio.ToString("MM-dd-yyyy"),
-                FechaFin = fechaFin.ToString("MM-dd-yyyy"),
+                FechaInicio = fechaInicio,
+                FechaFin = fechaFin,
                 HoraInicio = horaInicio,
                 HoraFin = horaFin,
             };

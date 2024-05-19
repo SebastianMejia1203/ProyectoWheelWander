@@ -10,20 +10,20 @@
 
 .container-main {
     display: flex; /* Activa Flexbox para el contenedor principal, permitiendo un diseño flexible. */
-    width: 1200px
+    width: 1200px;
 }
 
 /* Estilos para el contenedor izquierdo y sus elementos. */
 .contenedorIzquierdo {
     flex: 1; /* Toma 1 unidad del espacio disponible en el diseño flex. */
     max-width: 200px; /* La anchura máxima es de 230px. */
-    height: 100vh; /* La altura se extiende al 100% de la altura de la ventana del navegador. */
     overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido es más largo que la altura del contenedor. */
     background-color: white; /* Color de fondo para el contenedor. */
     padding: 0px; /* Espacio alrededor del contenido dentro del contenedor. */
     box-sizing: border-box; /* Incluye el padding y el borde en la anchura y altura total del elemento. */
     /* Borde alrededor del contenedor. */
-    margin-top: 40px;
+    margin-top: 20px;
+    height: max-content;
 }
 
 .contenedorDerecho {
@@ -112,7 +112,7 @@ th, td {
 
 .container-main {
     display: flex;
-    height: 100vh;
+    height: 100%;
     position: relative; /* Asegúrate de que container-main sea relativo para el posicionamiento absoluto del título */
 }
 

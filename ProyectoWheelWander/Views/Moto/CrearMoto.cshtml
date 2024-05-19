@@ -1,4 +1,4 @@
-﻿@model ProyectoWheelWander.Models.Data.Moto
+﻿@model ProyectoWheelWander.Models.ViewModel.CrearMotoViewModel
 
 @{
     ViewData["Title"] = "Crear Moto";
@@ -9,105 +9,85 @@
     <h4><span class="text-black">Registro de</span> <span style="color: #ffcc00;">Moto</span></h4>
 
 
-    <form asp-action="RegistroMoto" method="post" enctype="multipart/form-data">
-
-
-        <!-- Campos de texto y Dropdown para información de la moto -->
+    <form asp-action="CrearMoto" asp-controller="Moto" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="moto.FkcedulaPropietario" type="hidden" value="@Model.">
         <div class="camposTexto">
+            <input asp-for="moto.PlacaMoto" type="text" class="form-control" placeholder="Placa de la moto" required>
+            <span asp-validation-for="moto.PlacaMoto" class="text-danger"></span>
 
-            <input type="text" id="consumo" name="consumo" placeholder="Consumo combustible(km/L)">
-            <input type="text" id="combustible" name="combustible" placeholder="Capacidad combustible(l)">
-            <input type="text" id="cilindraje" name="cilindraje" placeholder="Cilindraje del motor">
+            <input asp-for="moto.CilindrajeMoto" type="text" value="" class="form-control" placeholder="Cilindraje" required>
+            <span asp-validation-for="moto.CilindrajeMoto" class="text-danger"></span>
 
-            <select id="tipoMotor" name="tipoMotor">
-                <option value="">Selecciona el tipo de motor</option>
-                <option value="mono">Monocilíndrico</option>
-                <option value="bici">Bicilíndrico</option>
+            <input asp-for="moto.Potencia" type="text" value="" class="form-control" placeholder="Caballos de fuerza" required>
+            <span asp-validation-for="moto.Potencia" class="text-danger"></span>
 
-            </select>
-
-            <select id="marca" name="marca">
-                <option value="">Marca</option>
-                <option value="honda">Honda</option>
-                <option value="yamaha">Yamaha</option>
-                <option value="suzuki">Suzuki</option>
-                <option value="akt">AKT</option>
-                <option value="bajaj">Bajaj</option>
-                <option value="hero">Hero</option>
-                <option value="tvs">TVS</option>
-                <option value="victory">Victory</option>
-                <option value="kawasaki">Kawasaki</option>
-                <option value="ktm">KTM</option>
-                <option value="ducati">Ducati</option>
-            </select>
-
+            <input asp-for="moto.Peso" type="text" value="" class="form-control" placeholder="Peso (Kg)" required>
+            <span asp-validation-for="moto.Peso" class="text-danger"></span>
         </div>
 
         <div class="camposTexto">
+            <input asp-for="moto.CapacidadCombustible" type="text" value="" class="form-control" placeholder="Capacidad combustible (L)" required>
+            <span asp-validation-for="moto.CapacidadCombustible" class="text-danger"></span>
 
-            <input type="text" id="altura" name="altura" placeholder="Altura del asiento">
-            <input type="text" id="neumaticos" name="neumaticos" placeholder="Tipo de neumáticos">
-            <input type="text" id="placa" name="placa" placeholder="Numero de placa">
-
-            <select id="tipoCombustible" name="tipoCombustible">
-                <option value="">Tipo de combustible</option>
-                <option value="extra">Extra</option>
-                <option value="corriente">Corriente</option>
-                <option value="electrico">Eléctrico</option>
-            </select>
-
-            <select id="transmision" name="transmision">
-                <option value="">Tipo de transmisión</option>
-                <option value="manual">Manual</option>
-                <option value="automatica">Automática</option>
-            </select>
-
-            <select id="suspension" name="suspension">
-                <option value="">Tipo de suspensión</option>
-                <option value="mono">Monoamortiguador</option>
-                <option value="invertida">Horquilla invertida (USD)</option>
-                <option value="convencional">Horquilla convencional</option>
-            </select>
-
+            <input asp-for="moto.ConsumoCombustible" type="text" value="" class="form-control" placeholder="Consumo combustible (Km/L)" required>
+            <span asp-validation-for="moto.ConsumoCombustible" class="text-danger"></span>
+            
+            <input asp-for="moto.PrecioReserva" type="text" value="" class="form-control" placeholder="Precio por dia" required>
+            <span asp-validation-for="moto.PrecioReserva" class="text-danger"></span>
         </div>
 
-        <div class="camposTexto terceraFila">
-
-            <input type="text" id="tiempoUso" name="tiempoUso" placeholder="Tiempo de uso">
-            <input type="text" id="potencia" name="potencia" placeholder="Potencia">
-            <input type="text" id="torque" name="torque" placeholder="Torque máximo">
-            <input type="text" id="peso" name="peso" placeholder="Peso">
-
-            <select id="modelo" name="modelo">
-                <option value="">Selecciona un modelo</option>
-                <option value="fz25">FZ25 </option>
-                <option value="r15">R15</option>
-                <option value="mt03">MT-03</option>
-                <option value="xtz">XTZ 125</option>
-                <option value="tenere">Ténéré 700</option>
+        <div class="camposTexto ">
+            <select asp-for="moto.FkidmarcaMoto">
+                <option selected>Marcas</option>
+                @foreach (var marcas in Model.marcas)
+                {
+                    <option value="@marcas.IdmarcaMoto">@marcas.NombreMarca @marcas.ModeloMoto</option>
+                }
             </select>
 
-            <select id="frenos" name="frenos">
-                <option value="">Selecciona el tipo de frenos</option>
-                <option value="disco">Disco</option>
-                <option value="tambor">Tambor</option>
-                <option value="combinados">Combinados (CBS)</option>
-                <option value="abs">ABS</option>
+            <select asp-for="moto.FkidtransmicionMoto">
+                <option selected>Tipo de transmición</option>
+                @foreach (var transmiciones in Model.transmiciones)
+                {
+                    <option value="@transmiciones.IdtransmicionMoto">@transmiciones.TipoTransmicion</option>
+                }
             </select>
 
+            <select asp-for="moto.ClaseMoto">
+                <option selected>Clase</option>
+                <option value="1">Primera clase</option>
+                <option value="2">Segunda clase</option>
+                <option value="3">Tercera clase</option>
+            </select>
+
+            <select asp-for="moto.Fkidubicacion">
+                <option selected>Ubicación</option>
+                @foreach (var ubicacion in Model.ubicaciones)
+                {
+                    <option value="@ubicacion.Idubicacion">@ubicacion.NombreUbicacion</option>
+                }
+            </select>
+
+            
         </div>
-
         <!-- Áreas para subir imágenes y documentos -->
-        <div class="file-upload-container">
+        <div class="file-upload-container text-black">
+            <div style="margin-top: 50px; margin-right: 20px;">
+                <div class="form-floating text-black">
+                    <textarea class="form-control" style="width: 250px; height: 190px" placeholder="Información adicional" asp-for="moto.InformacionAdicional"></textarea>
+                    <label for="floatingTextarea">Información adicional</label>
+                </div>
+            </div>
 
-            <div class="cargarArchivos">
+            @* <div class="cargarArchivos">
                 <span class="titulosCargar">Subir foto de la moto</span>
                 <div class="contenedor" id="previewFotoMotoContainer">
                     <!-- Contenedor de previsualización -->
                     <img id="previewFotoMoto" alt="Previsualización de la foto de la moto" style="display:none;" />
                 </div>
                 <label for="fotoMoto" class="btnMoto">Seleccionar la foto</label> <!-- Botón -->
-                <input type="file" id="fotoMoto" name="fotoMoto" class="file-upload-input" onchange="mostrarImagen(event, 'previewFotoMoto')">
+                <input type="file" id="fotoMoto" name="fotoMoto" asp-for="moto.Urlfoto" class="file-upload-input" onchange="mostrarImagen(event, 'previewFotoMoto')">
             </div>
 
             <div class="cargarArchivos">
@@ -117,34 +97,13 @@
                     <img id="previewFotoPlaca" alt="Previsualización de la foto de la placa" style="display:none;" />
                 </div>
                 <label for="fotoPlaca" class="btnPlaca">Seleccionar la foto</label> <!-- Botón -->
-                <input type="file" id="fotoPlaca" name="fotoPlaca" class="file-upload-input" onchange="mostrarImagen(event, 'previewFotoPlaca')">
-            </div>
+                <input type="file" id="fotoPlaca" name="fotoPlaca" asp-for="moto.UrlfotoPlaca" class="file-upload-input" onchange="mostrarImagen(event, 'previewFotoPlaca')">
+            </div> *@
 
-            <div class="cargarArchivos">
-                <span class="titulosCargar">Subir los papeles de propiedad</span>
-                <div class="contenedor" id="previewDocPropiedadContainer">
-                    <!-- Contenedor de previsualización -->
-                    <!-- El contenido aquí dependerá de cómo manejes la previsualización de documentos -->
-                </div>
-                <label for="docPropiedad" class="btnDocumento">Seleccionar documento</label> <!-- Botón -->
-                <input type="file" id="docPropiedad" name="docPropiedad" class="file-upload-input">
-            </div>
-
-        </div>
-
-        <div class="checkbox-container">
-            <div class="checkbox">
-                <input type="checkbox" id="terminos" name="terminos">
-                <label for="terminos">Acepto los términos y condiciones de uso</label>
-            </div>
-            <div class="checkbox">
-                <input type="checkbox" id="veracidad" name="veracidad">
-                <label for="veracidad">Acepto que la información proporcionada es verídica</label>
-            </div>
         </div>
 
         <!-- Botón para avanzar al siguiente paso -->
-        <button type="submit" class="botonSiguiente">Siguiente</button>
+        <button type="submit" class="botonSiguiente">Guardar moto</button>
 
     </form>
 </div>

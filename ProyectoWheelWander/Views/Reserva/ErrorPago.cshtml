@@ -13,15 +13,11 @@
     <div class="resumen-contenedor text-black d-flex align-items-center justify-content-center">
         <div class="" style="margin-top:-20px">
             <div class="d-flex align-items-center justify-content-center">
-                <p <i class="bi bi-check-circle" style="color: green; font-size:45px"></i></p>
+                <p <i class="bi-x-circle iconError"" style="font-size:45px"></i></p>
                 <div>
-                    <p class="fw-bold text-black" style="font-size: 20px">Pago realizado con exito</p>
+                    <p class="fw-bold text-black" style="font-size: 20px">Hubo un error en el proceso de pago</p>
+                    <p class="fw-bold text-black" style="font-size: 20px">La reserva ha sido cancelada</p>
                 </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-center">
-                <form asp-action="DescargarPDF" asp-controller="Reserva">
-                    <button type="submit" class="btn btn-primary">Descargar PDF</button>
-                </form>
             </div>
         </div>
 

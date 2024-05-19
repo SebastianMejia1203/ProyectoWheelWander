@@ -238,9 +238,9 @@ namespace ProyectoWheelWander.Datos
                     cmd.Parameters.AddWithValue("@UbicacionId", ubicacionId ?? Convert.DBNull);
                     cmd.Parameters.AddWithValue("@MarcaId", marcaId ?? Convert.DBNull);
                     cmd.Parameters.AddWithValue("@ClaseMoto", claseId ?? Convert.DBNull);
-                    cmd.Parameters.Add("@FechaInicio", SqlDbType.Date).Value = fechaInicio.HasValue ? fechaInicio.Value.ToString("yyyy-dd-MM") : (object)DBNull.Value;
+                    cmd.Parameters.Add("@FechaInicio", SqlDbType.Date).Value = fechaInicio.HasValue ? fechaInicio.Value.ToString("yyyy-MM-dd") : (object)DBNull.Value;
                     cmd.Parameters.Add("@HoraInicio", SqlDbType.Time).Value = horaInicio.HasValue ? horaInicio.Value : (object)DBNull.Value;
-                    cmd.Parameters.Add("@FechaFin", SqlDbType.Date).Value = fechaFin.HasValue ? fechaFin.Value.ToString("yyyy-dd-MM") : (object)DBNull.Value;
+                    cmd.Parameters.Add("@FechaFin", SqlDbType.Date).Value = fechaFin.HasValue ? fechaFin.Value.ToString("yyyy-MM-dd") : (object)DBNull.Value;
                     cmd.Parameters.Add("@HoraFin", SqlDbType.Time).Value = horaFin.HasValue ? horaFin.Value : (object)DBNull.Value;
                     cmd.Parameters.AddWithValue("@OrdenarPorNombre", ordenarPorNombre ?? Convert.DBNull);
                     cmd.Parameters.AddWithValue("@OrdenarPorPrecio", ordenarPorPrecio ?? Convert.DBNull);
