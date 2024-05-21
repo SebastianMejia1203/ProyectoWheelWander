@@ -15,6 +15,8 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
+using ProyectoWheelWander.Services;
+using ProyectoWheelWander.Models;
 
 
 namespace ProyectoWheelWander.Controllers
@@ -24,10 +26,12 @@ namespace ProyectoWheelWander.Controllers
 
         private readonly IWebHostEnvironment _host;
 
+
         MotoDatos motoService = new MotoDatos();
         ReservaDatos reservaService = new ReservaDatos();
 
-        public ReservaController(IWebHostEnvironment host) {
+        public ReservaController(IWebHostEnvironment host)
+        {
             _host = host;
         }
 
