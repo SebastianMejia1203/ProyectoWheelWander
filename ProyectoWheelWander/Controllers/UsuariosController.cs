@@ -82,6 +82,17 @@ namespace ProyectoWheelWander.Controllers
         }
 
         [Authorize]
+        [HttpGet("/Usuarios/UpdateUsuario")]
+        public IActionResult UpdateUsuario()
+        {
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            return View(oUsuario); // Envía este modelo integral a la vista
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpGet("/Usuarios/UpdateUsuario/{cedula}")]
         public IActionResult UpdateUsuario(int cedula)
         {
             var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
@@ -95,20 +106,30 @@ namespace ProyectoWheelWander.Controllers
             {
                 return View();
             }
-
             var respuesta = _UsuarioDatos.UpdateUsuario(model);
 
             if (respuesta)
             {
-                return RedirectToAction("listaUsuarios");
+                return RedirectToAction("MiPerfil", "Usuarios");
             }
             return View();
         }
 
         [Authorize]
-        public IActionResult DeleteUsuario(int cedulas)
+        [HttpGet("/Usuarios/DeleteUsuario")]
+        public IActionResult DeleteUsuario()
         {
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedulas); //busca un usuario especifico
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            return View(oUsuario); // Envía este modelo integral a la vista
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpGet("/Usuarios/DeleteUsuario/{cedula}")]
+        public IActionResult DeleteUsuario(int cedula)
+        {
+            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
             return View(oUsuario); // Envía este modelo integral a la vista
         }
 
@@ -119,7 +140,13 @@ namespace ProyectoWheelWander.Controllers
 
             if (respuesta)
             {
-                return RedirectToAction("listaUsuarios");
+                if (User.IsInRole("1")){
+                    return RedirectToAction("listaUsuarios");
+                }
+                else if (User.IsInRole("2")){
+                    return RedirectToAction("Salir", "Login");
+                }
+
             }
             return View();
         }

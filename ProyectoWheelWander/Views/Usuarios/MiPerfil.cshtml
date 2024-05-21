@@ -1,10 +1,175 @@
-﻿@model ProyectoWheelWander.Models.Data.Usuario
+﻿@functions {
+    public string GetTipoDocumento(string? tipoDocumento)
+    {
+        return tipoDocumento switch
+        {
+            "1" => "Cédula",
+            "2" => "Pasaporte",
+            "3" => "Cédula de Ciudadania",
+            _ => "No especificado",
+        };
+    }
+
+    public string GetEstadoUsuario(byte? EstadoUsuario)
+    {
+        return EstadoUsuario switch
+        {
+            1 => "Inactivo",
+            2 => "Activo",
+            _ => "No especificado",
+        };
+    }
+}
+
+@model ProyectoWheelWander.Models.Data.Usuario
 
 @{
     ViewData["Title"] = "Mi Perfil";
 }
 
-<h1>Details</h1>
+<nav class="navbar navbar-expand-lg" style="font-size: 12px">
+    <div class="navbar-collapse justify-content-end">
+        <div class="navbar-nav">
+            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "MiPerfil" && ViewContext.RouteData.Values["controller"].ToString() == "Usuarios" ? "active-tab" : "")"
+               asp-area="" asp-controller="Usuarios" asp-action="MiPerfil">Mi Información</a>
+            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "MetodoPago" && ViewContext.RouteData.Values["controller"].ToString() == "Usuarios" ? "active-tab" : "")"
+               asp-area="" asp-controller="Usuarios" asp-action="MetodoPago">Métodos de Pago</a>
+            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Ajustes" && ViewContext.RouteData.Values["controller"].ToString() == "Usuarios" ? "active-tab" : "")"
+               asp-area="" asp-controller="Usuarios" asp-action="Ajustes">Ajustes</a>
+        </div>
+    </div>
+</nav>
+
+@* style="; border-start-start-radius: 10px; border-start-end-radius: 10px;" *@
+<div class="container fondo text-black">
+    <!-- Contenedor principal para la información del perfil -->
+    <div class="perfil-container">
+        <!-- Área de la foto de perfil -->
+
+        <div class="perfil-foto-container">
+            <div id="preview" style="margin-bottom: 10px;">
+                <!-- Área de previsualización de la imagen -->
+                <img src="https://i.ibb.co/Y8vmLCz/hombre.png" alt="Foto de perfil" class="perfil-foto rounded-circle" />
+            </div>
+
+            @* <!-- Usar un label que funcione como botón para el input file -->
+            <label for="fotoPerfil" class="btn btn-primary foto-upload-btn" style="background-color: #ffcc00; border-color: #ffcc00;">Subir Foto</label>
+            <input type="file" id="fotoPerfil" name="fotoPerfil" class="form-control" style="display: none;" onchange="previewFile()" />
+ *@
+        </div>
+
+
+        <!-- Información del perfil en filas y columnas -->
+        <div class="row">
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Primer nombre</label>
+                    <input value="@Html.DisplayFor(model => model.PrimerNombre)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Segundo nombre</label>
+                    <input value="@Html.DisplayFor(model => model.SegundoNombre)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Primer apellido</label>
+                    <input value="@Html.DisplayFor(model => model.PrimerApellido)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Segundo apellido</label>
+                    <input value="@Html.DisplayFor(model => model.SegundoApellido)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Tipo documento</label>
+                    <select class="form-control" disabled>
+                        <option value="">@Html.DisplayFor(model => model.FKIDTipoDocumento)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Número documento</label>
+                    <input value="@Html.DisplayFor(model => model.Cedula)" type="text" class="form-control" pattern="\d*" title="Solo números." disabled>
+
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label asp-for="FechaNacimiento" style="margin-bottom: -3px;">Fecha Nacimiento</label>
+                    <input asp-for="FechaNacimiento" type="date" class="form-control" disabled>
+                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label asp-for="FechaRegistro" style="margin-bottom: -3px;">Fecha Registro</label>
+                    <input asp-for="FechaRegistro" type="date" class="form-control" disabled>
+                    <span asp-validation-for="FechaRegistro" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label style="margin-bottom: -3px;">Número celular</label>
+                    <input type="tel" value="@Html.DisplayFor(model => model.Celular)" class="form-control" pattern="\d{10}" title="Debe tener 10 dígitos." disabled>
+                </div>
+            </div>
+
+            <div class="perfilInfor">
+                <div class="form-group">
+                    <label asp-for="Email" style="margin-bottom: -3px;">Correo Electrónico</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="you@example.com" disabled>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <!-- Botones de acción del perfil -->
+    <div class="perfil-acciones">
+        <a class="btn btn-secondary" asp-action="UpdateUsuario" asp-controller="Usuarios">Editar perfil</a>
+        <a class="btn btn-danger" asp-action="DeleteUsuario" asp-controller="Usuarios">Darse de baja</a>
+
+    </div>
+</div>
+
+
+<script>
+    // Función para previsualizar la imagen seleccionada
+    function previewFile() {
+        var preview = document.querySelector('#preview img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); // Leer el archivo seleccionado y generar una URL de datos.
+        } else {
+            preview.src = ""; // Si no hay archivo, limpiar la previsualización.
+        }
+    }
+</script>
+
+
+@* <h1>Details</h1>
 
 <div>
     <h4>Usuario</h4>
@@ -26,10 +191,6 @@
             <p class="card-text"><strong>Fecha de Nacimiento:</strong> @Html.DisplayFor(model => model.FechaNacimiento)</p>
             <p class="card-text"><strong>ID Tipo Documento:</strong> @Html.DisplayFor(model => model.FKIDTipoDocumento)</p>
             <p class="card-text"><strong>ID Rol Usuario:</strong> @Html.DisplayFor(model => model.IDRol)</p>
-            <p class="card-text"><strong>foto C Frontal:</strong> @Html.DisplayFor(model => model.URLFotoFCedula)</p>
-            <p class="card-text"><strong>foto C Posterior:</strong> @Html.DisplayFor(model => model.URLFotoPCedula)</p>
-            <p class="card-text"><strong>foto L Frontal:</strong> @Html.DisplayFor(model => model.URLFotoFLicencia)</p>
-            <p class="card-text"><strong>foto L Posterior:</strong> @Html.DisplayFor(model => model.URLFotoPLicencia)</p>
         </div>
     </div>
 </div>
@@ -37,3 +198,4 @@
     <a asp-action="Edit" asp-route-id="@Model?.Cedula" class="btn btn-secondary">Edit</a> |
     <a asp-action="Index" class="btn btn-info">Back to List</a>
 </div>
+ *@

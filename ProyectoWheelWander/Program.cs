@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ProyectoWheelWander.Models;
 using System.Configuration;
+using QuestPDF.Infrastructure;
+using ProyectoWheelWander.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +27,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+// Configurar la licencia
+QuestPDF.Settings.License = LicenseType.Community;
 
+builder.Services.AddScoped<IEmailServices, EmailServices>();
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

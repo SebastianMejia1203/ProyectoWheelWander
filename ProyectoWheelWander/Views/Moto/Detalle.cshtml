@@ -1,0 +1,204 @@
+﻿@model ProyectoWheelWander.Models.ViewModel.AdminMotoViewModel
+
+@{
+    ViewData["Title"] = "Administrar Moto";
+}
+
+@functions {
+    public string duracion(DateTime fechaInicio, TimeSpan horaInicio, DateTime fechaFin, TimeSpan horaFin)
+    {
+        DateTime f1 = fechaInicio + horaInicio;
+        DateTime f2 = fechaFin + horaFin;
+
+        TimeSpan duracion = f2 - f1;
+
+        double horas = duracion.TotalHours;
+        string text = "";
+        if (duracion.Hours > 0 && duracion.Days > 0)
+        {
+            text = duracion.Days + " Dia(s), " + duracion.Hours + " Hora(s)";
+        }
+        else if(duracion.Days == 0)
+        {
+            text = duracion.Hours + " Hora(s)";
+        }
+        else
+        {
+            text = duracion.Days + " Dia(s)";
+        }
+
+        return text;
+    }
+}
+
+<link href="~/css/AdminMoto.css" rel="stylesheet" />
+
+<div class="container-main fondo text-black">
+
+    <h2 class="tituloListado">Listado de mis motos</h2>
+
+    <div class="contenedorIzquierdo">
+        <h2 class="tituloListado">Listado de mis motos</h2>
+        <div class="moto-list">
+            <!-- Aquí irían los botones generados dinámicamente -->
+            @foreach (var item in Model.listaMotos)
+            {
+                <a class="moto-item" style="color: black; text-decoration: none;" asp-action="Detalle" asp-controller="Moto" asp-route-placa="@item.PlacaMoto">
+                    <div class="moto-image">
+                        <img src="@item.Urlfoto" alt="Moto" />
+                    </div>
+                    <div class="moto-info fw-bold">
+                        <span>@item.PlacaMoto</span>
+                        <span>@item.NombreMarca @item.ModeloMoto</span>
+                    </div>
+                </a>
+                <hr />
+            }
+        </div>
+    </div>
+    <div class="contenedorDerecho">
+
+        <div class="contenedorArriba">
+            <div class="graficosEstadisticas-container">
+                <div class="graficosEstadisticas-section">
+                    <h3>Cantidad de veces que ha sido alquilada</h3>
+                    <div class="graficosEstadisticas-item">
+                        <img src="ruta_a_la_imagen_de_grafico_barras" alt="Gráfico de Barras" />
+                    </div>
+                </div>
+                <div class="graficosEstadisticas-section">
+                    <h3>Ganancias obtenidas (Mes actual)</h3>
+                    <div class="graficosEstadisticas-item">
+                        <img src="ruta_a_la_imagen_de_grafico_linea" alt="Gráfico de Líneas" />
+                    </div>
+                </div>
+                <div class="graficosEstadisticas-section">
+                    <h3>Valoración de los usuarios</h3>
+                    <div class="graficosEstadisticas-item">
+                        <img src="ruta_a_la_imagen_de_grafico_pastel" alt="Gráfico de Pastel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="contenedorAbajo">
+            <!-- Sección 'Alquiler actual' ocupando el ancho completo -->
+            <div class="tabla-alquiler-actual">
+                <h2 class="titulo-tabla">Alquiler actual</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario actual</th>
+                            <th>Fecha de inicio</th>
+                            <th>Hora de inicio</th>
+                            <th>Fecha de entrega</th>
+                            <th>Hora de entrega</th>
+                            <th>Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.reserva.FKCedulaUsuario</td>
+                            <td>@Model.reserva.FechaInicio.ToString("dd/MM/yyyy")</td>
+                            <td>@Model.reserva.HoraInicio</td>
+                            <td>@Model.reserva.FechaFin.ToString("dd/MM/yyyy")</td>
+                            <td>@Model.reserva.HoraFin</td>
+                            <td>@duracion(@Model.reserva.FechaInicio, @Model.reserva.HoraInicio, @Model.reserva.FechaFin, @Model.reserva.HoraFin)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Contenedores para 'Historial de alquiler', 'Información de la moto' y 'Ganancias' -->
+            <div class="contenedor-inferior">
+                <div class="tabla-historial-informacion">
+                    <h2 class="titulo-tabla">Historial de alquiler</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Cliente</th>
+                                <th>Ganancias</th>
+                                <th>Tiempo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in Model.historial){
+                                <tr>
+                                    <td>@item.cedulaUsuario</td>
+                                    <td>COP @item.ganancia</td>
+                                    <td>@duracion(@item.FechaInicio, @item.HoraInicio, @item.FechaFin, @item.HoraFin)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <a class="btn btn-danger" asp-action="inhabilitar" asp-controller="Moto">Inhabilitar moto</a>
+                </div>
+
+
+                <div class="seccion-ganancias">
+                    <div class="ganancias-actuales">
+                        <span>Ganancias actuales</span>
+                        <h2>COP @Model.gananciaActual</h2>
+                    </div>
+                    <div class="ganancias-historicas">
+                        <span>Ganancias históricas</span>
+                        <h2>COP @Model.gananciaHistorica</h2>
+                    </div>
+                    <button class="btnRetirarGanancia">Retirar ganancias</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+@* @{
+    ViewData["Title"] = "Administrar Motos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            Placa: @Html.DisplayFor(modelItem => item.PlacaMoto)
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Detalles de moto</h5>
+            <p class="card-text"><strong>Propietario:</strong> @Html.DisplayFor(modelItem => item.FkcedulaPropietario)</p>
+            <p class="card-text"><strong>Marca:</strong> @Html.DisplayFor(modelItem => item.FkidmarcaMoto)</p>
+            <p class="card-text"><strong>Cilindraje:</strong> @Html.DisplayFor(modelItem => item.CilindrajeMoto)</p>
+            <p class="card-text"><strong>Potencia:</strong> @Html.DisplayFor(modelItem => item.Potencia)</p>
+            <p class="card-text"><strong>Peso:</strong> @Html.DisplayFor(modelItem => item.Peso)</p>
+            <p class="card-text"><strong>Tipo de transmicion:</strong> @Html.DisplayFor(modelItem => item.FkidtransmicionMoto)</p>
+            <p class="card-text"><strong>Capacidad de combustible:</strong> @Html.DisplayFor(modelItem => item.CapacidadCombustible)</p>
+            <p class="card-text"><strong>Consumo de combustible:</strong> @Html.DisplayFor(modelItem => item.ConsumoCombustible)</p>
+            <p class="card-text"><strong>Informacion Adicional:</strong> @Html.DisplayFor(modelItem => item.InformacionAdicional)</p>
+            <p class="card-text"><strong>PrecioReserva:</strong> @Html.DisplayFor(modelItem => item.PrecioReserva)</p>
+            <p class="card-text"><strong>EstadoReserva:</strong> @Html.DisplayFor(modelItem => item.EstadoReserva)</p>
+            <p class="card-text"><strong>EstadoMoto:</strong> @Html.DisplayFor(modelItem => item.EstadoMoto)</p>
+            <p class="card-text"><strong>Fkidubicacion:</strong> @Html.DisplayFor(modelItem => item.Fkidubicacion)</p>
+            <p class="card-text"><strong>Clase:</strong> @Html.DisplayFor(modelItem => item.ClaseMoto)</p>
+            <p class="card-text"><strong>UrlfotoPlaca:</strong> @Html.DisplayFor(modelItem => item.UrlfotoPlaca)</p>
+
+
+            <div class="mb-2">
+                <a href="@Url.Action("Edit", "Moto", new { id = item.PlacaMoto })" class="btn btn-secondary">Editar</a>
+                <a href="@Url.Action("Details", "Moto", new { id = item.PlacaMoto })" class="btn btn-info">Detalles</a>
+                <a href="@Url.Action("Delete", "Moto", new { id = item.PlacaMoto })" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+}
+
+ *@

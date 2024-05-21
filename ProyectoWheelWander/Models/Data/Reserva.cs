@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoWheelWander.Models.Data;
 
 public partial class Reserva
 {
-    public int Idreserva { get; set; }
+    [Key]
+    public int IDReserva { get; set; }
 
-    public int FkcedulaUsuario { get; set; }
+    public int FKCedulaUsuario { get; set; }
 
-    public string FkplacaMoto { get; set; } = null!;
+    public string FKPlacaMoto { get; set; } = null!;
 
+    public string CorreoPSE { get; set; } = string.Empty;
+    public int FKIDUbicacion { get; set; }
+    public double CostoReserva { get; set; }
+    public string Comentario { get; set; } = string.Empty;
+    public DateTime FechaInicio { get; set; }
+    public DateTime FechaFin { get; set; }
+    public TimeSpan HoraInicio { get; set; }
+    public TimeSpan HoraFin { get; set; }
     public DateTime FechaHoraInicio { get; set; }
-
     public DateTime FechaHoraFin { get; set; }
 
-    public int FkidmetodoPago { get; set; }
 
-    public int Fkidubicacion { get; set; }
 
-    public int FkidclaseMoto { get; set; }
 
-    public double CostoReserva { get; set; }
-
-    public int Fkidcomentario { get; set; }
 }

@@ -1,91 +1,108 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoWheelWander.Datos;
+using ProyectoWheelWander.Models;
+using ProyectoWheelWander.Models.Data;
+using ProyectoWheelWander.Models.ViewModel;
+using System.Numerics;
+using System.Security.Claims;
 
 namespace ProyectoWheelWander.Controllers
 {
-    [Authorize]
+
     public class MotoController : Controller
     {
         // GET: Obtener Pagina de Administrar mis motos
-        public ActionResult Index ()
+        MotoDatos _MotoDatos = new MotoDatos();
+        CatalogoDatos catalogoService = new CatalogoDatos();
+
+        public IActionResult Index()
         {
-            return View();
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            var view = new AdminMotoViewModel
+            {
+                listaMotos = _MotoDatos.motosPorUsuario(cedula)
+            };
+
+            return View(view);
         }
 
-        // GET: Obtener Pagina de crear moto
-        public ActionResult CrearMoto()
+        public IActionResult buscarMoto(String placa)
         {
-            return View();
+            //la vista mostrara una lista de usuarios
+            var listaMotos = _MotoDatos.buscarMoto(placa);
+
+            return View(listaMotos);
         }
 
-        // GET: Moto/Details/5
-        public ActionResult Details(int id)
+        public IActionResult CrearMoto()
         {
-            return View();
+            var viewModel = new CrearMotoViewModel {
+                moto = new Moto(),
+                ubicaciones = _MotoDatos.GetAllUbicaciones(),
+                marcas = catalogoService.GetAllMarcas(),
+                transmiciones = _MotoDatos.GetTransmicion()
+            };
+            return View(viewModel);
         }
 
-        // GET: Moto/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Moto/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult crearMoto(CrearMotoViewModel model)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedulsa = Convert.ToInt32(cedulaAutenticada);
+            model.moto.FkcedulaPropietario = cedulsa;
+            var respuesta = _MotoDatos.InsertarMoto(model.moto);
+
+           
+                return RedirectToAction("Index", "Home");
+            
         }
 
-        // GET: Moto/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public IActionResult Detalle(string placa)
         {
-            return View();
+            var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            var ganancias = _MotoDatos.FindUsuarioByCedula(cedula);
+            var viewModel = new AdminMotoViewModel
+            {
+                listaMotos = _MotoDatos.motosPorUsuario(cedula),
+                reserva = _MotoDatos.ObtenerUltimaReservaValidaPorPlaca(placa),
+                historial = _MotoDatos.ObtenerHistorial(placa),
+                gananciaActual = ganancias.gananciaA,
+                gananciaHistorica = ganancias.gananciaH
+            };
+            viewModel.reserva.FechaHoraInicio = viewModel.reserva.FechaInicio + viewModel.reserva.HoraInicio;
+            viewModel.reserva.FechaHoraFin = viewModel.reserva.FechaFin + viewModel.reserva.HoraFin;
+            viewModel.tiempo = (viewModel.reserva.FechaHoraFin) - (viewModel.reserva.FechaHoraInicio);
+            double horas = viewModel.tiempo.TotalHours;
+            viewModel.duracion = viewModel.tiempo.Days + " Dia(s), " + viewModel.tiempo.Hours + "Hora(s)";
+
+            return View(viewModel);
         }
 
-        // POST: Moto/Edit/5
+        public IActionResult inhabilitar(string placa) {
+            var placs = new inhabilitarViewModel
+            {
+                placa = placa
+            };
+            return View(placs);
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult inhabilitar(inhabilitarViewModel model)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            var respuesta = _MotoDatos.inhabilitarMoto(model.placa);
 
-        // GET: Moto/Delete/5
-        public ActionResult Delete(int id)
-        {
+            if (respuesta)
+            {
+                return RedirectToAction("Index");
+
+            }
             return View();
-        }
-
-        // POST: Moto/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

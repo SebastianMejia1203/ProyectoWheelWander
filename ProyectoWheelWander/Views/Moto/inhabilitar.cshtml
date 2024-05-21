@@ -1,0 +1,36 @@
+﻿@model ProyectoWheelWander.Models.ViewModel.inhabilitarViewModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-action="DeleteUsuario" asp-controller="Usuarios" method="post">
+    <input asp-for="placa" class="form-control" type="hidden">
+    <div class="card" style="width: 25rem">
+        <div class="card-header" style="background-color: red;">
+            Confirmar inhabilitación: @Html.DisplayFor(model => model.placa)
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center align-content-center">
+                <i class="bi bi-exclamation-triangle iconWarning ms-3 me-3"></i>
+                <p>
+                    ¿Estás seguro de que deseas inhabilitar esta moto?.
+                </p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" asp-controller="Moto" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-success">Inhabilitar moto</button>
+        </div>
+    </div>
+
+</form>
+
+    
+<script>
+    window.onload = function () {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        myModal.show();
+    };
+</script>
+
+

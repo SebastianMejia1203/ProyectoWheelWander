@@ -39,10 +39,6 @@ namespace ProyectoWheelWander.Datos
                                 IDRol = Convert.ToInt32(dr["IDRol"]),
                                 FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]),
                                 FKIDTipoDocumento = Convert.ToInt32(dr["FKIDTipoDocumento"]),
-                                URLFotoFCedula = dr["URLFotoFCedula"].ToString(),
-                                URLFotoPCedula = dr["URLFotoPCedula"].ToString(),
-                                URLFotoFLicencia = dr["URLFotoFLicencia"].ToString(),
-                                URLFotoPLicencia = dr["URLFotoPLicencia"].ToString(),
                                 FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"])
                             });
                         }
@@ -85,15 +81,11 @@ namespace ProyectoWheelWander.Datos
                             usuario.SegundoApellido = dr["SegundoApellido"]?.ToString();
                             usuario.Email = dr["Email"].ToString();
                             usuario.Contrasena = dr["Contrasena"].ToString();
-                            usuario.Celular = dr["Celular"] != DBNull.Value ? Convert.ToInt64(dr["Celular"]) : 0;
+                            usuario.Celular = Convert.ToInt64(dr["Celular"]);
                             usuario.EstadoUsuario = Convert.ToByte(dr["EstadoUsuario"]);
                             usuario.IDRol = Convert.ToInt32(dr["IDRol"]);
                             usuario.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]);
                             usuario.FKIDTipoDocumento = Convert.ToInt32(dr["FKIDTipoDocumento"]);
-                            usuario.URLFotoFCedula = dr["URLFotoFCedula"].ToString();
-                            usuario.URLFotoPCedula = dr["URLFotoPCedula"].ToString();
-                            usuario.URLFotoFLicencia = dr["URLFotoFLicencia"].ToString();
-                            usuario.URLFotoPLicencia = dr["URLFotoPLicencia"].ToString();
                             usuario.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]);
                         }
                         else
@@ -136,13 +128,7 @@ namespace ProyectoWheelWander.Datos
                     cmd.Parameters.AddWithValue("@Email", usuario.Email);
                     cmd.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
                     cmd.Parameters.AddWithValue("@Celular", usuario.Celular);
-                    cmd.Parameters.AddWithValue("@EstadoUsuario", usuario.EstadoUsuario);
-                    cmd.Parameters.AddWithValue("@IDRol", usuario.IDRol);
                     cmd.Parameters.AddWithValue("@FKIDTipoDocumento", usuario.FKIDTipoDocumento);
-                    cmd.Parameters.AddWithValue("@URLFotoFCedula", usuario.URLFotoFCedula ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@URLFotoPCedula", usuario.URLFotoPCedula ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@URLFotoFLicencia", usuario.URLFotoFLicencia ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@URLFotoPLicencia", usuario.URLFotoPLicencia ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@FechaNacimiento", usuario.FechaNacimiento);
 
                     
@@ -182,14 +168,6 @@ namespace ProyectoWheelWander.Datos
                     cmd.Parameters.AddWithValue("@Email", usuario.Email);
                     cmd.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
                     cmd.Parameters.AddWithValue("@Celular", usuario.Celular);
-                    cmd.Parameters.AddWithValue("@EstadoUsuario", usuario.EstadoUsuario);
-                    cmd.Parameters.AddWithValue("@IDRol", usuario.IDRol);
-                    cmd.Parameters.AddWithValue("@FKIDTipoDocumento", usuario.FKIDTipoDocumento);
-                    cmd.Parameters.AddWithValue("@URLFotoFCedula", usuario.URLFotoFCedula ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@URLFotoPCedula", usuario.URLFotoPCedula ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@URLFotoFLicencia", usuario.URLFotoFLicencia ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@URLFotoPLicencia", usuario.URLFotoPLicencia ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@FechaNacimiento", usuario.FechaNacimiento);
 
 
                     cmd.ExecuteNonQuery(); // Ejecuta el comando

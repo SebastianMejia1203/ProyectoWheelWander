@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProyectoWheelWander.Models.ViewModel.ResumenCotizacionViewModel
+@{
     ViewData["Title"] = "Resumen de la cotización";
 }
 
@@ -8,61 +9,94 @@
     </div>
 </div>
 
-<div class="fondo">
+<div class="fondo" style="width:900px">
     <div class="resumen-contenedor text-black">
         <div class="info-container">
             <!-- Bloque de información -->
             <div class="info-block">
                 <div class="info-title">Tiempo cotizado</div>
-                <div class="info-value">DD:MM:SS</div>
+                <div class="info-value">@Model.duracion</div>
             </div>
             <div class="info-block">
                 <div class="info-title">Fecha y hora de inicio de la reserva</div>
-                <div class="info-value">DIA, MES, AÑO, HORA</div>
+                <div class="info-value">@Model.reserva.FechaHoraInicio</div>
             </div>
             <div class="info-block">
                 <div class="info-title">Fecha y hora de finalización de la reserva</div>
-                <div class="info-value">DIA, MES, AÑO, HORA</div>
+                <div class="info-value">@Model.reserva.FechaHoraFin</div>
             </div>
             <div class="info-block">
                 <div class="info-title">Costo total de la reserva</div>
-                <div class="info-value">COP 00000</div>
+                <div class="info-value">COP @Model.reserva.CostoReserva</div>
             </div>
             <div class="info-block">
                 <div class="info-title">Ubicación de la reserva</div>
-                <div class="info-value">NombreUbicacion</div>
+                <div class="info-value">@Model.ubicacion</div>
             </div>
         </div>
 
         <div class="moto-container">
             <!-- Imagen de la moto -->
-            <img class="moto-image" src="~/images/mt09.png" alt="Moto">
+            <img class="moto-image" src="@Model.moto.Urlfoto" alt="Moto">
 
             <div class="moto-details-container">
                 <!-- Detalle Moto a reservar -->
                 <div class="moto-detail">
                     <div class="info-title">Moto a reservar</div>
-                    <div class="info-value">IDMoto</div>
+                    <div class="info-value">@Model.moto.PlacaMoto</div>
                 </div>
 
                 <!-- Detalle Propietario de la moto -->
                 <div class="moto-detail">
                     <div class="info-title">Propietario de la moto</div>
-                    <div class="info-value">Cedula</div>
+                    <div class="info-value">@Model.moto.FkcedulaPropietario</div>
                 </div>
             </div>
 
         </div>
-
     </div>
-
+    <hr style="color:grey; margin-left: 30px; margin-right:30px; margin-top:-30px" />
     <hr>
-
-    <div class="payment-buttons">
-        <!-- Asume que estas son imágenes clicables que funcionarán como botones -->
-        <img class="payment-button" src="~/images/Tarjetas.png" alt="Método de Pago 1">
-        <img class="payment-button" src="~/images/pse.png" alt="Método de Pago 2">
-        <img class="payment-button" src="~/images/efecty.png" alt="Método de Pago 3">
-    </div>
+    
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <div class="payment-buttons d-flex justify-content-center align-items-center flex-column" style="margin-top:-20px">
+            <!-- Asume que estas son imágenes clicables que funcionarán como botones -->
+            <form method="post" asp-action="Pago" asp-controller="Reserva">
+                <input type="hidden" name="usuario" value="@Model.reserva.FKCedulaUsuario" />
+                <input type="hidden" name="placa" value="@Model.reserva.FKPlacaMoto" />
+                <input type="hidden" name="fechaInicio" value="@Model.reserva.FechaInicio" />
+                <input type="hidden" name="horaInicio" value="@Model.reserva.HoraInicio" />
+                <input type="hidden" name="fechaFin" value="@Model.reserva.FechaFin" />
+                <input type="hidden" name="horaFin" value="@Model.reserva.HoraFin" />
+                <input type="hidden" name="ubicacion" value="@Model.reserva.FKIDUbicacion" />
+                <input type="hidden" name="costo" value="@Model.reserva.CostoReserva" />
+                <input type="hidden" name="comentario" value="Hola" />
+               <div class="d-flex align-items-center justify-content-center">
+                    <img style="width: 150px; height: auto" src="https://th.bing.com/th/id/OIP.7dxEnCQoo2kq193DawPODAHaDc?rs=1&pid=ImgDetMain" alt="PSE">
+                <div>
+                    <label for="correoPSE" class="text-black fw-bold">Correo Electrónico</label>
+                    <input for="correoPSE" name="correo" type="email" class="form-control" placeholder="you@example.com" required>
+                </div>
+               </div>
+                <div style="display:flex; width:100%; justify-content:center; margin-top: 20px; margin-bottom:20px">
+                    <button type="submit" class="btn buttonSearch" style="width:80%; justify-content:center;">Pagar por PSE</button>
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <div class="payment-buttons" style="margin-top:-30px">
+                <!-- Asume que estas son imágenes clicables que funcionarán como botones -->
+                <p style="font-size:20px; font-weight:550" class="fw-bold text-black">Debe de iniciar sesión o registrarse para continuar</p>
+            </div>
+            <div class="mb-3">
+                <a class="btn buttonLogin" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                <a class="btn buttonRegister" asp-area="" asp-controller="Usuarios" asp-action="Register">Register</a>
+            </div>
+        </div>
+    }
 
 </div>

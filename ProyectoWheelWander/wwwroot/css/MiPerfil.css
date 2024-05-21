@@ -1,0 +1,120 @@
+﻿/* Contenedor de perfil */
+.perfil-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+
+}
+
+/* Foto de perfil */
+.perfil-foto-container {
+    text-align: center;
+    margin-right: 20px;
+}
+
+.perfil-foto {
+    width: 200px; /* Ajusta este tamaño al deseado */
+    height: 200px;
+    background-color: #d3d3d3;
+    margin-bottom: 10px;
+    border: 1px solid #ffcc00;
+    object-fit: cover;
+}
+
+.foto-upload-btn {
+    cursor: pointer;
+}
+
+/* Información del perfil */
+.perfilInfor {
+    margin-bottom: 10px;
+}
+
+.form-control-static {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 5px;
+    display: block;
+}
+
+/* Botones de acción del perfil */
+.perfil-acciones {
+    text-align: right;
+    margin-top: 20px;
+}
+
+
+    .perfil-acciones .btn {
+        margin: 10px 5px;
+    }
+
+/* Estilos para botones y enlaces activos */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: none;
+}
+
+
+@media (min-width: 992px) {
+    .perfilInfor {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+
+
+
+/* Botón Editar perfil */
+.btn-secondary {
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold; /* Aplica negrita al texto */
+    background-color: #ffcc00; /* Color de fondo amarillo para btn-secondary */
+    border-color: #ffcc00; /* Color del borde amarillo para btn-secondary */
+    border-radius: 5px;
+}
+
+.btn-danger {
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold; /* Aplica negrita al texto */
+    background-color: #FF0000; /* Color de fondo amarillo para btn-secondary */
+    border-color: #FF0000; /* Color del borde amarillo para btn-secondary */
+    border-radius: 5px;
+}
+
+.btn-secondary:hover {
+    background-color: #e6b800; /* Color de fondo más oscuro para el hover */
+    border-color: #e6b800; /* Color del borde más oscuro para el hover */
+}
+
+.btn-danger:hover {
+    background-color: #E63B00; /* Color de fondo más oscuro para el hover */
+    border-color: #E63B00; /* Color del borde más oscuro para el hover */
+}
+
+.fotoPerfil {
+    display: none; /* Ocultamos el input real */
+}
+
+.foto-upload-btn {
+    cursor: pointer;
+    background-color: #ffcc00; /* Color amarillo para el botón Subir Foto */
+    border: 1px solid #ffcc00; /* Asegurarse de que el borde tenga el mismo color */
+    color: white; /* Cambia el color del texto a blanco */
+    font-weight: bold; /* Aplica negrita al texto */
+    padding: .375rem .75rem; /* Espaciado del botón */
+    font-size: 1rem; /* Tamaño del texto del botón */
+    line-height: 1.5; /* Altura de línea para el texto del botón */
+    border-radius: 5px; /* Bordes redondeados para el botón */
+}
+
+    .foto-upload-btn:hover {
+        background-color: #e6b800; /* Un color amarillo más oscuro para el hover */
+        border-color: #e6b800;
+    }
+
+.perfilInfor label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
