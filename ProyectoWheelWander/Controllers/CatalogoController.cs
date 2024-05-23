@@ -16,7 +16,7 @@ namespace ProyectoWheelWander.Controllers
         {
             var viewModel = new CatalogoViewModel
             {
-                motosCatalogo = catalogoService.getCatalogo(),
+                motosCatalogo = catalogoService.CatalogoMotos(),
                 ubicaciones = catalogoService.GetAllUbicaciones(),
                 marcas = catalogoService.GetAllMarcas()
             };

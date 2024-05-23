@@ -16,10 +16,7 @@ namespace ProyectoWheelWander.Datos
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("getAllUsuario", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
+                SqlCommand cmd = new SqlCommand("SELECT * FROM AllUsuarios", conexion);
 
                 try
                 {
@@ -38,11 +35,12 @@ namespace ProyectoWheelWander.Datos
                                 Contrasena = dr["Contrasena"].ToString(),
                                 Celular = Convert.ToInt64(dr["Celular"]), // Cambiado a Int64 si es un BIGINT
                                 EstadoUsuario = Convert.ToByte(dr["EstadoUsuario"]),
-                                IDRol = Convert.ToInt32(dr["IDRol"]),
                                 FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]),
                                 FKIDTipoDocumento = Convert.ToInt32(dr["FKIDTipoDocumento"]),
-                                FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"])
-                            });
+                                FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]),
+                                Ganancias = Convert.ToDouble(dr["Ganancias"]),
+                                Foto = dr["Foto"]?.ToString()
+                        });
                         }
                     }
                 }
@@ -56,14 +54,14 @@ namespace ProyectoWheelWander.Datos
             return listaUsuario;
         }
 
-        public Usuario FindUsuarioByCedula(int cedula)
+        public Usuario BuscarUsuario(int cedula)
         {
             Usuario usuario = null;  // Inicializa a null para manejar casos donde no se encuentren datos
             ConexionDB cn = new ConexionDB();
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("FindUsuarioByCedula", conexion)
+                SqlCommand cmd = new SqlCommand("BuscarUsuario", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -85,10 +83,12 @@ namespace ProyectoWheelWander.Datos
                             usuario.Contrasena = dr["Contrasena"].ToString();
                             usuario.Celular = Convert.ToInt64(dr["Celular"]);
                             usuario.EstadoUsuario = Convert.ToByte(dr["EstadoUsuario"]);
-                            usuario.IDRol = Convert.ToInt32(dr["IDRol"]);
                             usuario.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]);
                             usuario.FKIDTipoDocumento = Convert.ToInt32(dr["FKIDTipoDocumento"]);
                             usuario.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]);
+                            usuario.Ganancias = Convert.ToDouble(dr["Ganancias"]);
+                            usuario.Foto = dr["Foto"]?.ToString();
+                            usuario.TipoDocumento = dr["NombreTipoDocumento"]?.ToString();
                         }
                         else
                         {
@@ -141,7 +141,7 @@ namespace ProyectoWheelWander.Datos
             return PrimerNombre;
         }
 
-        public bool InsertUsuario(Usuario usuario)
+        public bool RegistrarUsuario(Usuario usuario)
         {
             bool respuesta;
 
@@ -150,7 +150,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("InsertUsuario", conexion)
+                    SqlCommand cmd = new SqlCommand("RegistrarUsuario", conexion)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
@@ -180,7 +180,7 @@ namespace ProyectoWheelWander.Datos
             return respuesta;
         }
 
-        public bool UpdateUsuario(Usuario usuario)
+        public bool EditarUsuario(Usuario usuario)
         {
             bool respuesta;
 
@@ -190,7 +190,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("UpdateUsuario", conexion)
+                    SqlCommand cmd = new SqlCommand("EditarUsuario", conexion)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
@@ -222,7 +222,7 @@ namespace ProyectoWheelWander.Datos
         public string GenerarContrasena()
         {
             const int longitud = 8;
-            const string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
+            const string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%";
             StringBuilder resultado = new StringBuilder();
             Random random = new Random();
 
@@ -264,7 +264,7 @@ namespace ProyectoWheelWander.Datos
             return respuesta;
         }
 
-        public bool DeleteUsuario(long cedula)
+        public bool DesabilitarUsuario(long cedula)
         {
             bool respuesta;
 
@@ -273,7 +273,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("DeleteUsuario", conexion)
+                    SqlCommand cmd = new SqlCommand("DesabilitarUsuario", conexion)
                     {
                         CommandType = CommandType.StoredProcedure
                     };

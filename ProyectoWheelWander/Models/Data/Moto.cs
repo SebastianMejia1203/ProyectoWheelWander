@@ -36,6 +36,4 @@ public partial class Moto
     public int FkcedulaPropietario { get; set; }
 
     public int ClaseMoto { get; set; }
-
-    public string UrlfotoPlaca { get; set; } = ""!;
 }

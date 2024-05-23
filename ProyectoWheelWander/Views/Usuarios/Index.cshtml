@@ -50,7 +50,6 @@
             <p class="card-text"><strong>Fecha de Registro:</strong> @Html.DisplayFor(modelItem => item.FechaRegistro)</p>
             <p class="card-text"><strong>Fecha de Nacimiento:</strong> @Html.DisplayFor(modelItem => item.FechaNacimiento)</p>
             <p class="card-text"><strong>ID Tipo Documento:</strong> @Html.DisplayFor(modelItem => item.FKIDTipoDocumento)</p>
-            <p class="card-text"><strong>ID Rol Usuario:</strong> @Html.DisplayFor(modelItem => item.IDRol)</p>
 
             <div class="mb-2">
                 <a href="@Url.Action("Edit", "Usuarios", new { id = item.Cedula })" class="btn btn-secondary">Editar</a>

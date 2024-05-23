@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProyectoWheelWander.Datos;
 using ProyectoWheelWander.Models;
 using ProyectoWheelWander.Models.Data;
+using ProyectoWheelWander.Models.ViewModel;
 using System.Security.Claims;
 
 namespace ProyectoWheelWander.Controllers
@@ -26,15 +27,19 @@ namespace ProyectoWheelWander.Controllers
         {
             var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             int cedula = Convert.ToInt32(cedulaAutenticada);
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
-            return View(oUsuario); // Envía este modelo integral a la vista
+            var oUsuario = _UsuarioDatos.BuscarUsuario(cedula); //busca un usuario especifico
+            MiPerfilViewModel model = new MiPerfilViewModel
+            {
+                usuario = oUsuario,
+            };
+            return View(model); // Envía este modelo integral a la vista
         }
 
         [Authorize(Roles = "1")]
         [HttpGet("MiPerfil/{cedula}")]
         public IActionResult MiPerfil(int cedula)
         {
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            var oUsuario = _UsuarioDatos.BuscarUsuario(cedula); //busca un usuario especifico
             return View(oUsuario); // Envía este modelo integral a la vista
         }
 
@@ -84,7 +89,7 @@ namespace ProyectoWheelWander.Controllers
         public IActionResult Register(RegisterViewModel model)
         {
                 model.Usuario.FKIDTipoDocumento = (int)model.FKIDTipoDocumentoSelected; // Asegúrate de asignar el tipo de documento seleccionado al usuario
-                var respuesta = _UsuarioDatos.InsertUsuario(model.Usuario);
+                var respuesta = _UsuarioDatos.RegistrarUsuario(model.Usuario);
 
                 if (respuesta)
                 {
@@ -102,7 +107,7 @@ namespace ProyectoWheelWander.Controllers
         {
             var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             int cedula = Convert.ToInt32(cedulaAutenticada);
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            var oUsuario = _UsuarioDatos.BuscarUsuario(cedula); //busca un usuario especifico
             return View(oUsuario); // Envía este modelo integral a la vista
         }
 
@@ -110,7 +115,7 @@ namespace ProyectoWheelWander.Controllers
         [HttpGet("/Usuarios/UpdateUsuario/{cedula}")]
         public IActionResult UpdateUsuario(int cedula)
         {
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            var oUsuario = _UsuarioDatos.BuscarUsuario(cedula); //busca un usuario especifico
             return View(oUsuario); // Envía este modelo integral a la vista
         }
 
@@ -121,7 +126,7 @@ namespace ProyectoWheelWander.Controllers
             {
                 return View();
             }
-            var respuesta = _UsuarioDatos.UpdateUsuario(model);
+            var respuesta = _UsuarioDatos.EditarUsuario(model);
 
             if (respuesta)
             {
@@ -136,7 +141,7 @@ namespace ProyectoWheelWander.Controllers
         {
             var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             int cedula = Convert.ToInt32(cedulaAutenticada);
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            var oUsuario = _UsuarioDatos.BuscarUsuario(cedula); //busca un usuario especifico
             return View(oUsuario); // Envía este modelo integral a la vista
         }
 
@@ -144,14 +149,14 @@ namespace ProyectoWheelWander.Controllers
         [HttpGet("/Usuarios/DeleteUsuario/{cedula}")]
         public IActionResult DeleteUsuario(int cedula)
         {
-            var oUsuario = _UsuarioDatos.FindUsuarioByCedula(cedula); //busca un usuario especifico
+            var oUsuario = _UsuarioDatos.BuscarUsuario(cedula); //busca un usuario especifico
             return View(oUsuario); // Envía este modelo integral a la vista
         }
 
         [HttpPost]
         public IActionResult DeleteUsuario(Usuario model)
         {
-            var respuesta = _UsuarioDatos.DeleteUsuario(model.Cedula);
+            var respuesta = _UsuarioDatos.DesabilitarUsuario(model.Cedula);
 
             if (respuesta)
             {

@@ -8,20 +8,16 @@ namespace ProyectoWheelWander.Datos
 {
     public class CatalogoDatos
     {
-        public List<CatalogoModel> getCatalogo()
+        public List<CatalogoModel> CatalogoMotos()
         {
             List<CatalogoModel> listaMotos = new List<CatalogoModel>();
-
 
             ConexionDB cn = new ConexionDB();
 
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("getCatalogo", conexion)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
+                SqlCommand cmd = new SqlCommand("SELECT * FROM CatalogoMotos", conexion); // Cambiado a una consulta SELECT
 
                 try
                 {
@@ -52,6 +48,7 @@ namespace ProyectoWheelWander.Datos
             return listaMotos;
         }
 
+
         public List<Ubicacion> GetAllUbicaciones()
         {
             List<Ubicacion> listaUbicaciones = new List<Ubicacion>();
@@ -62,7 +59,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    using (SqlCommand command = new SqlCommand("getAllUbicaciones", conexion))
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM AllUbicaciones", conexion))
                     {
                         using (SqlDataReader dr = command.ExecuteReader())
                         {
@@ -97,7 +94,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    using (SqlCommand command = new SqlCommand("getAllMarcas", conexion))
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM AllMarcas", conexion))
                     {
                         using (SqlDataReader dr = command.ExecuteReader())
                         {
