@@ -21,7 +21,7 @@
     }
 }
 
-@model ProyectoWheelWander.Models.Data.Usuario
+@model ProyectoWheelWander.Models.ViewModel.MiPerfilViewModel;
 
 @{
     ViewData["Title"] = "Mi Perfil";
@@ -32,10 +32,6 @@
         <div class="navbar-nav">
             <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "MiPerfil" && ViewContext.RouteData.Values["controller"].ToString() == "Usuarios" ? "active-tab" : "")"
                asp-area="" asp-controller="Usuarios" asp-action="MiPerfil">Mi Información</a>
-            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "MetodoPago" && ViewContext.RouteData.Values["controller"].ToString() == "Usuarios" ? "active-tab" : "")"
-               asp-area="" asp-controller="Usuarios" asp-action="MetodoPago">Métodos de Pago</a>
-            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Ajustes" && ViewContext.RouteData.Values["controller"].ToString() == "Usuarios" ? "active-tab" : "")"
-               asp-area="" asp-controller="Usuarios" asp-action="Ajustes">Ajustes</a>
         </div>
     </div>
 </nav>
@@ -49,7 +45,7 @@
         <div class="perfil-foto-container">
             <div id="preview" style="margin-bottom: 10px;">
                 <!-- Área de previsualización de la imagen -->
-                <img src="https://i.ibb.co/Y8vmLCz/hombre.png" alt="Foto de perfil" class="perfil-foto rounded-circle" />
+                <img src="@Html.DisplayFor(model => model.usuario.Foto)" alt="Foto de perfil" class="perfil-foto rounded-circle" />
             </div>
 
             @* <!-- Usar un label que funcione como botón para el input file -->
@@ -64,28 +60,28 @@
             <div class="perfilInfor">
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Primer nombre</label>
-                    <input value="@Html.DisplayFor(model => model.PrimerNombre)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                    <input value="@Html.DisplayFor(model => model.usuario.PrimerNombre)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Segundo nombre</label>
-                    <input value="@Html.DisplayFor(model => model.SegundoNombre)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                    <input value="@Html.DisplayFor(model => model.usuario.SegundoNombre)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Primer apellido</label>
-                    <input value="@Html.DisplayFor(model => model.PrimerApellido)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                    <input value="@Html.DisplayFor(model => model.usuario.PrimerApellido)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Segundo apellido</label>
-                    <input value="@Html.DisplayFor(model => model.SegundoApellido)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
+                    <input value="@Html.DisplayFor(model => model.usuario.SegundoApellido)" type="text" class="form-control" pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" title="Solo letras." disabled>
                 </div>
             </div>
 
@@ -93,7 +89,7 @@
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Tipo documento</label>
                     <select class="form-control" disabled>
-                        <option value="">@Html.DisplayFor(model => model.FKIDTipoDocumento)</option>
+                        <option value="">@Html.DisplayFor(model => model.usuario.TipoDocumento)</option>
                     </select>
                 </div>
             </div>
@@ -101,39 +97,39 @@
             <div class="perfilInfor">
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Número documento</label>
-                    <input value="@Html.DisplayFor(model => model.Cedula)" type="text" class="form-control" pattern="\d*" title="Solo números." disabled>
+                    <input value="@Html.DisplayFor(model => model.usuario.Cedula)" type="text" class="form-control" pattern="\d*" title="Solo números." disabled>
 
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
-                    <label asp-for="FechaNacimiento" style="margin-bottom: -3px;">Fecha Nacimiento</label>
-                    <input asp-for="FechaNacimiento" type="date" class="form-control" disabled>
-                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                    <label asp-for="usuario.FechaNacimiento" style="margin-bottom: -3px;">Fecha Nacimiento</label>
+                    <input asp-for="usuario.FechaNacimiento" type="date" class="form-control" disabled>
+                    <span asp-validation-for="usuario.FechaNacimiento" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
-                    <label asp-for="FechaRegistro" style="margin-bottom: -3px;">Fecha Registro</label>
-                    <input asp-for="FechaRegistro" type="date" class="form-control" disabled>
-                    <span asp-validation-for="FechaRegistro" class="text-danger"></span>
+                    <label asp-for="usuario.FechaRegistro" style="margin-bottom: -3px;">Fecha Registro</label>
+                    <input asp-for="usuario.FechaRegistro" type="date" class="form-control" disabled>
+                    <span asp-validation-for="usuario.FechaRegistro" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
                     <label style="margin-bottom: -3px;">Número celular</label>
-                    <input type="tel" value="@Html.DisplayFor(model => model.Celular)" class="form-control" pattern="\d{10}" title="Debe tener 10 dígitos." disabled>
+                    <input type="tel" value="@Html.DisplayFor(model => model.usuario.Celular)" class="form-control" pattern="\d{10}" title="Debe tener 10 dígitos." disabled>
                 </div>
             </div>
 
             <div class="perfilInfor">
                 <div class="form-group">
-                    <label asp-for="Email" style="margin-bottom: -3px;">Correo Electrónico</label>
-                    <input asp-for="Email" type="email" class="form-control" placeholder="you@example.com" disabled>
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label asp-for="usuario.Email" style="margin-bottom: -3px;">Correo Electrónico</label>
+                    <input asp-for="usuario.Email" type="email" class="form-control" placeholder="you@example.com" disabled>
+                    <span asp-validation-for="usuario.Email" class="text-danger"></span>
                 </div>
             </div>
         </div>

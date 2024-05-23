@@ -31,7 +31,7 @@ namespace ProyectoWheelWander.Controllers
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ValidarUsuario", conexion)
+                SqlCommand cmd = new SqlCommand("IniciarSesion", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -42,7 +42,7 @@ namespace ProyectoWheelWander.Controllers
                 try
                 {
                     cedula = Convert.ToInt32(cmd.ExecuteScalar());
-                    usuario = _UsuarioDatos.FindUsuarioByCedula(cedula);
+                    usuario = _UsuarioDatos.BuscarUsuario(cedula);
                 }
                 catch (Exception ex)
                 {
@@ -55,8 +55,7 @@ namespace ProyectoWheelWander.Controllers
                     {
                         new Claim(ClaimTypes.Name, (usuario.Cedula).ToString()),
                         new Claim("PrimerNombre", usuario.PrimerNombre),
-                        new Claim("Email", usuario.Email),
-                        new Claim(ClaimTypes.Role, (usuario.IDRol).ToString())
+                        new Claim("Email", usuario.Email)
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

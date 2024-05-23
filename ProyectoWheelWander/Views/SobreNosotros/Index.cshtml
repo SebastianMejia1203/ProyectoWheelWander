@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProyectoWheelWander.Models.Data.Empresa;
+@{
     ViewData["Title"] = "Sobre Nosotros";
 }
 
@@ -15,10 +16,10 @@
         </div>
         <section class="mission">
             <h2>Misión y Visión</h2>
-            <p>En WheelWander, nuestra misión es facilitar el acceso a transportes eficientes y seguros para todos en Florencia, Caquetá. Nos esforzamos por ofrecer una plataforma confiable y accesible que conecte a propietarios de motocicletas con aquellos que necesitan alquilarlas de manera temporal, promoviendo la movilidad y la autonomía personal con soluciones económicas y flexibles.
+            <p>@Model.Mision
                 <br />
                 <br />
-                Nuestra visión es convertirnos en el líder del mercado de alquiler de motocicletas en Florencia, expandiéndonos a más regiones de Colombia y siendo reconocidos por nuestra contribución a la movilidad sostenible. Aspiramos a innovar constantemente en nuestra plataforma para ofrecer el mejor servicio, facilitando una experiencia segura y eficaz tanto para arrendadores como para arrendatarios, y apoyando el crecimiento económico local mediante soluciones de transporte adaptativas.
+                @Model.Vision
             </p>
         </section>
         <br />
@@ -30,9 +31,7 @@
         <section class="team">
             <h2>Nuestro Equipo</h2>
             <div class="team-members">
-                Juan Sebastian Mejia Suaza
-                <br />
-                Michael Mauricio Orjuela Cepeda
+                @Model.Equipo
             </div>
         </section>
         

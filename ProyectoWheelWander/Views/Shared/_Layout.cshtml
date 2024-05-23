@@ -48,8 +48,6 @@
                         </li>
                         @if (User.Identity!.IsAuthenticated)
                         {
-                            @if (User.IsInRole("1") || User.IsInRole("2"))
-                            {
                                 <li class="nav-item">
                                     <a class="nav-link" type="text">
                                         Bienvenido
@@ -59,7 +57,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link btn" style="border: 1px solid #F3B61F; font-size: 12px;" asp-area="" asp-controller="Login" asp-action="Salir">Cerrar sesión</a>
                                 </li>
-                            }
                         }
                         else
                         {
@@ -81,7 +78,7 @@
                     </ul>
                 </div>
             </div>
-            @if (User.IsInRole("1") || User.IsInRole("2"))
+            @if (User.Identity!.IsAuthenticated)
             {
                 <div class="container" style="font-size: 12px">
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between text-center">

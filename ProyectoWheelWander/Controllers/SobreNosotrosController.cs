@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoWheelWander.Datos;
+using ProyectoWheelWander.Models.Data;
+using System.Data.SqlClient;
 
 namespace ProyectoWheelWander.Controllers
 {
@@ -8,76 +11,49 @@ namespace ProyectoWheelWander.Controllers
         // GET: SobreNosotrosController
         public ActionResult Index()
         {
-            return View();
+            var model = GetAllTipoDocumento();
+            return View(model);
         }
 
-        // GET: SobreNosotrosController/Details/5
-        public ActionResult Details(int id)
+        public Empresa GetAllTipoDocumento()
         {
-            return View();
-        }
+            Empresa empresa = new Empresa();
+            ConexionDB cn = new ConexionDB();
 
-        // GET: SobreNosotrosController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SobreNosotrosController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
+                {
+                    conexion.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM Empresa", conexion))
+                    {
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                empresa = new Empresa
+                                {
+                                    ID = Convert.ToInt32(dr["ID"]),
+                                    Nombre = dr["Nombre"].ToString(),
+                                    Direccion = dr["Direccion"].ToString(),
+                                    Celular = Convert.ToInt64(dr["Celular"]),
+                                    NIT = dr["NIT"].ToString(),
+                                    Mision = dr["Mision"].ToString(),
+                                    Vision = dr["Vision"].ToString(),
+                                    Equipo = dr["Equipo"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
             }
-            catch
+            catch (SqlException ex)
             {
-                return View();
+                // Manejar la excepción, por ejemplo, loggear el error.
+                throw; // O manejar de otra forma, como devolver un código de error específico.
             }
-        }
 
-        // GET: SobreNosotrosController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SobreNosotrosController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SobreNosotrosController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SobreNosotrosController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return empresa;
         }
     }
 }

@@ -100,14 +100,13 @@ namespace ProyectoWheelWander.Controllers
         {
             var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             int cedula = Convert.ToInt32(cedulaAutenticada);
-            var ganancias = _MotoDatos.FindUsuarioByCedula(cedula);
+            var ganancias = _MotoDatos.ReporteGanancias(cedula);
             var viewModel = new AdminMotoViewModel
             {
                 listaMotos = _MotoDatos.motosPorUsuario(cedula),
                 reserva = _MotoDatos.ObtenerUltimaReservaValidaPorPlaca(placa),
                 historial = _MotoDatos.ObtenerHistorial(placa),
-                gananciaActual = ganancias.gananciaA,
-                gananciaHistorica = ganancias.gananciaH
+                gananciaActual = ganancias.ganancias,
             };
             viewModel.reserva.FechaHoraInicio = viewModel.reserva.FechaInicio + viewModel.reserva.HoraInicio;
             viewModel.reserva.FechaHoraFin = viewModel.reserva.FechaFin + viewModel.reserva.HoraFin;

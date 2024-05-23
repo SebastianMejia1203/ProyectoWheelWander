@@ -16,7 +16,7 @@ namespace ProyectoWheelWander.Datos
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("getAllMoto", conexion)
+                SqlCommand cmd = new SqlCommand("AllMotos", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -44,7 +44,6 @@ namespace ProyectoWheelWander.Datos
                                 EstadoMoto = Convert.ToByte(dr["EstadoMoto"]),
                                 Fkidubicacion = Convert.ToInt32(dr["Fkidubicacion"]),
                                 FkcedulaPropietario = Convert.ToInt32(dr["FkcedulaPropietario"]),
-                                UrlfotoPlaca = dr["UrlfotoPlaca"].ToString(),
                             });
                         }
                     }
@@ -95,7 +94,6 @@ namespace ProyectoWheelWander.Datos
                                 Fkidubicacion = Convert.ToInt32(dr["Fkidubicacion"]),
                                 FkcedulaPropietario = Convert.ToInt32(dr["FkcedulaPropietario"]),
                                 ClaseMoto = Convert.ToInt32(dr["ClaseMoto"]),
-                                UrlfotoPlaca = dr["UrlfotoPlaca"].ToString(),
                             };
                         }
                         else
@@ -125,7 +123,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("InsertarMoto", conexion)
+                    SqlCommand cmd = new SqlCommand("RegistrarMoto", conexion)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
@@ -145,7 +143,6 @@ namespace ProyectoWheelWander.Datos
                     cmd.Parameters.AddWithValue("@FKIDUbicacion", moto.Fkidubicacion);
                     cmd.Parameters.AddWithValue("@FKCedulaPropietario", moto.FkcedulaPropietario);
                     cmd.Parameters.AddWithValue("@ClaseMoto", moto.ClaseMoto);
-                    //cmd.Parameters.AddWithValue("@URLFotoPlaca", moto.UrlfotoPlaca);
 
 
                     cmd.ExecuteNonQuery(); // Ejecuta el comando
@@ -172,7 +169,7 @@ namespace ProyectoWheelWander.Datos
                 using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
                 {
                     conexion.Open();
-                    using (SqlCommand command = new SqlCommand("getAllUbicaciones", conexion))
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM AllUbicaciones", conexion))
                     {
                         using (SqlDataReader dr = command.ExecuteReader())
                         {
@@ -240,7 +237,7 @@ namespace ProyectoWheelWander.Datos
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerMotosPorUsuario", conexion)
+                SqlCommand cmd = new SqlCommand("MotosUsuario", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -283,7 +280,7 @@ namespace ProyectoWheelWander.Datos
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerReservasPorUsuario", conexion)
+                SqlCommand cmd = new SqlCommand("ReservasUsuario", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -332,7 +329,7 @@ namespace ProyectoWheelWander.Datos
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerUltimaReservaValidaPorMoto", conexion)
+                SqlCommand cmd = new SqlCommand("UltimaReserva", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -414,14 +411,14 @@ namespace ProyectoWheelWander.Datos
             return historial;
         }
 
-        public gananciaViewModel FindUsuarioByCedula(int cedula)
+        public gananciaViewModel ReporteGanancias(int cedula)
         {
             gananciaViewModel usuario = null;  // Inicializa a null para manejar casos donde no se encuentren datos
             ConexionDB cn = new ConexionDB();
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerGanancias", conexion)
+                SqlCommand cmd = new SqlCommand("SELECT Cedula, Ganancias FROM Usuarios", conexion)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -435,8 +432,7 @@ namespace ProyectoWheelWander.Datos
                         {
                             usuario = new gananciaViewModel();  // Instancia el usuario solo si hay datos
                             usuario.cedula = Convert.ToInt32(dr["Cedula"]);
-                            usuario.gananciaA = Convert.ToDouble(dr["gananciaActual"]);
-                            usuario.gananciaH = Convert.ToDouble(dr["gananciaHistorica"]);
+                            usuario.ganancias = Convert.ToDouble(dr["Ganancias"]);
                         }
                         else
                         {
