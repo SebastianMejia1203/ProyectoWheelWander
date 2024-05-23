@@ -7,6 +7,7 @@ using ProyectoWheelWander.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace ProyectoWheelWander.Controllers
 {
@@ -75,5 +76,7 @@ namespace ProyectoWheelWander.Controllers
 
             return RedirectToAction("Index", "Login");
         }
+
+
     }
 }

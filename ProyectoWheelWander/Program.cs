@@ -3,6 +3,8 @@ using ProyectoWheelWander.Models;
 using System.Configuration;
 using QuestPDF.Infrastructure;
 using ProyectoWheelWander.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,12 +27,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             options.AccessDeniedPath = "/Home/Index"; // Ruta para acceso denegado
         });
 
-builder.Services.AddControllersWithViews();
 
 // Configurar la licencia
 QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddScoped<IEmailServices, EmailServices>();
+
+// Agregar el servicio de HttpClient y UploadImageService
+builder.Services.AddHttpClient<IUploadImageService, UploadImageService>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 

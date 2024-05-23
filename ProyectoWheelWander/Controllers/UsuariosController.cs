@@ -10,6 +10,7 @@ namespace ProyectoWheelWander.Controllers
     public class UsuariosController : Controller
     {   
         UsuarioDatos _UsuarioDatos = new UsuarioDatos();
+
         [Authorize(Roles = "1")]
         public IActionResult listaUsuarios() {
             //la vista mostrara una lista de usuarios
@@ -48,6 +49,20 @@ namespace ProyectoWheelWander.Controllers
         {
             return View();
         }
+
+        public ActionResult RecuperarCuenta()
+        {
+            return View();
+        }
+        public ActionResult RecuperarTrue()
+        {
+            return View();
+        }
+        public ActionResult RecuperarFalse()
+        {
+            return View();
+        }
+
 
         public IActionResult Register()
         {
@@ -150,6 +165,5 @@ namespace ProyectoWheelWander.Controllers
             }
             return View();
         }
-
     }
 }
