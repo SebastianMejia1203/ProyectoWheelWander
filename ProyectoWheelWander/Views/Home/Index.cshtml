@@ -26,26 +26,24 @@
 
             <!-- Input de fecha de inicio -->
             <div class="form-group mr-2 form-inicio input-group form-fecha">
-                <input type="text" class="datepicker_input form-control" name="fechaInicio" placeholder="Fecha de inicio" required>
-                <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                <input type="date" class="form-control" name="fechaInicio" placeholder="Fecha de inicio" required>
             </div>
 
             <!-- Input de hora de inicio -->
             <div class="form-group mr-2 form-inicio input-group">
-                <input type="time" class="form-control" id="hora-inicio" name="horaInicio" placeholder="Hora de inicio" required>
+                <input type="time" class="form-control" id="hora-inicio" name="horaInicio" placeholder="Hora de inicio" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
             </div>
 
             <!-- Input de fecha fin -->
             <div class="form-group mr-2 form-inicio input-group form-fecha">
                 <div class="form-group input-group">
-                    <input type="text" class="datepicker_input form-control" name="fechaFin" placeholder="Fecha de finalización" required>
-                    <span class="input-group-text icono"><i class="bi bi-calendar-date"></i></span>
+                    <input type="date" class="form-control" name="fechaFin" placeholder="Fecha de finalización" required>
                 </div>
             </div>
 
             <!-- Input de hora fin -->
             <div class="form-group mr-2 form-inicio input-group form-fecha">
-                <input type="time" class="form-control" id="hora-fin" name="horaFin" placeholder="Hora fin" required>
+                <input type="time" class="form-control" id="hora-fin" name="horaFin" placeholder="Hora fin" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
             </div>
             <div class="">
                 <!-- Botón de buscar -->

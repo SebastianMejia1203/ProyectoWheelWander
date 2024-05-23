@@ -7,6 +7,7 @@ using ProyectoWheelWander.Models.Data;
 using ProyectoWheelWander.Models.ViewModel;
 using System.Numerics;
 using System.Security.Claims;
+using ProyectoWheelWander.Services;
 
 namespace ProyectoWheelWander.Controllers
 {
@@ -16,6 +17,12 @@ namespace ProyectoWheelWander.Controllers
         // GET: Obtener Pagina de Administrar mis motos
         MotoDatos _MotoDatos = new MotoDatos();
         CatalogoDatos catalogoService = new CatalogoDatos();
+        private readonly IUploadImageService _uploadImageService;
+
+        public MotoController(IUploadImageService uploadImageService)
+        {
+            _uploadImageService = uploadImageService;
+        }
 
         public IActionResult Index()
         {
@@ -49,17 +56,44 @@ namespace ProyectoWheelWander.Controllers
         }
 
         [HttpPost]
-        public IActionResult crearMoto(CrearMotoViewModel model)
+        public async Task<IActionResult> CrearMoto(CrearMotoViewModel model, IFormFile fotoMoto)
         {
             var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
-            int cedulsa = Convert.ToInt32(cedulaAutenticada);
-            model.moto.FkcedulaPropietario = cedulsa;
+            int cedula = Convert.ToInt32(cedulaAutenticada);
+            model.moto.FkcedulaPropietario = cedula;
+
+            if (fotoMoto != null && fotoMoto.Length > 0)
+            {
+                var urlFoto = await _uploadImageService.UploadImageAsync(fotoMoto);
+                model.moto.Urlfoto = urlFoto;
+            }
+
             var respuesta = _MotoDatos.InsertarMoto(model.moto);
 
-           
+            if (respuesta)
+            {
                 return RedirectToAction("Index", "Home");
-            
+            }
+
+            // En caso de error, volver a cargar los datos necesarios para la vista y devolver la vista con el modelo
+            model.ubicaciones = _MotoDatos.GetAllUbicaciones();
+            model.marcas = catalogoService.GetAllMarcas();
+            model.transmiciones = _MotoDatos.GetTransmicion();
+            return View(model);
         }
+
+        //[HttpPost]
+        //public IActionResult crearMoto(CrearMotoViewModel model)
+        //{
+        //    var cedulaAutenticada = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+        //    int cedulsa = Convert.ToInt32(cedulaAutenticada);
+        //    model.moto.FkcedulaPropietario = cedulsa;
+        //    var respuesta = _MotoDatos.InsertarMoto(model.moto);
+
+
+        //        return RedirectToAction("Index", "Home");
+
+        //}
 
         [HttpGet]
         public IActionResult Detalle(string placa)

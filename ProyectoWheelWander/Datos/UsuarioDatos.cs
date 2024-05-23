@@ -1,6 +1,8 @@
 ﻿using ProyectoWheelWander.Models.Data;
 using System.Data.SqlClient;
 using System.Data;
+using System.Linq;
+using System.Text;
 
 namespace ProyectoWheelWander.Datos
 {
@@ -103,7 +105,41 @@ namespace ProyectoWheelWander.Datos
             return usuario;
         }
 
+        public string BuscarUsuarioEmail(string email)
+        {
+            String PrimerNombre = string.Empty;  // Inicializa a null para manejar casos donde no se encuentren datos
+            ConexionDB cn = new ConexionDB();
+            using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
+            {
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand("BuscarUsuarioEmail", conexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@Email", email);  // Asegúrate de que el nombre del parámetro coincida exactamente
 
+                try
+                {
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())  // Asegúrate de que hay al menos una fila para leer
+                        {
+                            PrimerNombre = dr["PrimerNombre"].ToString();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No se encontraron datos");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error en FindUsuarioByCedula: " + ex.Message);
+                    throw; // Re-lanzar la excepción para que pueda ser manejada más arriba en la cadena
+                }
+            }
+            return PrimerNombre;
+        }
 
         public bool InsertUsuario(Usuario usuario)
         {
@@ -183,6 +219,50 @@ namespace ProyectoWheelWander.Datos
             return respuesta;
         }
 
+        public string GenerarContrasena()
+        {
+            const int longitud = 8;
+            const string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
+            StringBuilder resultado = new StringBuilder();
+            Random random = new Random();
+
+            for (int i = 0; i < longitud; i++)
+            {
+                int indice = random.Next(caracteres.Length);
+                resultado.Append(caracteres[indice]);
+            }
+
+            return resultado.ToString();
+        }
+
+        public bool CambiarContrasena(string email, string contrasena)
+        {
+            bool respuesta;
+            try
+            {
+                ConexionDB cn = new ConexionDB();
+                using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("cambiarContrasena", conexion)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@NuevaContrasena", contrasena);
+
+                    cmd.ExecuteNonQuery(); // Ejecuta el comando
+                }
+                respuesta = true;
+            }
+            catch (Exception e)
+            {
+                string error = e.Message;
+                respuesta = false;
+            }
+
+            return respuesta;
+        }
 
         public bool DeleteUsuario(long cedula)
         {

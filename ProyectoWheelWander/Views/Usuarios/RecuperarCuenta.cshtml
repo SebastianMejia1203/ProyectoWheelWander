@@ -1,24 +1,22 @@
-﻿@page
-@model ProyectoWheelWander.Views.Usuarios.RecuperarCuentaModel
-@{
+﻿@{
     ViewData["Title"] = "Recuperar Cuenta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="center-screen">
+<div class="FormatoLogin fondo">
     <div class="recuperar-cuenta">
 
         <div class="title-container">
-            <img src="~/images/moto-icon.png" alt="Moto" class="icon-side" />
-            <h1 class="title">Wheel <span class="text-warning">Wander</span></h1>
+            <img src="https://i.ibb.co/LpyfjCK/logo.png" alt="Wheel Wander Logo" class="logoLogin">
+            <h1 class="titulo-tamano"><span class="colorTituNegro">Wheel</span> <span class="colorTituAmarillo">Wander</span></h1>
         </div>
 
-        <p class="instructions">
+        <p class="instructions text-black">
             Digite su correo electrónico, se le enviará una nueva contraseña con la que podrá acceder al sistema, después de eso podrá elegir si quedarse con esa contraseña o cambiarla de nuevo
         </p>
 
-        <form method="post" class="email-form">
-            <input type="email" name="email" placeholder="Correo electrónico" required class="input-field" />
+        <form method="post" class="email-form" asp-action="enviarEmail" asp-controller="Email">
+            <input type="email" name="email" id="email" placeholder="Correo electrónico" required class="input-field" />
             <button type="submit" class="btn-submit">Enviar</button>
         </form>
 

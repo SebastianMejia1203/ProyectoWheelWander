@@ -39,7 +39,7 @@
 
     <div class="contenedorIzquierdo">
         <h2 class="tituloListado">Listado de mis motos</h2>
-        <div class="moto-list">
+        <div class="moto-list" style="height:600px">
             <!-- Aquí irían los botones generados dinámicamente -->
             @foreach (var item in Model.listaMotos)
             {
@@ -56,106 +56,123 @@
             }
         </div>
     </div>
-    <div class="contenedorDerecho">
+    @if (Model.historial.Count != 0)
+    {
+        <div class="contenedorDerecho">
 
-        <div class="contenedorArriba">
-            <div class="graficosEstadisticas-container">
-                <div class="graficosEstadisticas-section">
-                    <h3>Cantidad de veces que ha sido alquilada</h3>
-                    <div class="graficosEstadisticas-item">
-                        <img src="ruta_a_la_imagen_de_grafico_barras" alt="Gráfico de Barras" />
+            <div class="contenedorArriba">
+                <div class="graficosEstadisticas-container">
+                    <div class="graficosEstadisticas-section">
+                        <h3>Cantidad de veces que ha sido alquilada</h3>
+                        <div class="graficosEstadisticas-item">
+                            <img src="ruta_a_la_imagen_de_grafico_barras" alt="Gráfico de Barras" />
+                        </div>
                     </div>
-                </div>
-                <div class="graficosEstadisticas-section">
-                    <h3>Ganancias obtenidas (Mes actual)</h3>
-                    <div class="graficosEstadisticas-item">
-                        <img src="ruta_a_la_imagen_de_grafico_linea" alt="Gráfico de Líneas" />
+                    <div class="graficosEstadisticas-section">
+                        <h3>Ganancias obtenidas (Mes actual)</h3>
+                        <div class="graficosEstadisticas-item">
+                            <img src="ruta_a_la_imagen_de_grafico_linea" alt="Gráfico de Líneas" />
+                        </div>
                     </div>
-                </div>
-                <div class="graficosEstadisticas-section">
-                    <h3>Valoración de los usuarios</h3>
-                    <div class="graficosEstadisticas-item">
-                        <img src="ruta_a_la_imagen_de_grafico_pastel" alt="Gráfico de Pastel" />
+                    <div class="graficosEstadisticas-section">
+                        <h3>Valoración de los usuarios</h3>
+                        <div class="graficosEstadisticas-item">
+                            <img src="ruta_a_la_imagen_de_grafico_pastel" alt="Gráfico de Pastel" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="contenedorAbajo">
-            <!-- Sección 'Alquiler actual' ocupando el ancho completo -->
-            <div class="tabla-alquiler-actual">
-                <h2 class="titulo-tabla">Alquiler actual</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Usuario actual</th>
-                            <th>Fecha de inicio</th>
-                            <th>Hora de inicio</th>
-                            <th>Fecha de entrega</th>
-                            <th>Hora de entrega</th>
-                            <th>Duración</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@Model.reserva.FKCedulaUsuario</td>
-                            <td>@Model.reserva.FechaInicio.ToString("dd/MM/yyyy")</td>
-                            <td>@Model.reserva.HoraInicio</td>
-                            <td>@Model.reserva.FechaFin.ToString("dd/MM/yyyy")</td>
-                            <td>@Model.reserva.HoraFin</td>
-                            <td>@duracion(@Model.reserva.FechaInicio, @Model.reserva.HoraInicio, @Model.reserva.FechaFin, @Model.reserva.HoraFin)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Contenedores para 'Historial de alquiler', 'Información de la moto' y 'Ganancias' -->
-            <div class="contenedor-inferior">
-                <div class="tabla-historial-informacion">
-                    <h2 class="titulo-tabla">Historial de alquiler</h2>
+            <div class="contenedorAbajo">
+                <!-- Sección 'Alquiler actual' ocupando el ancho completo -->
+                <div class="tabla-alquiler-actual">
+                    <h2 class="titulo-tabla">Alquiler actual</h2>
                     <table>
                         <thead>
                             <tr>
-                                <th>ID Cliente</th>
-                                <th>Ganancias</th>
-                                <th>Tiempo</th>
+                                <th>Usuario actual</th>
+                                <th>Fecha de inicio</th>
+                                <th>Hora de inicio</th>
+                                <th>Fecha de entrega</th>
+                                <th>Hora de entrega</th>
+                                <th>Duración</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var item in Model.historial){
+                            @if (@Model.reserva.FKCedulaUsuario!=0)
+                            {
                                 <tr>
-                                    <td>@item.cedulaUsuario</td>
-                                    <td>COP @item.ganancia</td>
-                                    <td>@duracion(@item.FechaInicio, @item.HoraInicio, @item.FechaFin, @item.HoraFin)</td>
+                                    <td>@Model.reserva.FKCedulaUsuario</td>
+                                    <td>@Model.reserva.FechaInicio.ToString("dd/MM/yyyy")</td>
+                                    <td>@Model.reserva.HoraInicio</td>
+                                    <td>@Model.reserva.FechaFin.ToString("dd/MM/yyyy")</td>
+                                    <td>@Model.reserva.HoraFin</td>
+                                    <td>@duracion(@Model.reserva.FechaInicio, @Model.reserva.HoraInicio, @Model.reserva.FechaFin, @Model.reserva.HoraFin)</td>
+                                </tr>
+                            }else{
+                                <tr>
+                                    <td colspan="6">No hay alquiler actual</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
 
-                <div>
-                    <a class="btn btn-danger" asp-action="inhabilitar" asp-controller="Moto">Inhabilitar moto</a>
-                </div>
+                <!-- Contenedores para 'Historial de alquiler', 'Información de la moto' y 'Ganancias' -->
+                <div class="contenedor-inferior">
+                    <div class="tabla-historial-informacion">
+                        <h2 class="titulo-tabla">Historial de alquiler</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Cliente</th>
+                                    <th>Ganancias</th>
+                                    <th>Tiempo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.historial)
+                                {
+                                    <tr>
+                                        <td>@item.cedulaUsuario</td>
+                                        <td>COP @item.ganancia</td>
+                                        <td>@duracion(@item.FechaInicio, @item.HoraInicio, @item.FechaFin, @item.HoraFin)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <a class="btn btn-danger" asp-action="inhabilitar" asp-controller="Moto">Inhabilitar moto</a>
+                    </div>
 
 
-                <div class="seccion-ganancias">
-                    <div class="ganancias-actuales">
-                        <span>Ganancias actuales</span>
-                        <h2>COP @Model.gananciaActual</h2>
+                    <div class="seccion-ganancias">
+                        <div class="ganancias-actuales">
+                            <span>Ganancias actuales</span>
+                            <h2>COP @Model.gananciaActual</h2>
+                        </div>
+                        <div class="ganancias-historicas">
+                            <span>Ganancias históricas</span>
+                            <h2>COP @Model.gananciaHistorica</h2>
+                        </div>
+                        <button class="btnRetirarGanancia">Retirar ganancias</button>
                     </div>
-                    <div class="ganancias-historicas">
-                        <span>Ganancias históricas</span>
-                        <h2>COP @Model.gananciaHistorica</h2>
-                    </div>
-                    <button class="btnRetirarGanancia">Retirar ganancias</button>
+
                 </div>
 
             </div>
 
         </div>
-
-    </div>
+    }
+    else
+    {
+        <div class="contenedorDerecho d-flex align-items-center justify-content-center">
+            <p class="fw-bold text-black" style="font-size:30px">No hay reservas de esta moto</p>
+        </div>
+    }
 
 </div>
 

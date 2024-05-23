@@ -1,19 +1,18 @@
 ﻿@{
-    ViewData["Title"] = "Cuenta Creada";
+    ViewData["Title"] = "Error";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container fondo mt-5 paddingBorder text-center justify-content-center">
 
-    <div>
-
+    <div class="notification-error">
         <div class="text-center">
             <img src="https://i.ibb.co/sbqP05H/logo2.png" alt="Logo" width="400px" height="auto">
         </div>
 
-        <p class="smaller-text "><span class="text-black">Su cuenta ha sido creada</span> <span style="color:#ffcc00;">exitosamente</span></p>
-
-        <i class="bi bi-check-circle imaIconos"></i>
+        <p class="text-error text-center">Error en la creación de la nueva contraseña,</p>
+        <p class="text-error text-center">inténtelo de nuevo más tarde</p>
+        <i class="bi bi-x-circle iconError"></i>
     </div>
 
 </div>

@@ -140,7 +140,7 @@ namespace ProyectoWheelWander.Datos
                     cmd.Parameters.AddWithValue("@CapacidadCombustible", moto.CapacidadCombustible);
                     cmd.Parameters.AddWithValue("@ConsumoCombustible", moto.ConsumoCombustible);
                     cmd.Parameters.AddWithValue("@InformacionAdicional", moto.InformacionAdicional);
-                    //cmd.Parameters.AddWithValue("@URLFoto", moto.Urlfoto);
+                    cmd.Parameters.AddWithValue("@URLFoto", moto.Urlfoto);
                     cmd.Parameters.AddWithValue("@PrecioReserva", moto.PrecioReserva);
                     cmd.Parameters.AddWithValue("@FKIDUbicacion", moto.Fkidubicacion);
                     cmd.Parameters.AddWithValue("@FKCedulaPropietario", moto.FkcedulaPropietario);
@@ -326,7 +326,7 @@ namespace ProyectoWheelWander.Datos
 
         public Reserva ObtenerUltimaReservaValidaPorPlaca(string placaMoto)
         {
-            Reserva reserva = null;
+            Reserva reserva = new Reserva();
             ConexionDB cn = new ConexionDB();
 
             using (SqlConnection conexion = new SqlConnection(cn.getSqlServerDB()))
